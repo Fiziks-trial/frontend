@@ -1,4 +1,4 @@
-import ProjectileApp from '@/components/ProjectileApp';
+import ProjectileApp from "@/components/ProjectileApp";
 
 const HomePage = () => {
   return <ProjectileApp />;
