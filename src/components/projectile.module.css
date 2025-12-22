@@ -1,0 +1,10 @@
+/* This file re-exports all the panel styles */
+@import url('./panels/panels.module.css');
+@import url('../styles/globals.css');
+@import url('./modals/modals.module.css');
+
+.appContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
