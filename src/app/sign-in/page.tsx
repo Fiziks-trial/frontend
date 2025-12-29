@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/lib/auth-context';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import Link from 'next/link';
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Link from "next/link";
 
 export default function SignInPage() {
   const { login, isAuthenticated, isLoading } = useAuth();
@@ -11,7 +11,7 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.push('/');
+      router.push("/");
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -37,7 +37,7 @@ export default function SignInPage() {
 
         <div className="mt-8 space-y-4">
           <button
-            onClick={() => login('google')}
+            onClick={() => login("google")}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@ export default function SignInPage() {
           </button>
 
           <button
-            onClick={() => login('github')}
+            onClick={() => login("github")}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ export default function SignInPage() {
         </div>
 
         <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-          Don&apos;t have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link
             href="/sign-up"
             className="text-blue-600 hover:text-blue-500 font-medium"

@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 interface ApiResponse<T> {
   data?: T;
@@ -32,12 +32,12 @@ class ApiClient {
     options: RequestInit = {},
   ): Promise<ApiResponse<T>> {
     const headers: HeadersInit = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     };
 
     if (this.accessToken) {
-      (headers as Record<string, string>)['Authorization'] =
+      (headers as Record<string, string>)["Authorization"] =
         `Bearer ${this.accessToken}`;
     }
 
@@ -50,29 +50,31 @@ class ApiClient {
       if (response.status === 401 && this.refreshToken) {
         const refreshed = await this.refresh();
         if (refreshed) {
-          (headers as Record<string, string>)['Authorization'] =
+          (headers as Record<string, string>)["Authorization"] =
             `Bearer ${this.accessToken}`;
           const retryResponse = await fetch(`${API_URL}${endpoint}`, {
             ...options,
             headers,
           });
           if (!retryResponse.ok) {
-            return { error: 'Request failed after token refresh' };
+            return { error: "Request failed after token refresh" };
           }
           return { data: await retryResponse.json() };
         }
-        return { error: 'Session expired. Please login again.' };
+        return { error: "Session expired. Please login again." };
       }
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        return { error: errorData.message || 'Request failed' };
+        return { error: errorData.message || "Request failed" };
       }
 
       const data = await response.json();
       return { data };
     } catch (error) {
-      return { error: error instanceof Error ? error.message : 'Network error' };
+      return {
+        error: error instanceof Error ? error.message : "Network error",
+      };
     }
   }
 
@@ -81,8 +83,8 @@ class ApiClient {
 
     try {
       const response = await fetch(`${API_URL}/auth/refresh`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken: this.refreshToken }),
       });
 
@@ -103,8 +105,8 @@ class ApiClient {
   async logout(): Promise<void> {
     if (this.refreshToken) {
       await fetch(`${API_URL}/auth/logout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken: this.refreshToken }),
       }).catch(() => {});
     }
@@ -118,29 +120,29 @@ class ApiClient {
       name: string | null;
       avatar: string | null;
       provider: string;
-    }>('/auth/me');
+    }>("/auth/me");
   }
 
   get<T>(endpoint: string) {
-    return this.request<T>(endpoint, { method: 'GET' });
+    return this.request<T>(endpoint, { method: "GET" });
   }
 
   post<T>(endpoint: string, body?: unknown) {
     return this.request<T>(endpoint, {
-      method: 'POST',
+      method: "POST",
       body: body ? JSON.stringify(body) : undefined,
     });
   }
 
   put<T>(endpoint: string, body?: unknown) {
     return this.request<T>(endpoint, {
-      method: 'PUT',
+      method: "PUT",
       body: body ? JSON.stringify(body) : undefined,
     });
   }
 
   delete<T>(endpoint: string) {
-    return this.request<T>(endpoint, { method: 'DELETE' });
+    return this.request<T>(endpoint, { method: "DELETE" });
   }
 }
 

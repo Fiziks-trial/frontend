@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/lib/auth-context';
-import Link from 'next/link';
+import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
 
 export default function HomePage() {
   const { user, isLoading, isAuthenticated, logout } = useAuth();
@@ -31,7 +31,7 @@ export default function HomePage() {
                     {user?.avatar && (
                       <img
                         src={user.avatar}
-                        alt={user.name || 'User'}
+                        alt={user.name || "User"}
                         className="w-8 h-8 rounded-full"
                       />
                     )}

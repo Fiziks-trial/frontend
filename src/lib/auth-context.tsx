@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   createContext,
@@ -7,8 +7,8 @@ import {
   useState,
   useCallback,
   type ReactNode,
-} from 'react';
-import { api, API_BASE_URL } from './api';
+} from "react";
+import { api, API_BASE_URL } from "./api";
 
 interface User {
   id: string;
@@ -22,17 +22,17 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (provider: 'google' | 'github') => void;
+  login: (provider: "google" | "github") => void;
   logout: () => Promise<void>;
   setTokensFromCallback: (accessToken: string, refreshToken: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const TOKEN_STORAGE_KEY = 'fiziks_auth';
+const TOKEN_STORAGE_KEY = "fiziks_auth";
 
 function saveTokensToStorage(accessToken: string, refreshToken: string) {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     sessionStorage.setItem(
       TOKEN_STORAGE_KEY,
       JSON.stringify({ accessToken, refreshToken }),
@@ -44,7 +44,7 @@ function getTokensFromStorage(): {
   accessToken: string;
   refreshToken: string;
 } | null {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   const stored = sessionStorage.getItem(TOKEN_STORAGE_KEY);
   if (!stored) return null;
   try {
@@ -55,7 +55,7 @@ function getTokensFromStorage(): {
 }
 
 function clearTokensFromStorage() {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     sessionStorage.removeItem(TOKEN_STORAGE_KEY);
   }
 }
@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [fetchUser]);
 
-  const login = (provider: 'google' | 'github') => {
+  const login = (provider: "google" | "github") => {
     window.location.href = `${API_BASE_URL}/auth/${provider}`;
   };
 
@@ -119,7 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

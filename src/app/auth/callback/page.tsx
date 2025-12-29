@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setTokensFromCallback } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = searchParams.get('accessToken');
-    const refreshToken = searchParams.get('refreshToken');
-    const errorParam = searchParams.get('error');
+    const accessToken = searchParams.get("accessToken");
+    const refreshToken = searchParams.get("refreshToken");
+    const errorParam = searchParams.get("error");
 
     if (errorParam) {
       setError(errorParam);
@@ -22,12 +22,10 @@ export default function AuthCallbackPage() {
 
     if (accessToken && refreshToken) {
       setTokensFromCallback(accessToken, refreshToken);
-      // Clear tokens from URL for security
-      window.history.replaceState({}, '', '/auth/callback');
-      // Redirect to dashboard or home
-      router.push('/');
+      window.history.replaceState({}, "", "/auth/callback");
+      router.push("/");
     } else {
-      setError('Invalid callback. Missing tokens.');
+      setError("Invalid callback. Missing tokens.");
     }
   }, [searchParams, setTokensFromCallback, router]);
 
@@ -41,7 +39,7 @@ export default function AuthCallbackPage() {
             </h2>
             <p className="mt-2 text-gray-600 dark:text-gray-400">{error}</p>
             <button
-              onClick={() => router.push('/sign-in')}
+              onClick={() => router.push("/sign-in")}
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Back to Sign In
@@ -61,5 +59,22 @@ export default function AuthCallbackPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
   );
 }
