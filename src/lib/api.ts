@@ -1,3 +1,12 @@
+import type {
+  User,
+  Subject,
+  ProfileWithStats,
+  GlobalLeaderboard,
+  SubjectLeaderboard,
+  MatchHistoryItem,
+} from "./types";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 interface ApiResponse<T> {
@@ -114,13 +123,54 @@ class ApiClient {
   }
 
   async getMe() {
-    return this.request<{
-      id: string;
-      email: string;
-      name: string | null;
-      avatar: string | null;
-      provider: string;
-    }>("/auth/me");
+    return this.request<User>("/auth/me");
+  }
+
+  // User profile endpoints
+  async getProfile(userId: string) {
+    return this.request<ProfileWithStats>(`/users/${userId}/profile`);
+  }
+
+  async getProfileByUsername(username: string) {
+    return this.request<ProfileWithStats>(
+      `/users/username/${username}/profile`,
+    );
+  }
+
+  async updateProfile(data: { username?: string; name?: string }) {
+    return this.request<User>("/users/me", {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Subject endpoints
+  async getSubjects() {
+    return this.request<Subject[]>("/subjects");
+  }
+
+  async getSubject(slug: string) {
+    return this.request<Subject>(`/subjects/${slug}`);
+  }
+
+  // Leaderboard endpoints
+  async getGlobalLeaderboard(type: "xp" | "wins" = "wins", limit = 50) {
+    return this.request<GlobalLeaderboard>(
+      `/leaderboards/global?type=${type}&limit=${limit}`,
+    );
+  }
+
+  async getSubjectLeaderboard(subjectId: string, limit = 50) {
+    return this.request<SubjectLeaderboard>(
+      `/leaderboards/subject/${subjectId}?limit=${limit}`,
+    );
+  }
+
+  // Match history
+  async getMatchHistory(userId: string, limit = 20, offset = 0) {
+    return this.request<{ matches: MatchHistoryItem[]; total: number }>(
+      `/users/${userId}/matches?limit=${limit}&offset=${offset}`,
+    );
   }
 
   get<T>(endpoint: string) {
