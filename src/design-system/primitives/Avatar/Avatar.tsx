@@ -3,7 +3,8 @@ import { clsx } from "clsx";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface AvatarProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "size"> {
+export interface AvatarProps
+  extends Omit<ImgHTMLAttributes<HTMLImageElement>, "size"> {
   size?: AvatarSize;
   name?: string;
   src?: string;
@@ -53,9 +54,13 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
           "rounded-full overflow-hidden",
           "font-medium text-white",
           sizeStyles[size],
-          className
+          className,
         )}
-        style={!hasImage ? { backgroundColor: stringToColor(displayName) } : undefined}
+        style={
+          !hasImage
+            ? { backgroundColor: stringToColor(displayName) }
+            : undefined
+        }
       >
         {hasImage ? (
           <img
@@ -69,7 +74,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Avatar.displayName = "Avatar";

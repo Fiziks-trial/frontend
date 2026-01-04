@@ -3,7 +3,8 @@ import { clsx } from "clsx";
 
 export type InputSize = "sm" | "md" | "lg";
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   size?: InputSize;
   label?: string;
   error?: string;
@@ -46,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       id,
       ...props
     },
-    ref
+    ref,
   ) => {
     const inputId = id || props.name;
 
@@ -87,8 +88,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               rightIcon && iconPaddingRight[size],
               // States
               disabled && "opacity-50 cursor-not-allowed",
-              error && "border-[var(--color-error-500)] focus:ring-[var(--color-error-500)]",
-              className
+              error &&
+                "border-[var(--color-error-500)] focus:ring-[var(--color-error-500)]",
+              className,
             )}
             {...props}
           />
@@ -102,7 +104,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <p
             className={clsx(
               "mt-1.5 text-sm",
-              error ? "text-[var(--color-error-500)]" : "text-[var(--color-text-muted)]"
+              error
+                ? "text-[var(--color-error-500)]"
+                : "text-[var(--color-text-muted)]",
             )}
           >
             {error || hint}
@@ -110,7 +114,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

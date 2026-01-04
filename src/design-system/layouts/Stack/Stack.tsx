@@ -29,7 +29,17 @@ const alignStyles: Record<StackAlign, string> = {
 };
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
-  ({ direction = "vertical", spacing = "md", align = "stretch", className, children, ...props }, ref) => {
+  (
+    {
+      direction = "vertical",
+      spacing = "md",
+      align = "stretch",
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     return (
       <div
         ref={ref}
@@ -38,14 +48,14 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
           direction === "horizontal" ? "flex-row" : "flex-col",
           spacingStyles[spacing],
           alignStyles[align],
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 
 Stack.displayName = "Stack";

@@ -17,7 +17,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
           variant === "text" && "h-4 rounded",
           variant === "circular" && "rounded-full",
           variant === "rectangular" && "rounded-lg",
-          className
+          className,
         )}
         style={{
           width: width,
@@ -27,7 +27,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 Skeleton.displayName = "Skeleton";

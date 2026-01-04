@@ -1,7 +1,12 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "ghost"
+  | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -19,32 +24,32 @@ const variantStyles: Record<ButtonVariant, string> = {
     "bg-[var(--color-primary-600)] text-white",
     "hover:bg-[var(--color-primary-700)]",
     "focus:ring-[var(--color-primary-500)]",
-    "active:bg-[var(--color-primary-800)]"
+    "active:bg-[var(--color-primary-800)]",
   ),
   secondary: clsx(
     "bg-[var(--color-secondary-600)] text-white",
     "hover:bg-[var(--color-secondary-700)]",
     "focus:ring-[var(--color-secondary-500)]",
-    "active:bg-[var(--color-secondary-800)]"
+    "active:bg-[var(--color-secondary-800)]",
   ),
   outline: clsx(
     "border-2 border-[var(--color-primary-500)] text-[var(--color-primary-400)]",
     "bg-transparent",
     "hover:bg-[var(--color-primary-500)]/10",
     "focus:ring-[var(--color-primary-500)]",
-    "active:bg-[var(--color-primary-500)]/20"
+    "active:bg-[var(--color-primary-500)]/20",
   ),
   ghost: clsx(
     "bg-transparent text-[var(--color-text-secondary)]",
     "hover:bg-[var(--color-neutral-800)] hover:text-[var(--color-text-primary)]",
     "focus:ring-[var(--color-neutral-600)]",
-    "active:bg-[var(--color-neutral-700)]"
+    "active:bg-[var(--color-neutral-700)]",
   ),
   danger: clsx(
     "bg-[var(--color-error-500)] text-white",
     "hover:bg-[var(--color-error-600)]",
     "focus:ring-[var(--color-error-500)]",
-    "active:bg-[var(--color-error-600)]"
+    "active:bg-[var(--color-error-600)]",
   ),
 };
 
@@ -68,7 +73,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const isDisabled = disabled || isLoading;
 
@@ -88,7 +93,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           // States
           isDisabled && "opacity-50 cursor-not-allowed",
           fullWidth && "w-full",
-          className
+          className,
         )}
         {...props}
       >
@@ -106,7 +111,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

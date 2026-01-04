@@ -13,12 +13,12 @@ export const Divider = forwardRef<HTMLHRElement, DividerProps>(
         className={clsx(
           "border-(--color-border-muted)",
           orientation === "horizontal" ? "w-full border-t" : "h-full border-l",
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 
 Divider.displayName = "Divider";

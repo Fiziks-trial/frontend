@@ -11,13 +11,10 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 const variantStyles: Record<CardVariant, string> = {
   default: "bg-[var(--color-bg-card)]",
-  elevated: clsx(
-    "bg-[var(--color-bg-elevated)]",
-    "shadow-lg"
-  ),
+  elevated: clsx("bg-[var(--color-bg-elevated)]", "shadow-lg"),
   outlined: clsx(
     "bg-transparent",
-    "border border-[var(--color-border-default)]"
+    "border border-[var(--color-border-default)]",
   ),
 };
 
@@ -29,7 +26,10 @@ const paddingStyles = {
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ variant = "default", padding = "md", className, children, ...props }, ref) => {
+  (
+    { variant = "default", padding = "md", className, children, ...props },
+    ref,
+  ) => {
     return (
       <div
         ref={ref}
@@ -37,14 +37,14 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           "rounded-xl",
           variantStyles[variant],
           paddingStyles[padding],
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 
 Card.displayName = "Card";
@@ -57,15 +57,11 @@ export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={clsx("mb-4", className)}
-        {...props}
-      >
+      <div ref={ref} className={clsx("mb-4", className)} {...props}>
         {children}
       </div>
     );
-  }
+  },
 );
 
 CardHeader.displayName = "CardHeader";
@@ -81,14 +77,14 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
         ref={ref}
         className={clsx(
           "text-lg font-semibold text-(--color-text-primary)",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </h3>
     );
-  }
+  },
 );
 
 CardTitle.displayName = "CardTitle";
@@ -108,7 +104,7 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 CardContent.displayName = "CardContent";
@@ -122,13 +118,16 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <div
         ref={ref}
-        className={clsx("mt-4 pt-4 border-t border-(--color-border-muted)", className)}
+        className={clsx(
+          "mt-4 pt-4 border-t border-(--color-border-muted)",
+          className,
+        )}
         {...props}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 
 CardFooter.displayName = "CardFooter";

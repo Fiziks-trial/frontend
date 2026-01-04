@@ -11,7 +11,13 @@ export type TextVariant =
   | "caption"
   | "label";
 
-export type TextColor = "primary" | "secondary" | "muted" | "success" | "error" | "warning";
+export type TextColor =
+  | "primary"
+  | "secondary"
+  | "muted"
+  | "success"
+  | "error"
+  | "warning";
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
   variant?: TextVariant;
@@ -72,7 +78,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Component = as || defaultElements[variant];
 
@@ -84,14 +90,14 @@ export const Text = forwardRef<HTMLElement, TextProps>(
           colorStyles[color],
           weight && weightStyles[weight],
           truncate && "truncate",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </Component>
     );
-  }
+  },
 );
 
 Text.displayName = "Text";

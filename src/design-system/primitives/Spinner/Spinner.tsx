@@ -38,7 +38,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 Spinner.displayName = "Spinner";

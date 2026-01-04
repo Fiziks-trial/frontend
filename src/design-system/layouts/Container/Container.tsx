@@ -21,13 +21,17 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <div
         ref={ref}
-        className={clsx("mx-auto px-4 sm:px-6 lg:px-8", sizeStyles[size], className)}
+        className={clsx(
+          "mx-auto px-4 sm:px-6 lg:px-8",
+          sizeStyles[size],
+          className,
+        )}
         {...props}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 
 Container.displayName = "Container";

@@ -61,7 +61,7 @@ export interface UserSubjectStats {
 }
 
 // Match types
-export type MatchStatus = 'in_progress' | 'completed' | 'cancelled';
+export type MatchStatus = "in_progress" | "completed" | "cancelled";
 
 export interface Match {
   id: string;
@@ -100,7 +100,7 @@ export interface MatchHistoryItem {
     slug: string;
     icon: string | null;
   };
-  result: 'win' | 'loss' | 'draw';
+  result: "win" | "loss" | "draw";
 }
 
 // Profile with stats (combined response)
@@ -128,7 +128,7 @@ export interface LeaderboardEntry {
 }
 
 export interface GlobalLeaderboard {
-  type: 'xp' | 'wins';
+  type: "xp" | "wins";
   entries: LeaderboardEntry[];
 }
 

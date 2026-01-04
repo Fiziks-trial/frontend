@@ -17,7 +17,9 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         {label && (
           <label className="block text-sm font-medium text-[var(--color-text-primary)]">
             {label}
-            {required && <span className="text-[var(--color-error-500)] ml-1">*</span>}
+            {required && (
+              <span className="text-[var(--color-error-500)] ml-1">*</span>
+            )}
           </label>
         )}
         {children}
@@ -25,7 +27,9 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
           <p
             className={clsx(
               "text-sm",
-              error ? "text-[var(--color-error-500)]" : "text-[var(--color-text-muted)]"
+              error
+                ? "text-[var(--color-error-500)]"
+                : "text-[var(--color-text-muted)]",
             )}
           >
             {error || hint}
@@ -33,7 +37,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 FormField.displayName = "FormField";

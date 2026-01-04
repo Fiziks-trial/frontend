@@ -100,19 +100,27 @@ export const StatusBadges: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">Match Status:</span>
+        <span className="text-[var(--color-text-secondary)]">
+          Match Status:
+        </span>
         <Badge variant="success">Live</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">Match Status:</span>
+        <span className="text-[var(--color-text-secondary)]">
+          Match Status:
+        </span>
         <Badge variant="warning">Starting Soon</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">Match Status:</span>
+        <span className="text-[var(--color-text-secondary)]">
+          Match Status:
+        </span>
         <Badge variant="error">Ended</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">Match Status:</span>
+        <span className="text-[var(--color-text-secondary)]">
+          Match Status:
+        </span>
         <Badge variant="outline">Scheduled</Badge>
       </div>
     </div>

@@ -16,7 +16,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
         ref={ref}
         className={clsx(
           "flex flex-col items-center justify-center text-center py-12 px-6",
-          className
+          className,
         )}
       >
         {icon && (
@@ -33,7 +33,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
         {action && <div>{action}</div>}
       </div>
     );
-  }
+  },
 );
 
 EmptyState.displayName = "EmptyState";

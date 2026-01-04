@@ -1,7 +1,13 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
 
-export type BadgeVariant = "default" | "success" | "warning" | "error" | "info" | "outline";
+export type BadgeVariant =
+  | "default"
+  | "success"
+  | "warning"
+  | "error"
+  | "info"
+  | "outline";
 export type BadgeSize = "sm" | "md";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -16,7 +22,8 @@ const variantStyles: Record<BadgeVariant, string> = {
   warning: "bg-[var(--color-warning-500)]/20 text-[var(--color-warning-500)]",
   error: "bg-[var(--color-error-500)]/20 text-[var(--color-error-500)]",
   info: "bg-[var(--color-info-500)]/20 text-[var(--color-info-500)]",
-  outline: "bg-transparent border border-[var(--color-border-default)] text-[var(--color-text-secondary)]",
+  outline:
+    "bg-transparent border border-[var(--color-border-default)] text-[var(--color-text-secondary)]",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
@@ -25,7 +32,10 @@ const sizeStyles: Record<BadgeSize, string> = {
 };
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ variant = "default", size = "sm", className, children, ...props }, ref) => {
+  (
+    { variant = "default", size = "sm", className, children, ...props },
+    ref,
+  ) => {
     return (
       <span
         ref={ref}
@@ -33,14 +43,14 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
           "inline-flex items-center font-medium rounded-full",
           variantStyles[variant],
           sizeStyles[size],
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </span>
     );
-  }
+  },
 );
 
 Badge.displayName = "Badge";

@@ -8,7 +8,16 @@ const meta: Meta<typeof Text> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["h1", "h2", "h3", "h4", "body", "bodySmall", "caption", "label"],
+      options: [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "body",
+        "bodySmall",
+        "caption",
+        "label",
+      ],
       description: "The text variant/size",
     },
     color: {
@@ -164,9 +173,15 @@ export const TypographyScale: Story = {
       <Text variant="h2">Heading 2 - The quick brown fox</Text>
       <Text variant="h3">Heading 3 - The quick brown fox</Text>
       <Text variant="h4">Heading 4 - The quick brown fox</Text>
-      <Text variant="body">Body - The quick brown fox jumps over the lazy dog.</Text>
-      <Text variant="bodySmall">Body Small - The quick brown fox jumps over the lazy dog.</Text>
-      <Text variant="caption">Caption - The quick brown fox jumps over the lazy dog.</Text>
+      <Text variant="body">
+        Body - The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text variant="bodySmall">
+        Body Small - The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text variant="caption">
+        Caption - The quick brown fox jumps over the lazy dog.
+      </Text>
       <Text variant="label">Label - Form Field Label</Text>
     </div>
   ),
