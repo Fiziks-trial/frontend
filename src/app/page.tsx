@@ -1,7 +1,8 @@
 "use client";
 
-import { useAuth } from "@/lib/auth-context";
+import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth-context";
 
 export default function HomePage() {
   const { user, isLoading, isAuthenticated, logout } = useAuth();
@@ -29,10 +30,12 @@ export default function HomePage() {
                 <>
                   <div className="flex items-center gap-3">
                     {user?.avatar && (
-                      <img
+                      <Image
                         src={user.avatar}
                         alt={user.name || "User"}
-                        className="w-8 h-8 rounded-full"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                       />
                     )}
                     <span className="text-gray-700 dark:text-gray-200">
@@ -40,6 +43,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <button
+                    type="button"
                     onClick={logout}
                     className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
                   >

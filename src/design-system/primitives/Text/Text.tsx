@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ElementType } from "react";
 import { clsx } from "clsx";
+import { type ElementType, forwardRef, type HTMLAttributes } from "react";
 
 export type TextVariant =
   | "h1"

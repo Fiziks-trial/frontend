@@ -383,9 +383,17 @@ export const drawVelocityVector = (
 
 export const drawMeasurements = (
   ctx: CanvasRenderingContext2D,
-  gameState: any,
+  gameState: {
+    launchX: number;
+    groundY: number;
+    scaleFactor: number;
+    maxHeight: number;
+    maxDistance: number;
+    givenAngle: number;
+    isSimulating: boolean;
+  },
   renderWidth: number,
-  gravity: number,
+  _gravity: number,
 ) => {
   const {
     launchX,
@@ -473,7 +481,7 @@ export const drawMeasurements = (
   }
 
   // Draw angle indicator at cannon
-  let angle = givenAngle || 45;
+  const angle = givenAngle || 45;
   const angleRad = (angle * Math.PI) / 180;
   const indicatorLength = 80;
 

@@ -1,2 +1,2 @@
+export type { GridCols, GridGap, GridProps } from "./Grid";
 export { Grid } from "./Grid";
-export type { GridProps, GridCols, GridGap } from "./Grid";

@@ -45,7 +45,7 @@ export const Warning: Story = {
   },
 };
 
-export const Error: Story = {
+export const ErrorBadge: Story = {
   args: {
     children: "Failed",
     variant: "error",
@@ -100,25 +100,25 @@ export const StatusBadges: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">
+        <span className="text-(--color-text-secondary)">
           Match Status:
         </span>
         <Badge variant="success">Live</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">
+        <span className="text-(--color-text-secondary)">
           Match Status:
         </span>
         <Badge variant="warning">Starting Soon</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">
+        <span className="text-(--color-text-secondary)">
           Match Status:
         </span>
         <Badge variant="error">Ended</Badge>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[var(--color-text-secondary)]">
+        <span className="text-(--color-text-secondary)">
           Match Status:
         </span>
         <Badge variant="outline">Scheduled</Badge>

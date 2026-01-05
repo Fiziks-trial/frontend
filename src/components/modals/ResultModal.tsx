@@ -30,7 +30,7 @@ export const ResultModal = ({
   return (
     <div className={styles.resultModal}>
       <div className={styles.modalContent}>
-        <button className={styles.closeModal} onClick={onClose}>
+        <button type="button" className={styles.closeModal} onClick={onClose}>
           ×
         </button>
         <div className={styles.modalIcon}>{icon}</div>
@@ -38,14 +38,15 @@ export const ResultModal = ({
         <p>{message}</p>
         <div
           className={styles.modalStats}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: stats content is generated internally, not from user input
           dangerouslySetInnerHTML={{ __html: stats }}
         />
         <div className={styles.modalButtons}>
-          <button className={styles.btn} onClick={onRetry}>
+          <button type="button" className={styles.btn} onClick={onRetry}>
             🔄 Retry
           </button>
           {showNext && (
-            <button className={styles.btn} onClick={onNext}>
+            <button type="button" className={styles.btn} onClick={onNext}>
               ➡️ Next
             </button>
           )}

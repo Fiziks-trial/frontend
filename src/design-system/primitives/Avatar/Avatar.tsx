@@ -1,13 +1,15 @@
-import { forwardRef, type ImgHTMLAttributes } from "react";
 import { clsx } from "clsx";
+import Image from "next/image";
+import { forwardRef } from "react";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface AvatarProps
-  extends Omit<ImgHTMLAttributes<HTMLImageElement>, "size"> {
+export interface AvatarProps {
   size?: AvatarSize;
   name?: string;
   src?: string;
+  alt?: string;
+  className?: string;
 }
 
 const sizeStyles: Record<AvatarSize, string> = {
@@ -16,6 +18,14 @@ const sizeStyles: Record<AvatarSize, string> = {
   md: "w-10 h-10 text-base",
   lg: "w-12 h-12 text-lg",
   xl: "w-16 h-16 text-xl",
+};
+
+const sizePx: Record<AvatarSize, number> = {
+  xs: 24,
+  sm: 32,
+  md: 40,
+  lg: 48,
+  xl: 64,
 };
 
 function getInitials(name: string): string {
@@ -42,7 +52,7 @@ function stringToColor(str: string): string {
 }
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  ({ size = "md", name, src, alt, className, ...props }, ref) => {
+  ({ size = "md", name, src, alt, className }, ref) => {
     const hasImage = !!src;
     const displayName = name || alt || "User";
 
@@ -63,11 +73,12 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         }
       >
         {hasImage ? (
-          <img
+          <Image
             src={src}
             alt={alt || displayName}
+            width={sizePx[size]}
+            height={sizePx[size]}
             className="w-full h-full object-cover"
-            {...props}
           />
         ) : (
           <span>{getInitials(displayName)}</span>

@@ -1,5 +1,5 @@
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 
 export type InputSize = "sm" | "md" | "lg";
 

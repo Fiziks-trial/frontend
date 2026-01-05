@@ -1,5 +1,5 @@
-import { forwardRef, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type ReactNode } from "react";
 
 export interface EmptyStateProps {
   icon?: ReactNode;

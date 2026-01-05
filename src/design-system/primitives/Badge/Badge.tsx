@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 
 export type BadgeVariant =
   | "default"

@@ -37,20 +37,20 @@ body {
 
 /* Hidden class */
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 /* Success/Failure Colors */
 .success {
-  color: var(--success-color) !important;
+  color: var(--success-color);
 }
 
 .failure {
-  color: var(--danger-color) !important;
+  color: var(--danger-color);
 }
 
 .warning {
-  color: var(--warning-color) !important;
+  color: var(--warning-color);
 }
 
 /* Animations */

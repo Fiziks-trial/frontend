@@ -135,7 +135,7 @@ export const Success: Story = {
   },
 };
 
-export const Error: Story = {
+export const ErrorText: Story = {
   args: {
     children: "Error message",
     color: "error",

@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type HTMLAttributes } from "react";
 
 export type SpinnerSize = "sm" | "md" | "lg";
 
@@ -21,6 +21,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
           className={clsx("animate-spin text-current", sizeStyles[size])}
           fill="none"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <circle
             className="opacity-25"

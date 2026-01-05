@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./projectile.module.css";
 import { LearningCard } from "@/components/modals/LearningCard";
 import { ResultModal } from "@/components/modals/ResultModal";
-import { CHALLENGES, LEARNING_CARDS } from "@/utils/types";
 import { calculateTheoretical, decomposeVelocity } from "@/utils/physics";
+import { CHALLENGES, LEARNING_CARDS } from "@/utils/types";
+import styles from "./projectile.module.css";
 
 interface GameStateType {
   currentChallenge: "time-to-distance" | "max-height";
@@ -70,6 +70,7 @@ export default function ProjectileApp() {
     resultMessage: "",
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: initializeCanvas and generateProblem are intentionally excluded to run only once on mount
   useEffect(() => {
     initializeCanvas();
     generateProblem();
@@ -227,7 +228,7 @@ export default function ProjectileApp() {
     }
 
     const userValue = parseFloat(userInput);
-    if (isNaN(userValue)) {
+    if (Number.isNaN(userValue)) {
       setFeedback({ type: "error", message: "Please enter a valid number!" });
       return;
     }
@@ -243,7 +244,7 @@ export default function ProjectileApp() {
     simulateProjectile(result, userValue);
   };
 
-  const simulateProjectile = (result: any, userValue: number) => {
+  const simulateProjectile = (result: { range: number; maxHeight: number; timeOfFlight: number }, userValue: number) => {
     const { vx, vy } = decomposeVelocity(gameState.velocity, gameState.angle);
 
     // Calculate trajectory points for the expected projectile
@@ -325,11 +326,11 @@ export default function ProjectileApp() {
 
   const animateTrajectory = (
     trajectory: Array<{ x: number; y: number }>,
-    result: any,
+    result: { range: number; maxHeight: number; timeOfFlight: number },
     userValue: number,
     userTrajectory: Array<{ x: number; y: number }>,
     timeToUserDistance: number,
-    userLandingTime: number,
+    _userLandingTime: number,
   ) => {
     const canvas = canvasElementRef.current;
     if (!canvas) return;
@@ -346,7 +347,7 @@ export default function ProjectileApp() {
 
     // Use the passed-in parameters directly
     const userTrajectoryData = userTrajectory;
-    const timeToUserDistanceData = timeToUserDistance;
+    const _timeToUserDistanceData = timeToUserDistance;
 
     const animate = () => {
       // Clear canvas
@@ -411,7 +412,7 @@ export default function ProjectileApp() {
       // Show current user input while typing (before launch)
       if (userInput && !gameState.isSimulating && !gameState.isLaunched) {
         const userInputValue = parseFloat(userInput);
-        if (!isNaN(userInputValue) && userInputValue > 0) {
+        if (!Number.isNaN(userInputValue) && userInputValue > 0) {
           const enteredX = launchX + userInputValue * scaleFactor;
           ctx.strokeStyle = "rgba(255, 159, 64, 0.7)";
           ctx.setLineDash([3, 3]);
@@ -611,7 +612,7 @@ export default function ProjectileApp() {
     generateProblem();
   };
 
-  const challenge = CHALLENGES[gameState.currentChallenge];
+  const _challenge = CHALLENGES[gameState.currentChallenge];
   const problemText =
     gameState.currentChallenge === "time-to-distance"
       ? `A projectile is launched at an angle of ${gameState.angle}° with an initial velocity of ${gameState.velocity} m/s. Calculate the horizontal distance it will travel. (Ignore air resistance)`
@@ -630,6 +631,7 @@ export default function ProjectileApp() {
       {/* Challenge Selector */}
       <div className={styles.challengeTabs}>
         <button
+          type="button"
           className={`${styles.tabBtn} ${gameState.currentChallenge === "time-to-distance" ? styles.active : ""}`}
           onClick={() => {
             setGameState((prev) => ({
@@ -642,6 +644,7 @@ export default function ProjectileApp() {
           ⏱️ Horizontal Distance
         </button>
         <button
+          type="button"
           className={`${styles.tabBtn} ${gameState.currentChallenge === "max-height" ? styles.active : ""}`}
           onClick={() => {
             setGameState((prev) => ({
@@ -702,6 +705,7 @@ export default function ProjectileApp() {
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               <button
+                type="button"
                 className={`${styles.btn} ${styles.btnLaunch}`}
                 onClick={handleLaunch}
                 disabled={gameState.isSimulating}
@@ -710,6 +714,7 @@ export default function ProjectileApp() {
               </button>
               {!gameState.isSimulating && gameState.isLaunched && (
                 <button
+                  type="button"
                   className={`${styles.btn} ${styles.btnNext}`}
                   onClick={handleNextProblem}
                 >

@@ -1,10 +1,10 @@
 import type {
-  User,
-  Subject,
-  ProfileWithStats,
   GlobalLeaderboard,
-  SubjectLeaderboard,
   MatchHistoryItem,
+  ProfileWithStats,
+  Subject,
+  SubjectLeaderboard,
+  User,
 } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
@@ -46,7 +46,7 @@ class ApiClient {
     };
 
     if (this.accessToken) {
-      (headers as Record<string, string>)["Authorization"] =
+      (headers as Record<string, string>).Authorization =
         `Bearer ${this.accessToken}`;
     }
 
@@ -59,7 +59,7 @@ class ApiClient {
       if (response.status === 401 && this.refreshToken) {
         const refreshed = await this.refresh();
         if (refreshed) {
-          (headers as Record<string, string>)["Authorization"] =
+          (headers as Record<string, string>).Authorization =
             `Bearer ${this.accessToken}`;
           const retryResponse = await fetch(`${API_URL}${endpoint}`, {
             ...options,

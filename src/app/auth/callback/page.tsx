@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 
 function AuthCallbackContent() {
@@ -39,6 +39,7 @@ function AuthCallbackContent() {
             </h2>
             <p className="mt-2 text-gray-600 dark:text-gray-400">{error}</p>
             <button
+              type="button"
               onClick={() => router.push("/sign-in")}
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >

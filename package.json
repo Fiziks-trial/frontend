@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "lint:fix": "biome check --write",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write",
     "format": "biome format --write",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build -o storybook-static"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -20,12 +22,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
-    "@storybook/react": "^10.1.11",
+    "@storybook/nextjs-vite": "10.1.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "husky": "^9.1.7",
+    "storybook": "10.1.11",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

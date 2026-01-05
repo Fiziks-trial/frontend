@@ -2,13 +2,13 @@
 
 import {
   createContext,
+  type ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
-  useCallback,
-  type ReactNode,
 } from "react";
-import { api, API_BASE_URL } from "./api";
+import { API_BASE_URL, api } from "./api";
 
 interface User {
   id: string;

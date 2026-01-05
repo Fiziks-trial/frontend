@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type HTMLAttributes } from "react";
 
 export interface DividerProps extends HTMLAttributes<HTMLHRElement> {
   orientation?: "horizontal" | "vertical";
