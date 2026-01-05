@@ -28,7 +28,7 @@ export const LearningCard = ({
   return (
     <div className={styles.learningCard}>
       <div className={styles.cardContent}>
-        <button className={styles.closeCard} onClick={onClose}>
+        <button type="button" className={styles.closeCard} onClick={onClose}>
           ×
         </button>
         <div className={styles.cardIcon}>{icon}</div>
@@ -37,6 +37,7 @@ export const LearningCard = ({
         {formula && <div className={styles.cardFormula}>{formula}</div>}
         {tip && <div className={styles.cardTip}>💡 {tip}</div>}
         <button
+          type="button"
           className={`${styles.btn} ${styles.btnUnderstand}`}
           onClick={onUnderstand}
         >

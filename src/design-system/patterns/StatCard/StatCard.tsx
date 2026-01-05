@@ -1,5 +1,5 @@
-import { forwardRef, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type ReactNode } from "react";
 
 export interface StatCardProps {
   label: string;
@@ -17,24 +17,21 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
     return (
       <div
         ref={ref}
-        className={clsx("p-4 rounded-xl bg-[var(--color-bg-card)]", className)}
+        className={clsx("p-4 rounded-xl bg-(--color-bg-card)", className)}
       >
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-sm text-[var(--color-text-muted)] mb-1">
-              {label}
-            </p>
-            <p className="text-2xl font-bold text-[var(--color-text-primary)]">
+            <p className="text-sm text-(--color-text-muted) mb-1">{label}</p>
+            <p className="text-2xl font-bold text-(--color-text-primary)">
               {value}
             </p>
             {change && (
               <p
                 className={clsx(
                   "text-sm mt-1",
-                  change.type === "increase" &&
-                    "text-[var(--color-success-500)]",
-                  change.type === "decrease" && "text-[var(--color-error-500)]",
-                  change.type === "neutral" && "text-[var(--color-text-muted)]",
+                  change.type === "increase" && "text-(--color-success-500)",
+                  change.type === "decrease" && "text-(--color-error-500)",
+                  change.type === "neutral" && "text-(--color-text-muted)",
                 )}
               >
                 {change.type === "increase" && "↑ "}
@@ -43,7 +40,7 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
               </p>
             )}
           </div>
-          {icon && <div className="text-[var(--color-text-muted)]">{icon}</div>}
+          {icon && <div className="text-(--color-text-muted)">{icon}</div>}
         </div>
       </div>
     );

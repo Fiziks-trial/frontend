@@ -1,5 +1,13 @@
-import { forwardRef, type ReactNode } from "react";
 import { clsx } from "clsx";
+import {
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  type ReactElement,
+  type ReactNode,
+  useId,
+} from "react";
 
 export interface FormFieldProps {
   label?: string;
@@ -8,28 +16,47 @@ export interface FormFieldProps {
   required?: boolean;
   children: ReactNode;
   className?: string;
+  id?: string;
 }
 
 export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
-  ({ label, error, hint, required, children, className }, ref) => {
+  (
+    { label, error, hint, required, children, className, id: providedId },
+    ref,
+  ) => {
+    const generatedId = useId();
+    const fieldId = providedId || generatedId;
+
+    const childrenWithId = Children.map(children, (child) => {
+      if (isValidElement(child)) {
+        return cloneElement(child as ReactElement<{ id?: string }>, {
+          id: fieldId,
+        });
+      }
+      return child;
+    });
+
     return (
       <div ref={ref} className={clsx("space-y-1.5", className)}>
         {label && (
-          <label className="block text-sm font-medium text-[var(--color-text-primary)]">
+          <label
+            htmlFor={fieldId}
+            className="block text-sm font-medium text-(--color-text-primary)"
+          >
             {label}
             {required && (
-              <span className="text-[var(--color-error-500)] ml-1">*</span>
+              <span className="text-(--color-error-500) ml-1">*</span>
             )}
           </label>
         )}
-        {children}
+        {childrenWithId}
         {(error || hint) && (
           <p
             className={clsx(
               "text-sm",
               error
-                ? "text-[var(--color-error-500)]"
-                : "text-[var(--color-text-muted)]",
+                ? "text-(--color-error-500)"
+                : "text-(--color-text-muted)",
             )}
           >
             {error || hint}

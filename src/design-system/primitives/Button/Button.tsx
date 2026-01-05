@@ -1,5 +1,5 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from "react";
 
 export type ButtonVariant =
   | "primary"
@@ -86,7 +86,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "inline-flex items-center justify-center",
           "font-medium rounded-lg",
           "transition-all duration-200 ease-in-out",
-          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]",
+          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-(--color-bg-primary)",
           // Variant and size
           variantStyles[variant],
           sizeStyles[size],
@@ -104,9 +104,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           </>
         ) : (
           <>
-            {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
+            {leftIcon && <span className="shrink-0">{leftIcon}</span>}
             {children}
-            {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
+            {rightIcon && <span className="shrink-0">{rightIcon}</span>}
           </>
         )}
       </button>
@@ -129,6 +129,7 @@ function Spinner({ size }: { size: ButtonSize }) {
       className={clsx("animate-spin", sizeClasses[size])}
       fill="none"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <circle
         className="opacity-25"

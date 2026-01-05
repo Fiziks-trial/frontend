@@ -1,11 +1,9 @@
 // Tokens
-export * from "./tokens";
-
-// Primitives
-export * from "./primitives";
-
-// Patterns
-export * from "./patterns";
 
 // Layouts
 export * from "./layouts";
+// Patterns
+export * from "./patterns";
+// Primitives
+export * from "./primitives";
+export * from "./tokens";

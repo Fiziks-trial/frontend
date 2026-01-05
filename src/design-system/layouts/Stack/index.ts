@@ -1,7 +1,7 @@
-export { Stack } from "./Stack";
 export type {
-  StackProps,
-  StackDirection,
-  StackSpacing,
   StackAlign,
+  StackDirection,
+  StackProps,
+  StackSpacing,
 } from "./Stack";
+export { Stack } from "./Stack";

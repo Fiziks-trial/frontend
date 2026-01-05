@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 
 export type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 12;
 export type GridGap = "none" | "sm" | "md" | "lg";

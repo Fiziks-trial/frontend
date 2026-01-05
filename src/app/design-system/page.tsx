@@ -1,25 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { Container, Grid, Stack } from "@/design-system/layouts";
+import { EmptyState, FormField, StatCard } from "@/design-system/patterns";
 import {
+  Avatar,
+  Badge,
   Button,
-  Input,
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardFooter,
-  Text,
-  Badge,
-  Avatar,
-  Spinner,
-  IconButton,
+  CardHeader,
+  CardTitle,
   Divider,
+  IconButton,
+  Input,
   Skeleton,
+  Spinner,
+  Text,
 } from "@/design-system/primitives";
-import { FormField, EmptyState, StatCard } from "@/design-system/patterns";
-import { Container, Stack, Grid } from "@/design-system/layouts";
 
 type Section =
   | "colors"
@@ -119,6 +119,7 @@ export default function DesignSystemPage() {
                   {section.items.map((item) => (
                     <li key={item.id}>
                       <button
+                        type="button"
                         onClick={() => setActiveSection(item.id)}
                         className={`w-full text-left rounded-lg px-3 py-2 text-sm transition-colors ${
                           activeSection === item.id
@@ -608,6 +609,7 @@ const CloseIcon = () => (
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
+    aria-hidden="true"
   >
     <path
       strokeLinecap="round"
@@ -623,6 +625,7 @@ const MenuIcon = () => (
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
+    aria-hidden="true"
   >
     <path
       strokeLinecap="round"
@@ -713,6 +716,7 @@ function EmptyStateSection() {
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"

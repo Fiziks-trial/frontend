@@ -1,5 +1,5 @@
-import { forwardRef, type HTMLAttributes } from "react";
 import { clsx } from "clsx";
+import { forwardRef, type HTMLAttributes } from "react";
 
 export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   variant?: "text" | "circular" | "rectangular";
@@ -13,7 +13,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
       <div
         ref={ref}
         className={clsx(
-          "animate-pulse bg-[var(--color-neutral-700)]",
+          "animate-pulse bg-neutral-700",
           variant === "text" && "h-4 rounded",
           variant === "circular" && "rounded-full",
           variant === "rectangular" && "rounded-lg",

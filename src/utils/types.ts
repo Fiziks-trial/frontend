@@ -4,11 +4,18 @@
 
 export type ChallengeType = "time-to-distance" | "max-height";
 
+export interface Projectile {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
 export interface GameState {
   currentChallenge: ChallengeType;
   isLaunched: boolean;
   isSimulating: boolean;
-  projectile: any;
+  projectile: Projectile | null;
   trajectory: Array<{ x: number; y: number }>;
   startTime: number;
   maxHeight: number;
@@ -106,7 +113,15 @@ export const LEARNING_CARDS = {
     formula: "R ∝ v₀² (Range)\nH ∝ v₀² (Max Height)",
     tip: "Doubling the velocity quadruples both the range and maximum height!",
   },
-} as Record<string, any>;
+} as Record<string, LearningCard>;
+
+export interface LearningCard {
+  icon: string;
+  title: string;
+  text: string;
+  formula: string;
+  tip: string;
+}
 
 export const CHALLENGES = {
   "time-to-distance": {
