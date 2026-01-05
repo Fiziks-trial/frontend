@@ -23,15 +23,15 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   variant?: TextVariant;
   color?: TextColor;
   as?: ElementType;
-  weight?: "normal" | "medium" | "semibold" | "bold";
+  weight?: "normal" | "medium" | "semibold" | "bold" | "extrabold";
   truncate?: boolean;
   children: React.ReactNode;
 }
 
 const variantStyles: Record<TextVariant, string> = {
-  h1: "text-4xl font-bold leading-tight",
-  h2: "text-3xl font-bold leading-tight",
-  h3: "text-2xl font-semibold leading-snug",
+  h1: "text-5xl font-extrabold leading-tight tracking-tight",
+  h2: "text-4xl font-bold leading-tight tracking-tight",
+  h3: "text-2xl font-bold leading-snug",
   h4: "text-xl font-semibold leading-snug",
   body: "text-base leading-relaxed",
   bodySmall: "text-sm leading-relaxed",
@@ -40,12 +40,12 @@ const variantStyles: Record<TextVariant, string> = {
 };
 
 const colorStyles: Record<TextColor, string> = {
-  primary: "text-[var(--color-text-primary)]",
-  secondary: "text-[var(--color-text-secondary)]",
-  muted: "text-[var(--color-text-muted)]",
-  success: "text-[var(--color-success-500)]",
-  error: "text-[var(--color-error-500)]",
-  warning: "text-[var(--color-warning-500)]",
+  primary: "text-(--color-text-primary)",
+  secondary: "text-(--color-text-secondary)",
+  muted: "text-(--color-text-muted)",
+  success: "text-[var(--color-success-400)]",
+  error: "text-[var(--color-error-400)]",
+  warning: "text-[var(--color-warning-400)]",
 };
 
 const weightStyles = {
@@ -53,6 +53,7 @@ const weightStyles = {
   medium: "font-medium",
   semibold: "font-semibold",
   bold: "font-bold",
+  extrabold: "font-extrabold",
 };
 
 const defaultElements: Record<TextVariant, ElementType> = {

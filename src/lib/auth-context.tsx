@@ -9,14 +9,7 @@ import {
   useState,
 } from "react";
 import { API_BASE_URL, api } from "./api";
-
-interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  avatar: string | null;
-  provider: string;
-}
+import type { User } from "./types";
 
 interface AuthContextType {
   user: User | null;

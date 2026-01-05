@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import "../design-system/tokens/design-tokens.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
@@ -12,15 +13,283 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ========================================
+   DOT GRID BACKGROUND - Loki Style
+   ======================================== */
+
+.dot-grid-bg {
+  position: fixed;
+  inset: 0;
+  background-color: #0a0a0a;
+  background-image: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  z-index: 0;
+}
+
+/* Subtle gradient overlay for depth */
+.dot-grid-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(0, 255, 127, 0.05) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* ========================================
+   OUTLINED TEXT EFFECT - Headlines
+   ======================================== */
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px #00ff7f;
+}
+
+.text-outline-white {
+  color: transparent;
+  -webkit-text-stroke: 2px #ffffff;
+}
+
+.text-outline-thick {
+  color: transparent;
+  -webkit-text-stroke: 3px #00ff7f;
+}
+
+/* Filled neon text */
+.text-neon {
+  color: #00ff7f;
+  text-shadow:
+    0 0 20px rgba(0, 255, 127, 0.5),
+    0 0 40px rgba(0, 255, 127, 0.3);
+}
+
+/* Gradient text - neon green to lime */
+.text-gradient-neon {
+  background: linear-gradient(135deg, #00ff7f 0%, #a3e635 50%, #00ff7f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ========================================
+   CUSTOM FONT STYLING
+   ======================================== */
+
+/* Bold display font for headlines */
+.font-display {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Chunky/bubble style text (similar to Loki's "CHEAT CODE") */
+.font-chunky {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   NEON BUTTON STYLES
+   ======================================== */
+
+.btn-neon {
+  background-color: #00ff7f;
+  color: #0a0a0a;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+}
+
+.btn-neon:hover {
+  background-color: #00e070;
+  box-shadow:
+    0 0 30px rgba(0, 255, 127, 0.5),
+    0 0 60px rgba(0, 255, 127, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-outline-neon {
+  background-color: transparent;
+  color: #00ff7f;
+  font-weight: 600;
+  border: 2px solid #00ff7f;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-neon:hover {
+  background-color: rgba(0, 255, 127, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+}
+
+/* ========================================
+   CARD STYLES - Dark Glass
+   ======================================== */
+
+.card-dark {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(12px);
+}
+
+.card-dark:hover {
+  border-color: rgba(0, 255, 127, 0.2);
+  box-shadow: 0 0 30px rgba(0, 255, 127, 0.1);
+}
+
+/* ========================================
+   INPUT STYLES - Dark Theme
+   ======================================== */
+
+.input-dark {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 1rem 1.5rem;
+  color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: #00ff7f;
+  box-shadow: 0 0 0 3px rgba(0, 255, 127, 0.2);
+}
+
+.input-dark::placeholder {
+  color: #64748b;
+}
+
+/* ========================================
+   FLOATING DEVICE MOCKUPS
+   ======================================== */
+
+.device-float {
+  animation: device-float 6s ease-in-out infinite;
+}
+
+.device-float-delayed {
+  animation: device-float 6s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+@keyframes device-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+/* ========================================
+   TAB/TOGGLE STYLES
+   ======================================== */
+
+.tab-group {
+  display: inline-flex;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tab-item {
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+.tab-item:hover {
+  color: #f8fafc;
+}
+
+.tab-item.active {
+  background: #00ff7f;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+/* ========================================
+   UTILITY ANIMATIONS
+   ======================================== */
+
+@keyframes pulse-neon {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 127, 0.5);
+  }
+}
+
+.animate-pulse-neon {
+  animation: pulse-neon 2s ease-in-out infinite;
+}
+
+/* Subtle background glow */
+.glow-spot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.glow-spot-green {
+  background: rgba(0, 255, 127, 0.15);
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff7f;
+}
+
+/* ========================================
+   SELECTION STYLING
+   ======================================== */
+
+::selection {
+  background: rgba(0, 255, 127, 0.3);
+  color: #ffffff;
 }
