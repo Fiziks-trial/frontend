@@ -10,18 +10,35 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-[var(--color-bg-card)]",
-  elevated: clsx("bg-[var(--color-bg-elevated)]", "shadow-lg"),
+  default: clsx(
+    "bg-[var(--glass-bg-light)] backdrop-blur-lg",
+    "border border-[var(--glass-border)]",
+    "shadow-[var(--shadow-glass)]",
+    "transition-all duration-300",
+    "hover:border-[var(--glass-border-hover)]",
+    "hover:shadow-[var(--shadow-glass-lg)]",
+  ),
+  elevated: clsx(
+    "bg-[var(--glass-bg)] backdrop-blur-xl",
+    "border border-[var(--glass-border-light)]",
+    "shadow-xl",
+    "transition-all duration-300",
+    "hover:shadow-2xl",
+    "hover:border-[var(--glass-border-hover)]",
+  ),
   outlined: clsx(
-    "bg-transparent",
-    "border border-[var(--color-border-default)]",
+    "bg-transparent backdrop-blur-sm",
+    "border border-[var(--glass-border-light)]",
+    "transition-all duration-300",
+    "hover:bg-[var(--glass-bg-subtle)]",
+    "hover:border-[var(--glass-border-hover)]",
   ),
 };
 
 const paddingStyles = {
   none: "",
-  sm: "p-3",
-  md: "p-4",
+  sm: "p-4",
+  md: "p-5",
   lg: "p-6",
 };
 
@@ -34,7 +51,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={clsx(
-          "rounded-xl",
+          "rounded-2xl",
           variantStyles[variant],
           paddingStyles[padding],
           className,
@@ -119,7 +136,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
       <div
         ref={ref}
         className={clsx(
-          "mt-4 pt-4 border-t border-(--color-border-muted)",
+          "mt-4 pt-4 border-t border-(--glass-border)",
           className,
         )}
         {...props}

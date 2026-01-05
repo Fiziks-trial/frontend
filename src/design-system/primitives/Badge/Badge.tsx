@@ -17,18 +17,37 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-[var(--color-neutral-700)] text-[var(--color-text-primary)]",
-  success: "bg-[var(--color-success-500)]/20 text-[var(--color-success-500)]",
-  warning: "bg-[var(--color-warning-500)]/20 text-[var(--color-warning-500)]",
-  error: "bg-[var(--color-error-500)]/20 text-[var(--color-error-500)]",
-  info: "bg-[var(--color-info-500)]/20 text-[var(--color-info-500)]",
-  outline:
-    "bg-transparent border border-[var(--color-border-default)] text-[var(--color-text-secondary)]",
+  default: clsx(
+    "bg-[var(--glass-bg-light)] backdrop-blur-sm",
+    "text-(--color-text-primary)",
+    "border border-[var(--glass-border)]",
+  ),
+  success: clsx(
+    "bg-[var(--color-success-500)]/15 text-[var(--color-success-400)]",
+    "border border-[var(--color-success-500)]/20",
+  ),
+  warning: clsx(
+    "bg-[var(--color-warning-500)]/15 text-[var(--color-warning-400)]",
+    "border border-[var(--color-warning-500)]/20",
+  ),
+  error: clsx(
+    "bg-[var(--color-error-500)]/15 text-[var(--color-error-400)]",
+    "border border-[var(--color-error-500)]/20",
+  ),
+  info: clsx(
+    "bg-[var(--color-primary-500)]/15 text-[var(--color-primary-400)]",
+    "border border-[var(--color-primary-500)]/20",
+  ),
+  outline: clsx(
+    "bg-transparent backdrop-blur-sm",
+    "border border-[var(--glass-border-light)]",
+    "text-(--color-text-secondary)",
+  ),
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
-  sm: "px-2 py-0.5 text-xs",
-  md: "px-2.5 py-1 text-sm",
+  sm: "px-2.5 py-0.5 text-xs",
+  md: "px-3 py-1 text-sm",
 };
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
@@ -40,7 +59,8 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center font-medium rounded-full",
+          "inline-flex items-center font-medium rounded-lg",
+          "transition-all duration-200",
           variantStyles[variant],
           sizeStyles[size],
           className,

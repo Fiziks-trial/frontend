@@ -15,21 +15,21 @@ export interface InputProps
 }
 
 const sizeStyles: Record<InputSize, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-base",
-  lg: "px-4 py-3 text-lg",
+  sm: "px-3.5 py-2 text-sm",
+  md: "px-4 py-2.5 text-base",
+  lg: "px-5 py-3.5 text-lg",
 };
 
 const iconPaddingLeft: Record<InputSize, string> = {
-  sm: "pl-8",
-  md: "pl-10",
-  lg: "pl-12",
+  sm: "pl-9",
+  md: "pl-11",
+  lg: "pl-13",
 };
 
 const iconPaddingRight: Record<InputSize, string> = {
-  sm: "pr-8",
-  md: "pr-10",
-  lg: "pr-12",
+  sm: "pr-9",
+  md: "pr-11",
+  lg: "pr-13",
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -56,14 +56,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block mb-1.5 text-sm font-medium text-[var(--color-text-primary)]"
+            className="block mb-2 text-sm font-medium text-(--color-text-primary)"
           >
             {label}
           </label>
         )}
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+            <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-(--color-text-muted)">
               {leftIcon}
             </div>
           )}
@@ -73,14 +73,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             className={clsx(
               // Base styles
-              "w-full rounded-lg",
-              "bg-[var(--color-bg-secondary)]",
-              "border border-[var(--color-border-default)]",
-              "text-[var(--color-text-primary)]",
-              "placeholder:text-[var(--color-text-muted)]",
+              "w-full rounded-xl",
+              "bg-[var(--glass-bg)] backdrop-blur-md",
+              "border border-[var(--glass-border)]",
+              "text-(--color-text-primary)",
+              "placeholder:text-(--color-text-muted)",
               "transition-all duration-200",
-              // Focus styles
-              "focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] focus:border-transparent",
+              // Focus styles (subtle, not neon)
+              "focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)]/30",
+              "focus:border-[var(--color-primary-400)]",
+              "focus:bg-[var(--glass-bg-light)]",
               // Size
               sizeStyles[size],
               // Icon padding
@@ -89,13 +91,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               // States
               disabled && "opacity-50 cursor-not-allowed",
               error &&
-                "border-[var(--color-error-500)] focus:ring-[var(--color-error-500)]",
+                "border-[var(--color-error-500)]/50 focus:ring-[var(--color-error-500)]/30 focus:border-[var(--color-error-400)]",
               className,
             )}
             {...props}
           />
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+            <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-(--color-text-muted)">
               {rightIcon}
             </div>
           )}
@@ -103,10 +105,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {(error || hint) && (
           <p
             className={clsx(
-              "mt-1.5 text-sm",
-              error
-                ? "text-[var(--color-error-500)]"
-                : "text-[var(--color-text-muted)]",
+              "mt-2 text-sm",
+              error ? "text-(--color-error-400)" : "text-(--color-text-muted)",
             )}
           >
             {error || hint}

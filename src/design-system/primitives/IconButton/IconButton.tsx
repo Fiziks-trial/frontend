@@ -13,20 +13,31 @@ export interface IconButtonProps
 }
 
 const variantStyles: Record<IconButtonVariant, string> = {
-  primary:
-    "bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]",
-  secondary:
-    "bg-[var(--color-secondary-600)] text-white hover:bg-[var(--color-secondary-700)]",
-  ghost:
-    "bg-transparent text-[var(--color-text-secondary)] hover:bg-[var(--color-neutral-800)]",
-  danger:
-    "bg-[var(--color-error-500)] text-white hover:bg-[var(--color-error-600)]",
+  primary: clsx(
+    "bg-[var(--color-primary-500)] text-white",
+    "hover:bg-[var(--color-primary-400)]",
+    "shadow-md hover:shadow-lg",
+  ),
+  secondary: clsx(
+    "bg-[var(--glass-bg-light)] backdrop-blur-md text-(--color-text-primary)",
+    "border border-[var(--glass-border)]",
+    "hover:bg-[var(--glass-bg-lighter)] hover:border-[var(--glass-border-hover)]",
+  ),
+  ghost: clsx(
+    "bg-transparent text-(--color-text-secondary)",
+    "hover:bg-[var(--glass-bg-subtle)] hover:text-(--color-text-primary)",
+  ),
+  danger: clsx(
+    "bg-[var(--color-error-500)] text-white",
+    "hover:bg-[var(--color-error-400)]",
+    "shadow-md hover:shadow-lg",
+  ),
 };
 
 const sizeStyles: Record<IconButtonSize, string> = {
-  sm: "w-8 h-8",
-  md: "w-10 h-10",
-  lg: "w-12 h-12",
+  sm: "w-9 h-9",
+  md: "w-11 h-11",
+  lg: "w-13 h-13",
 };
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -39,11 +50,14 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         disabled={disabled}
         className={clsx(
-          "inline-flex items-center justify-center rounded-lg transition-colors",
-          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]",
+          "inline-flex items-center justify-center rounded-xl",
+          "transition-all duration-200",
+          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-(--color-bg-primary)",
+          "focus:ring-(--color-primary-400)/50",
+          "active:scale-95",
           variantStyles[variant],
           sizeStyles[size],
-          disabled && "opacity-50 cursor-not-allowed",
+          disabled && "opacity-50 cursor-not-allowed pointer-events-none",
           className,
         )}
         {...props}

@@ -1,157 +1,250 @@
 /* Fiziks Design Tokens */
+/* "Loki" Theme - Dark mode with neon green accent and dot grid */
 /* Single source of truth for all design values */
 
 @layer base {
   :root {
     /* ========================================
-       COLORS
+       COLORS - Neon Green + Dark Theme
        ======================================== */
 
-    /* Primary - Purple (brand color) */
-    --color-primary-50: #f5f3ff;
-    --color-primary-100: #ede9fe;
-    --color-primary-200: #ddd6fe;
-    --color-primary-300: #c4b5fd;
-    --color-primary-400: #a78bfa;
-    --color-primary-500: #8b5cf6;
-    --color-primary-600: #7c3aed;
-    --color-primary-700: #6d28d9;
-    --color-primary-800: #5b21b6;
-    --color-primary-900: #4c1d95;
+    /* Primary - Neon Green (energy, gaming, competitive) */
+    --color-primary-50: #f0fdf4;
+    --color-primary-100: #dcfce7;
+    --color-primary-200: #bbf7d0;
+    --color-primary-300: #86efac;
+    --color-primary-400: #4ade80;
+    --color-primary-500: #22c55e;
+    --color-primary-600: #16a34a;
+    --color-primary-700: #15803d;
+    --color-primary-800: #166534;
+    --color-primary-900: #14532d;
+    /* Neon variant for glows */
+    --color-neon: #00ff7f;
+    --color-neon-dim: #00cc66;
 
-    /* Secondary - Teal (accent) */
-    --color-secondary-50: #f0fdfa;
-    --color-secondary-100: #ccfbf1;
-    --color-secondary-200: #99f6e4;
-    --color-secondary-300: #5eead4;
-    --color-secondary-400: #2dd4bf;
-    --color-secondary-500: #14b8a6;
-    --color-secondary-600: #0d9488;
-    --color-secondary-700: #0f766e;
-    --color-secondary-800: #115e59;
-    --color-secondary-900: #134e4a;
+    /* Secondary - Lime (complementary green) */
+    --color-secondary-50: #f7fee7;
+    --color-secondary-100: #ecfccb;
+    --color-secondary-200: #d9f99d;
+    --color-secondary-300: #bef264;
+    --color-secondary-400: #a3e635;
+    --color-secondary-500: #84cc16;
+    --color-secondary-600: #65a30d;
+    --color-secondary-700: #4d7c0f;
+    --color-secondary-800: #3f6212;
+    --color-secondary-900: #365314;
 
-    /* Neutral - Gray */
-    --color-neutral-50: #fafafa;
-    --color-neutral-100: #f4f4f5;
-    --color-neutral-200: #e4e4e7;
-    --color-neutral-300: #d4d4d8;
-    --color-neutral-400: #a1a1aa;
-    --color-neutral-500: #71717a;
-    --color-neutral-600: #52525b;
-    --color-neutral-700: #3f3f46;
-    --color-neutral-800: #27272a;
-    --color-neutral-900: #18181b;
-    --color-neutral-950: #09090b;
+    /* Accent - Emerald (achievement/XP/success) */
+    --color-accent-50: #ecfdf5;
+    --color-accent-100: #d1fae5;
+    --color-accent-200: #a7f3d0;
+    --color-accent-300: #6ee7b7;
+    --color-accent-400: #34d399;
+    --color-accent-500: #10b981;
+    --color-accent-600: #059669;
+    --color-accent-700: #047857;
+    --color-accent-800: #065f46;
+    --color-accent-900: #064e3b;
+
+    /* Neutral - Slate tones for depth */
+    --color-neutral-50: #f8fafc;
+    --color-neutral-100: #f1f5f9;
+    --color-neutral-200: #e2e8f0;
+    --color-neutral-300: #cbd5e1;
+    --color-neutral-400: #94a3b8;
+    --color-neutral-500: #64748b;
+    --color-neutral-600: #475569;
+    --color-neutral-700: #334155;
+    --color-neutral-800: #1e293b;
+    --color-neutral-900: #0f172a;
+    --color-neutral-950: #020617;
 
     /* Semantic Colors */
+    --color-success-400: #4ade80;
     --color-success-500: #22c55e;
     --color-success-600: #16a34a;
+    --color-warning-400: #fbbf24;
     --color-warning-500: #f59e0b;
     --color-warning-600: #d97706;
+    --color-error-400: #f87171;
     --color-error-500: #ef4444;
     --color-error-600: #dc2626;
+    --color-info-400: #60a5fa;
     --color-info-500: #3b82f6;
     --color-info-600: #2563eb;
 
-    /* Background Colors */
-    --color-bg-primary: #0f0f1a;
-    --color-bg-secondary: #1a1a2e;
-    --color-bg-card: #16213e;
-    --color-bg-elevated: #1e2a4a;
-    --color-bg-overlay: rgba(0, 0, 0, 0.5);
+    /* ========================================
+       DARK BACKGROUNDS - Loki Style
+       ======================================== */
+
+    /* Base solid background - true dark */
+    --bg-gradient-start: #0a0a0a;
+    --bg-gradient-mid: #141414;
+    --bg-gradient-end: #0a0a0a;
+
+    /* Accent blobs for visual interest - neon green */
+    --bg-blob-primary: rgba(0, 255, 127, 0.08);
+    --bg-blob-secondary: rgba(34, 197, 94, 0.06);
+    --bg-blob-accent: rgba(16, 185, 129, 0.05);
+
+    /* Card surfaces - darker, more contrast */
+    --glass-bg: rgba(20, 20, 20, 0.9);
+    --glass-bg-light: rgba(30, 30, 30, 0.8);
+    --glass-bg-lighter: rgba(40, 40, 40, 0.6);
+    --glass-bg-subtle: rgba(50, 50, 50, 0.4);
+
+    /* Borders - subtle white/green hints */
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --glass-border-light: rgba(255, 255, 255, 0.1);
+    --glass-border-hover: rgba(0, 255, 127, 0.3);
+    --glass-border-focus: rgba(0, 255, 127, 0.5);
+
+    /* Background colors (fallbacks/solid) */
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #141414;
+    --color-bg-card: rgba(20, 20, 20, 0.9);
+    --color-bg-elevated: rgba(30, 30, 30, 0.8);
+    --color-bg-hover: rgba(40, 40, 40, 0.6);
+    --color-bg-active: rgba(50, 50, 50, 0.5);
+    --color-bg-overlay: rgba(0, 0, 0, 0.8);
 
     /* Text Colors */
-    --color-text-primary: #ffffff;
-    --color-text-secondary: #a1a1aa;
-    --color-text-muted: #71717a;
-    --color-text-inverse: #09090b;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-text-inverse: #0f172a;
 
     /* Border Colors */
-    --color-border-default: #3f3f46;
-    --color-border-muted: #27272a;
-    --color-border-focus: #8b5cf6;
+    --color-border-default: rgba(255, 255, 255, 0.06);
+    --color-border-muted: rgba(255, 255, 255, 0.04);
+    --color-border-hover: rgba(0, 255, 127, 0.3);
+    --color-border-focus: #00ff7f;
 
     /* ========================================
-       TYPOGRAPHY
+       SHADOWS - Depth over Glow
+       ======================================== */
+
+    /* Soft depth shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.25);
+    --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.3);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Glass shadow (with subtle light edge) */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-glass-lg: 0 16px 48px rgba(0, 0, 0, 0.25);
+
+    /* Neon glows (key design element) */
+    --glow-primary: 0 0 20px rgba(0, 255, 127, 0.3);
+    --glow-primary-intense: 0 0 40px rgba(0, 255, 127, 0.5);
+    --glow-secondary: 0 0 20px rgba(34, 197, 94, 0.3);
+    --glow-accent: 0 0 20px rgba(16, 185, 129, 0.3);
+    --glow-success: 0 0 20px rgba(34, 197, 94, 0.3);
+    --glow-error: 0 0 20px rgba(239, 68, 68, 0.3);
+    --glow-subtle: 0 0 15px rgba(0, 255, 127, 0.2);
+    --glow-neon: 0 0 30px rgba(0, 255, 127, 0.4), 0 0 60px rgba(0, 255, 127, 0.2);
+
+    /* ========================================
+       TYPOGRAPHY - Bold & Clean
        ======================================== */
 
     --font-family-sans:
       "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-family-mono: "JetBrains Mono", "Fira Code", monospace;
 
-    /* Font Sizes */
+    /* Font Sizes (larger for bolder look) */
     --font-size-xs: 0.75rem; /* 12px */
     --font-size-sm: 0.875rem; /* 14px */
     --font-size-base: 1rem; /* 16px */
     --font-size-lg: 1.125rem; /* 18px */
     --font-size-xl: 1.25rem; /* 20px */
     --font-size-2xl: 1.5rem; /* 24px */
-    --font-size-3xl: 1.875rem; /* 30px */
-    --font-size-4xl: 2.25rem; /* 36px */
-    --font-size-5xl: 3rem; /* 48px */
+    --font-size-3xl: 2rem; /* 32px */
+    --font-size-4xl: 2.5rem; /* 40px */
+    --font-size-5xl: 3.5rem; /* 56px */
+    --font-size-6xl: 4.5rem; /* 72px */
 
     /* Line Heights */
-    --line-height-tight: 1.25;
+    --line-height-tight: 1.1;
+    --line-height-snug: 1.25;
     --line-height-normal: 1.5;
-    --line-height-relaxed: 1.75;
+    --line-height-relaxed: 1.625;
 
     /* Font Weights */
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
 
     /* ========================================
        SPACING
        ======================================== */
 
     --spacing-0: 0;
+    --spacing-0-5: 0.125rem; /* 2px */
     --spacing-1: 0.25rem; /* 4px */
+    --spacing-1-5: 0.375rem; /* 6px */
     --spacing-2: 0.5rem; /* 8px */
+    --spacing-2-5: 0.625rem; /* 10px */
     --spacing-3: 0.75rem; /* 12px */
+    --spacing-3-5: 0.875rem; /* 14px */
     --spacing-4: 1rem; /* 16px */
     --spacing-5: 1.25rem; /* 20px */
     --spacing-6: 1.5rem; /* 24px */
+    --spacing-7: 1.75rem; /* 28px */
     --spacing-8: 2rem; /* 32px */
+    --spacing-9: 2.25rem; /* 36px */
     --spacing-10: 2.5rem; /* 40px */
     --spacing-12: 3rem; /* 48px */
+    --spacing-14: 3.5rem; /* 56px */
     --spacing-16: 4rem; /* 64px */
     --spacing-20: 5rem; /* 80px */
 
     /* ========================================
-       BORDER RADIUS
+       BORDER RADIUS - Rounded & Soft
        ======================================== */
 
     --radius-none: 0;
-    --radius-sm: 0.25rem; /* 4px */
-    --radius-md: 0.5rem; /* 8px */
-    --radius-lg: 0.75rem; /* 12px */
-    --radius-xl: 1rem; /* 16px */
+    --radius-sm: 0.5rem; /* 8px */
+    --radius-md: 0.75rem; /* 12px */
+    --radius-lg: 1rem; /* 16px */
+    --radius-xl: 1.25rem; /* 20px */
     --radius-2xl: 1.5rem; /* 24px */
+    --radius-3xl: 2rem; /* 32px */
     --radius-full: 9999px;
 
     /* ========================================
-       SHADOWS
+       BLUR VALUES (for glassmorphism)
        ======================================== */
 
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg:
-      0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl:
-      0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-    --shadow-glow-lg: 0 0 40px rgba(139, 92, 246, 0.4);
+    --blur-sm: 8px;
+    --blur-md: 12px;
+    --blur-lg: 20px;
+    --blur-xl: 40px;
 
     /* ========================================
-       TRANSITIONS
+       TRANSITIONS - Smooth & Refined
        ======================================== */
 
-    --transition-fast: 150ms ease;
-    --transition-normal: 200ms ease;
-    --transition-slow: 300ms ease;
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --duration-fast: 150ms;
+    --duration-normal: 200ms;
+    --duration-slow: 300ms;
+    --duration-slower: 500ms;
+
+    --transition-fast: var(--duration-fast) var(--ease-default);
+    --transition-normal: var(--duration-normal) var(--ease-default);
+    --transition-slow: var(--duration-slow) var(--ease-default);
 
     /* ========================================
        Z-INDEX
@@ -160,12 +253,15 @@
     --z-base: 0;
     --z-dropdown: 100;
     --z-sticky: 200;
+    --z-fixed: 250;
+    --z-modal-backdrop: 290;
     --z-modal: 300;
     --z-popover: 400;
     --z-tooltip: 500;
+    --z-mascot: 600;
 
     /* ========================================
-       BREAKPOINTS (for reference, use in media queries)
+       BREAKPOINTS (for reference)
        ======================================== */
     /* sm: 640px */
     /* md: 768px */
@@ -180,8 +276,15 @@
     --animation-spin: spin 1s linear infinite;
     --animation-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animation-bounce: bounce 1s infinite;
+    --animation-glow: glow 3s ease-in-out infinite alternate;
+    --animation-float: float 4s ease-in-out infinite;
+    --animation-shimmer: shimmer 2s infinite;
   }
 }
+
+/* ========================================
+   KEYFRAME ANIMATIONS
+   ======================================== */
 
 @keyframes spin {
   from {
@@ -198,18 +301,204 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.7;
   }
 }
 
 @keyframes bounce {
   0%,
   100% {
-    transform: translateY(-25%);
+    transform: translateY(-8%);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
   50% {
     transform: translateY(0);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Subtle glow animation */
+@keyframes glow {
+  from {
+    box-shadow: var(--glow-subtle);
+  }
+  to {
+    box-shadow: var(--glow-primary);
+  }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Fizzy mascot idle pulse */
+@keyframes fizzy-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+  }
+}
+
+/* Success burst animation */
+@keyframes success-burst {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Error shake animation */
+@keyframes error-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-3px);
+  }
+  40%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+/* Fade in up */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale in */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Blob float animation */
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.animate-glow {
+  animation: var(--animation-glow);
+}
+
+.animate-float {
+  animation: var(--animation-float);
+}
+
+.animate-fizzy-pulse {
+  animation: fizzy-pulse 2s ease-in-out infinite;
+}
+
+.animate-success-burst {
+  animation: success-burst 0.3s var(--ease-spring);
+}
+
+.animate-error-shake {
+  animation: error-shake 0.4s ease;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s var(--ease-out);
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s var(--ease-out);
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-blob {
+  animation: blob-float 8s ease-in-out infinite;
+}
+
+/* Glass effect utility */
+.glass {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-light {
+  background: var(--glass-bg-lighter);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--glass-border-light);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

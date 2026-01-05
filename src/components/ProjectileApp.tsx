@@ -244,7 +244,10 @@ export default function ProjectileApp() {
     simulateProjectile(result, userValue);
   };
 
-  const simulateProjectile = (result: { range: number; maxHeight: number; timeOfFlight: number }, userValue: number) => {
+  const simulateProjectile = (
+    result: { range: number; maxHeight: number; timeOfFlight: number },
+    userValue: number,
+  ) => {
     const { vx, vy } = decomposeVelocity(gameState.velocity, gameState.angle);
 
     // Calculate trajectory points for the expected projectile

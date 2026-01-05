@@ -15,18 +15,20 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
       <div
         ref={ref}
         className={clsx(
-          "flex flex-col items-center justify-center text-center py-12 px-6",
+          "flex flex-col items-center justify-center text-center py-16 px-8",
           className,
         )}
       >
         {icon && (
-          <div className="mb-4 text-[var(--color-text-muted)]">{icon}</div>
+          <div className="mb-5 text-(--color-text-muted) p-4 rounded-2xl bg-(--glass-bg-subtle)">
+            {icon}
+          </div>
         )}
-        <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+        <h3 className="text-xl font-semibold text-(--color-text-primary) mb-2">
           {title}
         </h3>
         {description && (
-          <p className="text-sm text-[var(--color-text-secondary)] max-w-sm mb-6">
+          <p className="text-sm text-(--color-text-secondary) max-w-sm mb-8">
             {description}
           </p>
         )}

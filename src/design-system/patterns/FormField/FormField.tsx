@@ -54,9 +54,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
           <p
             className={clsx(
               "text-sm",
-              error
-                ? "text-(--color-error-500)"
-                : "text-(--color-text-muted)",
+              error ? "text-(--color-error-500)" : "text-(--color-text-muted)",
             )}
           >
             {error || hint}
