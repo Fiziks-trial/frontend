@@ -107,7 +107,10 @@ export default function DesignSystemPage() {
       {/* Floating accent blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="glow-spot glow-spot-green absolute top-20 left-1/4 w-[400px] h-[400px]" />
-        <div className="glow-spot glow-spot-green absolute bottom-20 right-1/4 w-[300px] h-[300px]" style={{ opacity: 0.5 }} />
+        <div
+          className="glow-spot glow-spot-green absolute bottom-20 right-1/4 w-[300px] h-[300px]"
+          style={{ opacity: 0.5 }}
+        />
       </div>
 
       {/* Content */}
@@ -160,34 +163,34 @@ export default function DesignSystemPage() {
           </aside>
 
           <main className="flex-1 p-8">
-          {/* Tokens */}
-          {activeSection === "colors" && <ColorsSection />}
-          {activeSection === "typography" && <TypographySection />}
-          {activeSection === "spacing" && <SpacingSection />}
-          {activeSection === "shadows" && <ShadowsSection />}
-          {activeSection === "radii" && <RadiiSection />}
-          {activeSection === "zIndex" && <ZIndexSection />}
-          {/* Brand */}
-          {activeSection === "fizzy" && <FizzySection />}
-          {/* Primitives */}
-          {activeSection === "button" && <ButtonSection />}
-          {activeSection === "input" && <InputSection />}
-          {activeSection === "card" && <CardSection />}
-          {activeSection === "text" && <TextSection />}
-          {activeSection === "badge" && <BadgeSection />}
-          {activeSection === "avatar" && <AvatarSection />}
-          {activeSection === "spinner" && <SpinnerSection />}
-          {activeSection === "iconButton" && <IconButtonSection />}
-          {activeSection === "divider" && <DividerSection />}
-          {activeSection === "skeleton" && <SkeletonSection />}
-          {/* Patterns */}
-          {activeSection === "formField" && <FormFieldSection />}
-          {activeSection === "emptyState" && <EmptyStateSection />}
-          {activeSection === "statCard" && <StatCardSection />}
-          {/* Layouts */}
-          {activeSection === "container" && <ContainerSection />}
-          {activeSection === "stack" && <StackSection />}
-          {activeSection === "grid" && <GridSection />}
+            {/* Tokens */}
+            {activeSection === "colors" && <ColorsSection />}
+            {activeSection === "typography" && <TypographySection />}
+            {activeSection === "spacing" && <SpacingSection />}
+            {activeSection === "shadows" && <ShadowsSection />}
+            {activeSection === "radii" && <RadiiSection />}
+            {activeSection === "zIndex" && <ZIndexSection />}
+            {/* Brand */}
+            {activeSection === "fizzy" && <FizzySection />}
+            {/* Primitives */}
+            {activeSection === "button" && <ButtonSection />}
+            {activeSection === "input" && <InputSection />}
+            {activeSection === "card" && <CardSection />}
+            {activeSection === "text" && <TextSection />}
+            {activeSection === "badge" && <BadgeSection />}
+            {activeSection === "avatar" && <AvatarSection />}
+            {activeSection === "spinner" && <SpinnerSection />}
+            {activeSection === "iconButton" && <IconButtonSection />}
+            {activeSection === "divider" && <DividerSection />}
+            {activeSection === "skeleton" && <SkeletonSection />}
+            {/* Patterns */}
+            {activeSection === "formField" && <FormFieldSection />}
+            {activeSection === "emptyState" && <EmptyStateSection />}
+            {activeSection === "statCard" && <StatCardSection />}
+            {/* Layouts */}
+            {activeSection === "container" && <ContainerSection />}
+            {activeSection === "stack" && <StackSection />}
+            {activeSection === "grid" && <GridSection />}
           </main>
         </div>
       </div>
@@ -330,7 +333,11 @@ function ShadowsSection() {
     { name: "md", value: "0 4px 12px rgba(0, 0, 0, 0.15)" },
     { name: "lg", value: "0 8px 24px rgba(0, 0, 0, 0.2)" },
     { name: "xl", value: "0 12px 48px rgba(0, 0, 0, 0.25)" },
-    { name: "glass", value: "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)" },
+    {
+      name: "glass",
+      value:
+        "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+    },
     { name: "glow", value: "0 0 20px rgba(0, 255, 127, 0.3)" },
   ];
   return (
@@ -438,9 +445,7 @@ function FizzySection() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-white mb-2">
-        Fizzy Mascot
-      </h2>
+      <h2 className="text-2xl font-bold text-white mb-2">Fizzy Mascot</h2>
       <p className="text-[#94a3b8] mb-8">
         Fizzy is the energy spark mascot that guides users through Fiziks. It
         has multiple emotional states and sizes.
@@ -466,27 +471,19 @@ function FizzySection() {
 
         {/* Sizes */}
         <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-            Sizes
-          </h3>
+          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">Sizes</h3>
           <div className="flex items-end gap-8 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
             <div className="text-center">
               <Fizzy size="sm" />
-              <p className="mt-2 text-sm text-[#94a3b8]">
-                Small (48px)
-              </p>
+              <p className="mt-2 text-sm text-[#94a3b8]">Small (48px)</p>
             </div>
             <div className="text-center">
               <Fizzy size="md" />
-              <p className="mt-2 text-sm text-[#94a3b8]">
-                Medium (72px)
-              </p>
+              <p className="mt-2 text-sm text-[#94a3b8]">Medium (72px)</p>
             </div>
             <div className="text-center">
               <Fizzy size="lg" />
-              <p className="mt-2 text-sm text-[#94a3b8]">
-                Large (96px)
-              </p>
+              <p className="mt-2 text-sm text-[#94a3b8]">Large (96px)</p>
             </div>
           </div>
         </div>
@@ -501,12 +498,8 @@ function FizzySection() {
             <div className="flex flex-col items-center gap-4 p-8 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-[#22c55e]/30">
               <Fizzy state="correct" size="lg" />
               <div className="text-center">
-                <p className="text-xl font-bold text-[#22c55e]">
-                  Correct!
-                </p>
-                <p className="text-sm text-[#94a3b8]">
-                  +15 XP earned
-                </p>
+                <p className="text-xl font-bold text-[#22c55e]">Correct!</p>
+                <p className="text-sm text-[#94a3b8]">+15 XP earned</p>
               </div>
             </div>
 
@@ -514,12 +507,8 @@ function FizzySection() {
             <div className="flex flex-col items-center gap-4 p-8 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-[#ef4444]/30">
               <Fizzy state="wrong" size="lg" />
               <div className="text-center">
-                <p className="text-xl font-bold text-[#ef4444]">
-                  Not quite!
-                </p>
-                <p className="text-sm text-[#94a3b8]">
-                  The answer was 42 m/s
-                </p>
+                <p className="text-xl font-bold text-[#ef4444]">Not quite!</p>
+                <p className="text-sm text-[#94a3b8]">The answer was 42 m/s</p>
               </div>
             </div>
 
@@ -527,9 +516,7 @@ function FizzySection() {
             <div className="flex items-center gap-4 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
               <Fizzy state="hint" size="md" />
               <div>
-                <p className="text-white font-medium">
-                  Need a hint?
-                </p>
+                <p className="text-white font-medium">Need a hint?</p>
                 <p className="text-sm text-[#94a3b8]">
                   Remember: kinetic energy = 1/2 mv²
                 </p>
@@ -540,9 +527,7 @@ function FizzySection() {
             <div className="flex items-center gap-4 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
               <Fizzy state="thinking" size="md" />
               <div>
-                <p className="text-white font-medium">
-                  Processing...
-                </p>
+                <p className="text-white font-medium">Processing...</p>
                 <p className="text-sm text-[#94a3b8]">
                   Finding your next opponent
                 </p>

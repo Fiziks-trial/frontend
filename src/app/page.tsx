@@ -67,6 +67,7 @@ export default function HomePage() {
                       </span>
                     </div>
                     <button
+                      type="button"
                       onClick={logout}
                       className="text-sm text-[#64748b] hover:text-white transition-colors"
                     >
@@ -76,12 +77,12 @@ export default function HomePage() {
                 ) : (
                   <>
                     <Link href="/sign-in">
-                      <button className="text-sm text-[#94a3b8] hover:text-white transition-colors px-4 py-2">
+                      <button type="button" className="text-sm text-[#94a3b8] hover:text-white transition-colors px-4 py-2">
                         LOG IN
                       </button>
                     </Link>
                     <Link href="/sign-up">
-                      <button className="btn-neon text-sm px-5 py-2">
+                      <button type="button" className="btn-neon text-sm px-5 py-2">
                         TRY IT FREE
                       </button>
                     </Link>
@@ -147,16 +148,17 @@ export default function HomePage() {
                   {/* Mode tabs and CTA */}
                   <div className="flex flex-col items-center gap-6">
                     <div className="tab-group">
-                      <button className="tab-item active">BATTLE</button>
-                      <button className="tab-item">PRACTICE</button>
+                      <button type="button" className="tab-item active">BATTLE</button>
+                      <button type="button" className="tab-item">PRACTICE</button>
                     </div>
-                    <button className="btn-neon text-lg px-8 py-3 flex items-center gap-2">
+                    <button type="button" className="btn-neon text-lg px-8 py-3 flex items-center gap-2">
                       Find Match
                       <svg
                         className="w-5 h-5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
+                        aria-hidden="true"
                       >
                         <path
                           strokeLinecap="round"
@@ -172,8 +174,8 @@ export default function HomePage() {
                 <div className="flex flex-col items-center gap-8">
                   {/* Mode toggle tabs */}
                   <div className="tab-group">
-                    <button className="tab-item active">COMPETE</button>
-                    <button className="tab-item">LEARN</button>
+                    <button type="button" className="tab-item active">COMPETE</button>
+                    <button type="button" className="tab-item">LEARN</button>
                   </div>
 
                   {/* URL/Topic input like Loki */}
@@ -184,12 +186,13 @@ export default function HomePage() {
                         placeholder="Pick a topic... kinematics, waves, thermodynamics"
                         className="input-dark w-full pr-16"
                       />
-                      <button className="absolute right-2 w-12 h-12 bg-[#00ff7f] rounded-full flex items-center justify-center hover:bg-[#00e070] transition-colors">
+                      <button type="button" className="absolute right-2 w-12 h-12 bg-[#00ff7f] rounded-full flex items-center justify-center hover:bg-[#00e070] transition-colors">
                         <svg
                           className="w-6 h-6 text-[#0a0a0a]"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
+                          aria-hidden="true"
                         >
                           <path
                             strokeLinecap="round"
@@ -205,12 +208,12 @@ export default function HomePage() {
                   {/* Alt CTAs */}
                   <div className="flex gap-4">
                     <Link href="/sign-up">
-                      <button className="btn-neon px-8 py-3">
+                      <button type="button" className="btn-neon px-8 py-3">
                         Get Started Free
                       </button>
                     </Link>
                     <Link href="/sign-in">
-                      <button className="btn-outline-neon px-8 py-3">
+                      <button type="button" className="btn-outline-neon px-8 py-3">
                         Sign In
                       </button>
                     </Link>
@@ -266,7 +269,7 @@ export default function HomePage() {
                   Start competing for free. No credit card required.
                 </p>
                 <Link href="/sign-up">
-                  <button className="btn-neon text-lg px-10 py-4">
+                  <button type="button" className="btn-neon text-lg px-10 py-4">
                     Start Playing Now
                   </button>
                 </Link>
