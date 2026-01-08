@@ -6,11 +6,6 @@ const meta: Meta<typeof Input> = {
   component: Input,
   tags: ["autodocs"],
   argTypes: {
-    size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "The size of the input",
-    },
     label: {
       control: "text",
       description: "Label text for the input",
@@ -19,9 +14,9 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Error message to display",
     },
-    hint: {
+    helperText: {
       control: "text",
-      description: "Hint text to display",
+      description: "Helper text to display",
     },
     placeholder: {
       control: "text",
@@ -30,10 +25,6 @@ const meta: Meta<typeof Input> = {
     disabled: {
       control: "boolean",
       description: "Disables the input",
-    },
-    fullWidth: {
-      control: "boolean",
-      description: "Makes the input full width",
     },
   },
 };
@@ -57,13 +48,13 @@ export const WithLabel: Story = {
   },
 };
 
-// With Hint
-export const WithHint: Story = {
+// With Helper Text
+export const WithHelperText: Story = {
   args: {
     label: "Password",
     type: "password",
-    placeholder: "••••••••",
-    hint: "Must be at least 8 characters",
+    placeholder: "Enter password",
+    helperText: "Must be at least 8 characters",
   },
 };
 
@@ -77,28 +68,6 @@ export const WithError: Story = {
   },
 };
 
-// Sizes
-export const Small: Story = {
-  args: {
-    size: "sm",
-    placeholder: "Small input",
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    size: "md",
-    placeholder: "Medium input",
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: "lg",
-    placeholder: "Large input",
-  },
-};
-
 // Disabled
 export const Disabled: Story = {
   args: {
@@ -109,131 +78,34 @@ export const Disabled: Story = {
   },
 };
 
-// With Icons
-const SearchIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-  </svg>
-);
-
-const MailIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-);
-
-const EyeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
-
-export const WithLeftIcon: Story = {
-  args: {
-    placeholder: "Search...",
-    leftIcon: <SearchIcon />,
-  },
-};
-
-export const WithRightIcon: Story = {
-  args: {
-    label: "Password",
-    type: "password",
-    placeholder: "••••••••",
-    rightIcon: <EyeIcon />,
-  },
-};
-
-export const EmailWithIcon: Story = {
-  args: {
-    label: "Email",
-    type: "email",
-    placeholder: "you@example.com",
-    leftIcon: <MailIcon />,
-  },
-};
-
-// Full Width
-export const FullWidth: Story = {
-  args: {
-    label: "Full Name",
-    placeholder: "Enter your full name",
-    fullWidth: true,
-  },
-};
-
 // Form Example
 export const FormExample: Story = {
   render: () => (
     <div className="space-y-4 max-w-md">
-      <Input
-        label="Email"
-        type="email"
-        placeholder="you@example.com"
-        leftIcon={<MailIcon />}
-        fullWidth
-      />
+      <Input label="Email" type="email" placeholder="you@example.com" />
       <Input
         label="Password"
         type="password"
-        placeholder="••••••••"
-        hint="Must be at least 8 characters"
-        rightIcon={<EyeIcon />}
-        fullWidth
+        placeholder="Enter password"
+        helperText="Must be at least 8 characters"
       />
       <Input
         label="Confirm Password"
         type="password"
-        placeholder="••••••••"
-        fullWidth
+        placeholder="Confirm password"
       />
     </div>
   ),
 };
 
-// All Sizes Showcase
-export const AllSizes: Story = {
+// Input Types Showcase
+export const InputTypes: Story = {
   render: () => (
     <div className="space-y-4 max-w-md">
-      <Input size="sm" placeholder="Small input" label="Small" fullWidth />
-      <Input size="md" placeholder="Medium input" label="Medium" fullWidth />
-      <Input size="lg" placeholder="Large input" label="Large" fullWidth />
+      <Input label="Text" type="text" placeholder="Enter text" />
+      <Input label="Email" type="email" placeholder="email@example.com" />
+      <Input label="Password" type="password" placeholder="Enter password" />
+      <Input label="Number" type="number" placeholder="Enter number" />
     </div>
   ),
 };

@@ -1,23 +1,27 @@
 import { clsx } from "clsx";
 import Image from "next/image";
-import { forwardRef } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type AvatarVariant = "circle" | "square";
 
-export interface AvatarProps {
+export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   size?: AvatarSize;
+  variant?: AvatarVariant;
   name?: string;
   src?: string;
   alt?: string;
-  className?: string;
+  status?: "online" | "offline" | "away" | "busy";
+  bordered?: boolean;
+  glow?: boolean;
 }
 
 const sizeStyles: Record<AvatarSize, string> = {
-  xs: "w-6 h-6 text-xs",
-  sm: "w-8 h-8 text-sm",
-  md: "w-10 h-10 text-base",
-  lg: "w-12 h-12 text-lg",
-  xl: "w-16 h-16 text-xl",
+  xs: "w-6 h-6 text-[10px]",
+  sm: "w-8 h-8 text-xs",
+  md: "w-10 h-10 text-sm",
+  lg: "w-12 h-12 text-base",
+  xl: "w-16 h-16 text-lg",
 };
 
 const sizePx: Record<AvatarSize, number> = {
@@ -28,6 +32,21 @@ const sizePx: Record<AvatarSize, number> = {
   xl: 64,
 };
 
+const statusSizeStyles: Record<AvatarSize, string> = {
+  xs: "w-1.5 h-1.5",
+  sm: "w-2 h-2",
+  md: "w-2.5 h-2.5",
+  lg: "w-3 h-3",
+  xl: "w-4 h-4",
+};
+
+const statusColorStyles: Record<string, string> = {
+  online: "bg-[#00ff00]",
+  offline: "bg-[#666666]",
+  away: "bg-[#ffaa00]",
+  busy: "bg-[#ff0040]",
+};
+
 function getInitials(name: string): string {
   const parts = name.trim().split(" ");
   if (parts.length === 1) {
@@ -36,23 +55,22 @@ function getInitials(name: string): string {
   return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 }
 
-function stringToColor(str: string): string {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const colors = [
-    "var(--color-primary-600)",
-    "var(--color-secondary-600)",
-    "var(--color-info-600)",
-    "var(--color-success-600)",
-    "var(--color-warning-600)",
-  ];
-  return colors[Math.abs(hash) % colors.length];
-}
-
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  ({ size = "md", name, src, alt, className }, ref) => {
+  (
+    {
+      size = "md",
+      variant = "circle",
+      name,
+      src,
+      alt,
+      status,
+      bordered = false,
+      glow = false,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const hasImage = !!src;
     const displayName = name || alt || "User";
 
@@ -61,16 +79,15 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         ref={ref}
         className={clsx(
           "relative inline-flex items-center justify-center",
-          "rounded-full overflow-hidden",
-          "font-medium text-white",
+          "font-mono font-medium text-[#00ff00] bg-[#0a0a0a]",
+          "overflow-hidden transition-all duration-200",
+          variant === "circle" ? "rounded-full" : "rounded-none",
+          bordered && "border-2 border-[#00ff00]",
+          glow && "shadow-[0_0_15px_rgba(0,255,0,0.4)]",
           sizeStyles[size],
           className,
         )}
-        style={
-          !hasImage
-            ? { backgroundColor: stringToColor(displayName) }
-            : undefined
-        }
+        {...props}
       >
         {hasImage ? (
           <Image
@@ -83,9 +100,53 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         ) : (
           <span>{getInitials(displayName)}</span>
         )}
+        {status && (
+          <span
+            className={clsx(
+              "absolute bottom-0 right-0 rounded-full border-2 border-black",
+              statusSizeStyles[size],
+              statusColorStyles[status],
+            )}
+          />
+        )}
       </div>
     );
   },
 );
-
 Avatar.displayName = "Avatar";
+
+/**
+ * AvatarGroup - Display multiple avatars stacked
+ */
+export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
+  max?: number;
+  size?: AvatarSize;
+  children: React.ReactNode;
+}
+
+export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
+  ({ max = 4, size = "md", children, className, ...props }, ref) => {
+    const childArray = Array.isArray(children) ? children : [children];
+    const visibleAvatars = childArray.slice(0, max);
+    const remainingCount = childArray.length - max;
+
+    return (
+      <div ref={ref} className={clsx("flex -space-x-2", className)} {...props}>
+        {visibleAvatars}
+        {remainingCount > 0 && (
+          <div
+            className={clsx(
+              "inline-flex items-center justify-center",
+              "font-mono font-medium text-[#00ff00] bg-[#0a0a0a]",
+              "border-2 border-[#00ff00] rounded-full",
+              sizeStyles[size],
+            )}
+          >
+            +{remainingCount}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
+AvatarGroup.displayName = "AvatarGroup";

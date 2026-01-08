@@ -1,61 +1,28 @@
 import { clsx } from "clsx";
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 
-export type CardVariant = "default" | "elevated" | "outlined";
+export type CardVariant = "default" | "bordered" | "glow";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
-  padding?: "none" | "sm" | "md" | "lg";
   children: ReactNode;
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: clsx(
-    "bg-[var(--glass-bg-light)] backdrop-blur-lg",
-    "border border-[var(--glass-border)]",
-    "shadow-[var(--shadow-glass)]",
-    "transition-all duration-300",
-    "hover:border-[var(--glass-border-hover)]",
-    "hover:shadow-[var(--shadow-glass-lg)]",
-  ),
-  elevated: clsx(
-    "bg-[var(--glass-bg)] backdrop-blur-xl",
-    "border border-[var(--glass-border-light)]",
-    "shadow-xl",
-    "transition-all duration-300",
-    "hover:shadow-2xl",
-    "hover:border-[var(--glass-border-hover)]",
-  ),
-  outlined: clsx(
-    "bg-transparent backdrop-blur-sm",
-    "border border-[var(--glass-border-light)]",
-    "transition-all duration-300",
-    "hover:bg-[var(--glass-bg-subtle)]",
-    "hover:border-[var(--glass-border-hover)]",
-  ),
+  default: "bg-[#0a0a0a] border border-[#00ff0033]",
+  bordered: "bg-transparent border border-[#00ff00]",
+  glow: "bg-[#0a0a0a] border border-[#00ff00] shadow-[0_0_20px_rgba(0,255,0,0.3)]",
 };
 
-const paddingStyles = {
-  none: "",
-  sm: "p-4",
-  md: "p-5",
-  lg: "p-6",
-};
-
+/**
+ * Base Card component following Hacker House design system
+ */
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  (
-    { variant = "default", padding = "md", className, children, ...props },
-    ref,
-  ) => {
+  ({ variant = "default", className, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={clsx(
-          "rounded-2xl",
-          variantStyles[variant],
-          paddingStyles[padding],
-          className,
-        )}
+        className={clsx(variantStyles[variant], "p-6", className)}
         {...props}
       >
         {children}
@@ -63,88 +30,157 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     );
   },
 );
-
 Card.displayName = "Card";
 
-// Card sub-components
-export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+/**
+ * IconCard - Card with centered icon header
+ * Commonly used for feature showcases
+ */
+export interface IconCardProps extends HTMLAttributes<HTMLDivElement> {
+  icon: ReactNode;
+  title: string;
+  description: string;
 }
 
-export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, children, ...props }, ref) => {
+export const IconCard = forwardRef<HTMLDivElement, IconCardProps>(
+  ({ icon, title, description, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={clsx("mb-4", className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-
-CardHeader.displayName = "CardHeader";
-
-export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
-  children: ReactNode;
-}
-
-export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <h3
+      <Card
         ref={ref}
+        variant="bordered"
         className={clsx(
-          "text-lg font-semibold text-(--color-text-primary)",
+          "group hover:shadow-[0_0_20px_rgba(0,255,0,0.3)] transition-all duration-300",
           className,
         )}
         {...props}
       >
-        {children}
-      </h3>
+        <div className="flex flex-col items-center text-center space-y-4">
+          <div className="text-[#00ff00] text-4xl">{icon}</div>
+          <h3 className="text-xl uppercase tracking-wide text-white">
+            {title}
+          </h3>
+          <p className="text-sm text-[#999999]">{description}</p>
+        </div>
+      </Card>
     );
   },
 );
+IconCard.displayName = "IconCard";
 
-CardTitle.displayName = "CardTitle";
-
-export interface CardContentProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+/**
+ * FeatureCard - Card with corner decorations
+ * Used for feature highlights and key information
+ */
+export interface FeatureCardProps extends HTMLAttributes<HTMLDivElement> {
+  title: string;
+  description: string;
+  children?: ReactNode;
 }
 
-export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={clsx("text-(--color-text-secondary)", className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  },
-);
-
-CardContent.displayName = "CardContent";
-
-export interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
-
-export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, children, ...props }, ref) => {
+export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
+  ({ title, description, children, className, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={clsx(
-          "mt-4 pt-4 border-t border-(--glass-border)",
+          "relative bg-[#0a0a0a] border border-[#00ff0033] p-8 group hover:border-[#00ff00] transition-all duration-300",
           className,
         )}
         {...props}
       >
-        {children}
+        {/* Corner decorations */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00ff00]" />
+        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00ff00]" />
+        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00ff00]" />
+        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00ff00]" />
+
+        <div className="space-y-4">
+          <h3 className="text-2xl uppercase tracking-wide text-[#00ff00]">
+            {title}
+          </h3>
+          <p className="text-sm text-[#999999] leading-relaxed">
+            {description}
+          </p>
+          {children}
+        </div>
       </div>
     );
   },
 );
+FeatureCard.displayName = "FeatureCard";
 
-CardFooter.displayName = "CardFooter";
+/**
+ * InfoCard - Card with title, description, and bullet list
+ */
+export interface InfoCardProps extends HTMLAttributes<HTMLDivElement> {
+  title: string;
+  description: string;
+  items: string[];
+}
+
+export const InfoCard = forwardRef<HTMLDivElement, InfoCardProps>(
+  ({ title, description, items, className, ...props }, ref) => {
+    return (
+      <Card
+        ref={ref}
+        variant="bordered"
+        className={clsx(
+          "hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] transition-all duration-300",
+          className,
+        )}
+        {...props}
+      >
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-xl uppercase tracking-wide text-[#00ff00] mb-3">
+              {title}
+            </h3>
+            <p className="text-sm text-[#cccccc] leading-relaxed">
+              {description}
+            </p>
+          </div>
+          <ul className="space-y-2">
+            {items.map((item) => (
+              <li
+                key={item}
+                className="text-sm text-[#999999] flex items-start"
+              >
+                <span className="text-[#00ff00] mr-2">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Card>
+    );
+  },
+);
+InfoCard.displayName = "InfoCard";
+
+/**
+ * StatCard - Card for displaying metrics/stats
+ */
+export interface StatCardProps extends HTMLAttributes<HTMLDivElement> {
+  label: string;
+  value: string | number;
+  icon?: ReactNode;
+}
+
+export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
+  ({ label, value, icon, className, ...props }, ref) => {
+    return (
+      <Card ref={ref} variant="glow" className={className} {...props}>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-wider text-[#999999] mb-2">
+              {label}
+            </p>
+            <p className="text-3xl font-mono text-[#00ff00]">{value}</p>
+          </div>
+          {icon && <div className="text-4xl text-[#00ff0066]">{icon}</div>}
+        </div>
+      </Card>
+    );
+  },
+);
+StatCard.displayName = "StatCard";

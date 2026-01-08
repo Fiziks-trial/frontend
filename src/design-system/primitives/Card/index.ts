@@ -1,9 +1,8 @@
 export type {
-  CardContentProps,
-  CardFooterProps,
-  CardHeaderProps,
   CardProps,
-  CardTitleProps,
   CardVariant,
+  FeatureCardProps,
+  IconCardProps,
+  InfoCardProps,
 } from "./Card";
-export { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./Card";
+export { Card, FeatureCard, IconCard, InfoCard } from "./Card";

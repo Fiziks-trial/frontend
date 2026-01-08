@@ -1,2 +1,7 @@
-export type { SpinnerProps, SpinnerSize } from "./Spinner";
-export { Spinner } from "./Spinner";
+export type {
+  LoadingOverlayProps,
+  SpinnerProps,
+  SpinnerSize,
+  SpinnerVariant,
+} from "./Spinner";
+export { LoadingOverlay, Spinner } from "./Spinner";

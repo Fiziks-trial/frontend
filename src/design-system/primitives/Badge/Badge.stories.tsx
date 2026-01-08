@@ -8,13 +8,8 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "success", "warning", "error", "info", "outline"],
+      options: ["default", "success", "warning", "error", "purple"],
       description: "The visual style of the badge",
-    },
-    size: {
-      control: "select",
-      options: ["sm", "md"],
-      description: "The size of the badge",
     },
   },
 };
@@ -52,32 +47,10 @@ export const ErrorBadge: Story = {
   },
 };
 
-export const Info: Story = {
+export const Purple: Story = {
   args: {
     children: "New",
-    variant: "info",
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    children: "Draft",
-    variant: "outline",
-  },
-};
-
-// Sizes
-export const Small: Story = {
-  args: {
-    children: "Small",
-    size: "sm",
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    children: "Medium",
-    size: "md",
+    variant: "purple",
   },
 };
 
@@ -89,8 +62,7 @@ export const AllVariants: Story = {
       <Badge variant="success">Success</Badge>
       <Badge variant="warning">Warning</Badge>
       <Badge variant="error">Error</Badge>
-      <Badge variant="info">Info</Badge>
-      <Badge variant="outline">Outline</Badge>
+      <Badge variant="purple">Purple</Badge>
     </div>
   ),
 };
@@ -113,7 +85,7 @@ export const StatusBadges: Story = {
       </div>
       <div className="flex items-center gap-2">
         <span className="text-(--color-text-secondary)">Match Status:</span>
-        <Badge variant="outline">Scheduled</Badge>
+        <Badge variant="default">Scheduled</Badge>
       </div>
     </div>
   ),
@@ -132,11 +104,11 @@ export const DifficultyBadges: Story = {
 export const CategoryBadges: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="info">Mechanics</Badge>
-      <Badge variant="info">Thermodynamics</Badge>
-      <Badge variant="info">Electromagnetism</Badge>
-      <Badge variant="info">Quantum Physics</Badge>
-      <Badge variant="info">Optics</Badge>
+      <Badge variant="purple">Mechanics</Badge>
+      <Badge variant="purple">Thermodynamics</Badge>
+      <Badge variant="purple">Electromagnetism</Badge>
+      <Badge variant="purple">Quantum Physics</Badge>
+      <Badge variant="purple">Optics</Badge>
     </div>
   ),
 };
