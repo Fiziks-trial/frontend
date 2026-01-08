@@ -1,36 +1,101 @@
 @import "tailwindcss";
 @import "../design-system/tokens/design-tokens.css";
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #f8fafc;
-}
+/* ========================================
+   HACKER HOUSE THEME CONFIGURATION
+   ======================================== */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains);
+  --font-display: var(--font-space-grotesk);
 }
+
+/* ========================================
+   BASE STYLES - Hacker House
+   ======================================== */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-family-sans);
+}
+
+/* Default typography base layer */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-family-display);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    font-family: var(--font-family-mono);
+  }
+
+  label {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    font-family: var(--font-family-mono);
+  }
+
+  input {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
 }
 
 /* ========================================
-   DOT GRID BACKGROUND - Loki Style
+   DOT GRID BACKGROUND - Hacker House Style
    ======================================== */
 
 .dot-grid-bg {
   position: fixed;
   inset: 0;
-  background-color: #0a0a0a;
+  background-color: #000000;
   background-image: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.15) 1px,
+    rgba(0, 255, 0, 0.15) 1px,
     transparent 1px
   );
   background-size: 24px 24px;
@@ -44,19 +109,19 @@ body {
   inset: 0;
   background: radial-gradient(
     ellipse 80% 50% at 50% 0%,
-    rgba(0, 255, 127, 0.05) 0%,
+    rgba(0, 255, 0, 0.03) 0%,
     transparent 50%
   );
   pointer-events: none;
 }
 
 /* ========================================
-   OUTLINED TEXT EFFECT - Headlines
+   TEXT EFFECTS - Hacker House
    ======================================== */
 
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 2px #00ff7f;
+  -webkit-text-stroke: 2px #00ff00;
 }
 
 .text-outline-white {
@@ -66,118 +131,271 @@ body {
 
 .text-outline-thick {
   color: transparent;
-  -webkit-text-stroke: 3px #00ff7f;
+  -webkit-text-stroke: 3px #00ff00;
 }
 
-/* Filled neon text */
+/* Neon green text with glow */
 .text-neon {
-  color: #00ff7f;
+  color: #00ff00;
   text-shadow:
-    0 0 20px rgba(0, 255, 127, 0.5),
-    0 0 40px rgba(0, 255, 127, 0.3);
+    0 0 20px rgba(0, 255, 0, 0.5),
+    0 0 40px rgba(0, 255, 0, 0.3);
 }
 
-/* Gradient text - neon green to lime */
+/* Purple accent text */
+.text-purple {
+  color: #9945ff;
+}
+
+/* Muted text */
+.text-muted {
+  color: #999999;
+}
+
+/* Gradient text - neon green */
 .text-gradient-neon {
-  background: linear-gradient(135deg, #00ff7f 0%, #a3e635 50%, #00ff7f 100%);
+  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* ========================================
-   CUSTOM FONT STYLING
+   CUSTOM FONT STYLING - Cyber/Tech Theme
    ======================================== */
 
-/* Bold display font for headlines */
+/* Display font - Orbitron for futuristic headlines */
 .font-display {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-/* Chunky/bubble style text (similar to Loki's "CHEAT CODE") */
-.font-chunky {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 900;
+/* Cyber headline - large display text */
+.font-cyber {
+  font-family: var(--font-family-display);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Terminal/mono text */
+.font-terminal {
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Status text style - for badges like "/// SYSTEM_READY" */
+.font-status {
+  font-family: var(--font-family-mono);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Nav item style - for [ABOUT] style links */
+.font-nav {
+  font-family: var(--font-family-display);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+/* Section header style - "SYSTEM_PROTOCOLS" */
+.font-section {
+  font-family: var(--font-family-display);
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 /* ========================================
-   NEON BUTTON STYLES
+   BUTTON STYLES - Hacker House
    ======================================== */
 
-.btn-neon {
-  background-color: #00ff7f;
-  color: #0a0a0a;
-  font-weight: 600;
-  border-radius: 9999px;
-  padding: 0.75rem 2rem;
+/* Primary button - filled green */
+.btn-primary {
+  background-color: #00ff00;
+  color: #000000;
+  font-weight: 500;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.5rem;
   transition: all 0.2s ease;
-  box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
 }
 
-.btn-neon:hover {
-  background-color: #00e070;
-  box-shadow:
-    0 0 30px rgba(0, 255, 127, 0.5),
-    0 0 60px rgba(0, 255, 127, 0.3);
-  transform: translateY(-2px);
+.btn-primary:hover {
+  background-color: #00cc00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 }
 
-.btn-outline-neon {
+/* Secondary button - outlined */
+.btn-secondary {
   background-color: transparent;
-  color: #00ff7f;
-  font-weight: 600;
-  border: 2px solid #00ff7f;
-  border-radius: 9999px;
-  padding: 0.75rem 2rem;
+  color: #00ff00;
+  font-weight: 500;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid #00ff00;
+  padding: 0.75rem 1.5rem;
   transition: all 0.2s ease;
 }
 
-.btn-outline-neon:hover {
-  background-color: rgba(0, 255, 127, 0.1);
-  box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+.btn-secondary:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
 
-/* ========================================
-   CARD STYLES - Dark Glass
-   ======================================== */
-
-.card-dark {
-  background: rgba(20, 20, 20, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1.5rem;
-  backdrop-filter: blur(12px);
-}
-
-.card-dark:hover {
-  border-color: rgba(0, 255, 127, 0.2);
-  box-shadow: 0 0 30px rgba(0, 255, 127, 0.1);
-}
-
-/* ========================================
-   INPUT STYLES - Dark Theme
-   ======================================== */
-
-.input-dark {
-  background: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-  padding: 1rem 1.5rem;
-  color: #f8fafc;
+/* Ghost button - subtle outline */
+.btn-ghost {
+  background-color: transparent;
+  color: #ffffff;
+  font-weight: 500;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem;
   transition: all 0.2s ease;
 }
 
-.input-dark:focus {
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Link button */
+.btn-link {
+  background-color: transparent;
+  color: #00ff00;
+  font-weight: 500;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-link:hover {
+  color: #00cc00;
+  text-decoration: underline;
+}
+
+/* ========================================
+   CARD STYLES - Hacker House
+   ======================================== */
+
+/* Base card */
+.card-hacker {
+  background: #0a0a0a;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card-hacker:hover {
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+/* Card with corner decorations */
+.card-corners {
+  position: relative;
+  background: #0a0a0a;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  padding: 2rem;
+}
+
+.card-corners::before,
+.card-corners::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-color: #00ff00;
+  border-style: solid;
+}
+
+.card-corners::before {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+.card-corners::after {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+}
+
+/* Bottom corners via pseudo-element wrapper */
+.card-corners-bottom::before,
+.card-corners-bottom::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-color: #00ff00;
+  border-style: solid;
+}
+
+.card-corners-bottom::before {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+
+.card-corners-bottom::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* Glow card */
+.card-glow {
+  background: #0a0a0a;
+  border: 1px solid #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  padding: 1.5rem;
+}
+
+/* ========================================
+   INPUT STYLES - Hacker House
+   ======================================== */
+
+.input-hacker {
+  background: #0a0a0a;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  font-family: var(--font-family-mono);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.input-hacker:focus {
   outline: none;
-  border-color: #00ff7f;
-  box-shadow: 0 0 0 3px rgba(0, 255, 127, 0.2);
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
-.input-dark::placeholder {
-  color: #64748b;
+.input-hacker::placeholder {
+  color: #999999;
+}
+
+.input-hacker.error {
+  border-color: #ff0000;
+}
+
+.input-hacker.error:focus {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 /* ========================================
@@ -240,10 +458,10 @@ body {
 @keyframes pulse-neon {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(0, 255, 127, 0.5);
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
   }
 }
 
@@ -260,11 +478,11 @@ body {
 }
 
 .glow-spot-green {
-  background: rgba(0, 255, 127, 0.15);
+  background: rgba(0, 255, 0, 0.15);
 }
 
 /* ========================================
-   SCROLLBAR STYLING
+   SCROLLBAR STYLING - Hacker House
    ======================================== */
 
 ::-webkit-scrollbar {
@@ -273,16 +491,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #141414;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #333;
-  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00ff7f;
+  background: #00ff00;
 }
 
 /* ========================================
@@ -290,6 +507,72 @@ body {
    ======================================== */
 
 ::selection {
-  background: rgba(0, 255, 127, 0.3);
+  background: rgba(0, 255, 0, 0.3);
   color: #ffffff;
+}
+
+/* ========================================
+   BADGE STYLES - Hacker House
+   ======================================== */
+
+/* System badge - terminal style */
+.badge-system {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+}
+
+/* Status badge with dot */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(0, 255, 0, 0.4);
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.badge-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #00ff00;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Variant badges */
+.badge-success {
+  border-color: #00ff00;
+  color: #00ff00;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.badge-warning {
+  border-color: #ffaa00;
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.1);
+}
+
+.badge-error {
+  border-color: #ff0000;
+  color: #ff0000;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.badge-purple {
+  border-color: #9945ff;
+  color: #9945ff;
+  background: rgba(153, 69, 255, 0.1);
 }

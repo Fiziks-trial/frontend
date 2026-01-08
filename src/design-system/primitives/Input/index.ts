@@ -1,2 +1,8 @@
-export type { InputProps, InputSize } from "./Input";
-export { Input } from "./Input";
+export type {
+  InputProps,
+  TextareaProps,
+  SelectProps,
+  CheckboxProps,
+  RadioProps,
+} from "./Input";
+export { Input, Textarea, Select, Checkbox, Radio } from "./Input";

@@ -1,0 +1,15 @@
+export {
+  Display,
+  H1,
+  H2,
+  H3,
+  H4,
+  Body,
+  Small,
+  Code,
+  SystemMessage,
+  Label,
+  AccentText,
+  PurpleText,
+  MutedText,
+} from "./Typography";

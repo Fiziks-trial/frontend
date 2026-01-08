@@ -1,1009 +1,875 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { Container, Grid, Stack } from "@/design-system/layouts";
-import { EmptyState, FormField, StatCard } from "@/design-system/patterns";
 import {
-  Avatar,
-  Badge,
+  Code as CodeIcon,
+  Zap,
+  Users,
+  MapPin,
+  Terminal,
+  ChevronRight,
+} from "lucide-react";
+import {
+  Display,
+  H1,
+  H2,
+  H3,
+  H4,
+  Body,
+  Small,
+  Code,
+  SystemMessage,
+  Label,
+  AccentText,
+  PurpleText,
+  MutedText,
+} from "@/design-system/primitives/Typography";
+import {
   Button,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Divider,
+  ArrowButton,
   IconButton,
+} from "@/design-system/primitives/Button";
+import {
+  Card,
+  IconCard,
+  FeatureCard,
+  InfoCard,
+  StatCard,
+} from "@/design-system/primitives/Card";
+import {
+  Badge,
+  StatusBadge,
+  SystemBadge,
+  CounterBadge,
+} from "@/design-system/primitives/Badge";
+import {
   Input,
+  Textarea,
+  Select,
+  Checkbox,
+  Radio,
+} from "@/design-system/primitives/Input";
+import {
+  Navbar,
+  Logo,
+  NavLink,
+  Sidebar,
+  SidebarLink,
+  Breadcrumb,
+  Footer,
+} from "@/design-system/primitives/Navigation";
+import { Avatar, AvatarGroup } from "@/design-system/primitives/Avatar";
+import { Divider, TerminalDivider } from "@/design-system/primitives/Divider";
+import {
   Skeleton,
-  Spinner,
-  Text,
-} from "@/design-system/primitives";
-import { Fizzy } from "@/design-system/components/Fizzy";
+  SkeletonText,
+  SkeletonCard,
+} from "@/design-system/primitives/Skeleton";
+import { Spinner } from "@/design-system/primitives/Spinner";
 
-type Section =
-  | "colors"
+type SectionId =
   | "typography"
-  | "spacing"
-  | "shadows"
-  | "radii"
-  | "zIndex"
-  | "fizzy"
-  | "button"
-  | "input"
-  | "card"
-  | "text"
-  | "badge"
-  | "avatar"
-  | "spinner"
-  | "iconButton"
-  | "divider"
-  | "skeleton"
-  | "formField"
-  | "emptyState"
-  | "statCard"
-  | "container"
-  | "stack"
-  | "grid";
-
-const sections = [
-  {
-    title: "Tokens",
-    items: [
-      { id: "colors" as Section, name: "Colors" },
-      { id: "typography" as Section, name: "Typography" },
-      { id: "spacing" as Section, name: "Spacing" },
-      { id: "shadows" as Section, name: "Shadows" },
-      { id: "radii" as Section, name: "Radii" },
-      { id: "zIndex" as Section, name: "Z-Index" },
-    ],
-  },
-  {
-    title: "Brand",
-    items: [{ id: "fizzy" as Section, name: "Fizzy Mascot" }],
-  },
-  {
-    title: "Primitives",
-    items: [
-      { id: "button" as Section, name: "Button" },
-      { id: "input" as Section, name: "Input" },
-      { id: "card" as Section, name: "Card" },
-      { id: "text" as Section, name: "Text" },
-      { id: "badge" as Section, name: "Badge" },
-      { id: "avatar" as Section, name: "Avatar" },
-      { id: "spinner" as Section, name: "Spinner" },
-      { id: "iconButton" as Section, name: "IconButton" },
-      { id: "divider" as Section, name: "Divider" },
-      { id: "skeleton" as Section, name: "Skeleton" },
-    ],
-  },
-  {
-    title: "Patterns",
-    items: [
-      { id: "formField" as Section, name: "FormField" },
-      { id: "emptyState" as Section, name: "EmptyState" },
-      { id: "statCard" as Section, name: "StatCard" },
-    ],
-  },
-  {
-    title: "Layouts",
-    items: [
-      { id: "container" as Section, name: "Container" },
-      { id: "stack" as Section, name: "Stack" },
-      { id: "grid" as Section, name: "Grid" },
-    ],
-  },
-];
+  | "buttons"
+  | "cards"
+  | "badges"
+  | "inputs"
+  | "navigation"
+  | "avatars"
+  | "dividers"
+  | "skeletons"
+  | "spinners";
 
 export default function DesignSystemPage() {
-  const [activeSection, setActiveSection] = useState<Section>("fizzy");
+  const [activeSection, setActiveSection] = useState<SectionId>("typography");
+  const [checkboxState, setCheckboxState] = useState(false);
+  const [radioState, setRadioState] = useState("option1");
+
+  const sections: { id: SectionId; label: string }[] = [
+    { id: "typography", label: "Typography" },
+    { id: "buttons", label: "Buttons" },
+    { id: "cards", label: "Cards" },
+    { id: "badges", label: "Badges" },
+    { id: "inputs", label: "Inputs" },
+    { id: "navigation", label: "Navigation" },
+    { id: "avatars", label: "Avatars" },
+    { id: "dividers", label: "Dividers" },
+    { id: "skeletons", label: "Skeletons" },
+    { id: "spinners", label: "Spinners" },
+  ];
 
   return (
-    <div className="min-h-screen relative">
-      {/* Dot Grid Background */}
-      <div className="dot-grid-bg" />
+    <div className="min-h-screen bg-black">
+      {/* Navbar */}
+      <Navbar
+        logo={<Logo text="FIZIKS" icon={<Terminal className="w-5 h-5" />} />}
+      >
+        <NavLink active>Components</NavLink>
+        <NavLink>Docs</NavLink>
+        <NavLink>GitHub</NavLink>
+      </Navbar>
 
-      {/* Floating accent blobs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="glow-spot glow-spot-green absolute top-20 left-1/4 w-[400px] h-[400px]" />
-        <div
-          className="glow-spot glow-spot-green absolute bottom-20 right-1/4 w-[300px] h-[300px]"
-          style={{ opacity: 0.5 }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-3">
-              <Fizzy state="idle" size="sm" />
-              <h1 className="text-xl font-bold text-neon">
-                Fiziks Design System
-              </h1>
-            </div>
-            <Link
-              href="/"
-              className="text-sm text-[#64748b] hover:text-[#00ff7f] transition-colors"
+      <div className="flex">
+        {/* Sidebar */}
+        <Sidebar className="hidden md:block sticky top-0 h-screen overflow-y-auto">
+          {sections.map((section) => (
+            <SidebarLink
+              key={section.id}
+              active={activeSection === section.id}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveSection(section.id);
+              }}
             >
-              Back to App
-            </Link>
-          </div>
-        </header>
-
-        <div className="flex">
-          <aside className="sticky top-16.25 h-[calc(100vh-65px)] w-56 overflow-y-auto border-r border-white/5 bg-[#0a0a0a]/50 backdrop-blur-lg p-4">
-            <nav className="space-y-6">
-              {sections.map((section) => (
-                <div key={section.title}>
-                  <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                    {section.title}
-                  </h2>
-                  <ul className="space-y-1">
-                    {section.items.map((item) => (
-                      <li key={item.id}>
-                        <button
-                          type="button"
-                          onClick={() => setActiveSection(item.id)}
-                          className={`w-full text-left rounded-xl px-3 py-2 text-sm transition-all duration-200 ${
-                            activeSection === item.id
-                              ? "bg-[#00ff7f] text-[#0a0a0a] font-semibold shadow-md"
-                              : "text-[#94a3b8] hover:bg-white/5 hover:text-white"
-                          }`}
-                        >
-                          {item.name}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </nav>
-          </aside>
-
-          <main className="flex-1 p-8">
-            {/* Tokens */}
-            {activeSection === "colors" && <ColorsSection />}
-            {activeSection === "typography" && <TypographySection />}
-            {activeSection === "spacing" && <SpacingSection />}
-            {activeSection === "shadows" && <ShadowsSection />}
-            {activeSection === "radii" && <RadiiSection />}
-            {activeSection === "zIndex" && <ZIndexSection />}
-            {/* Brand */}
-            {activeSection === "fizzy" && <FizzySection />}
-            {/* Primitives */}
-            {activeSection === "button" && <ButtonSection />}
-            {activeSection === "input" && <InputSection />}
-            {activeSection === "card" && <CardSection />}
-            {activeSection === "text" && <TextSection />}
-            {activeSection === "badge" && <BadgeSection />}
-            {activeSection === "avatar" && <AvatarSection />}
-            {activeSection === "spinner" && <SpinnerSection />}
-            {activeSection === "iconButton" && <IconButtonSection />}
-            {activeSection === "divider" && <DividerSection />}
-            {activeSection === "skeleton" && <SkeletonSection />}
-            {/* Patterns */}
-            {activeSection === "formField" && <FormFieldSection />}
-            {activeSection === "emptyState" && <EmptyStateSection />}
-            {activeSection === "statCard" && <StatCardSection />}
-            {/* Layouts */}
-            {activeSection === "container" && <ContainerSection />}
-            {activeSection === "stack" && <StackSection />}
-            {activeSection === "grid" && <GridSection />}
-          </main>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============ TOKEN SECTIONS ============
-
-function ColorsSection() {
-  const colorGroups = [
-    {
-      name: "Primary (Neon Green)",
-      colors: [
-        { name: "Neon", value: "#00ff7f" },
-        { name: "400", value: "#4ade80" },
-        { name: "500", value: "#22c55e" },
-        { name: "600", value: "#16a34a" },
-      ],
-    },
-    {
-      name: "Secondary (Lime)",
-      colors: [
-        { name: "400", value: "#a3e635" },
-        { name: "500", value: "#84cc16" },
-        { name: "600", value: "#65a30d" },
-      ],
-    },
-    {
-      name: "Accent (Emerald)",
-      colors: [
-        { name: "400", value: "#34d399" },
-        { name: "500", value: "#10b981" },
-        { name: "600", value: "#059669" },
-      ],
-    },
-    {
-      name: "Semantic",
-      colors: [
-        { name: "Success", value: "#22c55e" },
-        { name: "Warning", value: "#f59e0b" },
-        { name: "Error", value: "#ef4444" },
-      ],
-    },
-    {
-      name: "Dark Surfaces",
-      colors: [
-        { name: "bg", value: "#0a0a0a" },
-        { name: "card", value: "#141414" },
-        { name: "border", value: "rgba(255,255,255,0.06)" },
-      ],
-    },
-  ];
-
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Colors</h2>
-      <div className="space-y-8">
-        {colorGroups.map((group) => (
-          <div key={group.name}>
-            <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-              {group.name}
-            </h3>
-            <div className="flex gap-3">
-              {group.colors.map((color) => (
-                <div key={color.name} className="text-center">
-                  <div
-                    className="w-16 h-16 rounded-xl border border-white/10 mb-2"
-                    style={{ backgroundColor: color.value }}
-                  />
-                  <p className="text-xs text-white">{color.name}</p>
-                  <p className="text-xs text-[#64748b]">{color.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TypographySection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Typography</h2>
-      <div className="space-y-4 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/6">
-        {[
-          { label: "5xl", text: "Heading 1", cls: "text-5xl font-extrabold" },
-          { label: "4xl", text: "Heading 2", cls: "text-4xl font-bold" },
-          { label: "2xl", text: "Heading 3", cls: "text-2xl font-bold" },
-          { label: "xl", text: "Heading 4", cls: "text-xl font-semibold" },
-          { label: "base", text: "Body text", cls: "text-base" },
-          { label: "sm", text: "Small text", cls: "text-sm" },
-          { label: "xs", text: "Caption", cls: "text-xs" },
-        ].map((item) => (
-          <div key={item.label} className="flex items-baseline gap-4">
-            <span className="w-16 text-xs text-[#64748b]">{item.label}</span>
-            <span className={`${item.cls} text-white`}>{item.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SpacingSection() {
-  const spacing = [
-    { name: "1", px: "4px" },
-    { name: "2", px: "8px" },
-    { name: "4", px: "16px" },
-    { name: "6", px: "24px" },
-    { name: "8", px: "32px" },
-  ];
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Spacing</h2>
-      <div className="space-y-3">
-        {spacing.map((item) => (
-          <div
-            key={item.name}
-            className="flex items-center gap-4 p-3 rounded-xl bg-[#141414]/80 backdrop-blur-lg border border-white/10"
-          >
-            <span className="w-8 text-sm text-[#64748b]">{item.name}</span>
-            <span className="w-12 text-sm text-[#64748b]">{item.px}</span>
-            <div
-              className="h-4 bg-[#00ff7f] rounded-lg"
-              style={{ width: item.px }}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ShadowsSection() {
-  const shadows = [
-    { name: "sm", value: "0 1px 2px rgba(0, 0, 0, 0.2)" },
-    { name: "md", value: "0 4px 12px rgba(0, 0, 0, 0.15)" },
-    { name: "lg", value: "0 8px 24px rgba(0, 0, 0, 0.2)" },
-    { name: "xl", value: "0 12px 48px rgba(0, 0, 0, 0.25)" },
-    {
-      name: "glass",
-      value:
-        "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-    },
-    { name: "glow", value: "0 0 20px rgba(0, 255, 127, 0.3)" },
-  ];
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Shadows</h2>
-      <div className="grid grid-cols-3 gap-4">
-        {shadows.map((shadow) => (
-          <div
-            key={shadow.name}
-            className="p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10"
-          >
-            <div
-              className="w-full h-16 rounded-xl bg-[#0a0a0a]/80 mb-4"
-              style={{ boxShadow: shadow.value }}
-            />
-            <p className="text-sm font-medium text-white">{shadow.name}</p>
-            <p className="text-xs text-[#64748b] truncate">{shadow.value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function RadiiSection() {
-  const radii = [
-    { name: "none", value: "0" },
-    { name: "sm", value: "8px" },
-    { name: "md", value: "12px" },
-    { name: "lg", value: "16px" },
-    { name: "xl", value: "24px" },
-    { name: "2xl", value: "32px" },
-    { name: "full", value: "9999px" },
-  ];
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Border Radius</h2>
-      <div className="grid grid-cols-7 gap-4">
-        {radii.map((r) => (
-          <div
-            key={r.name}
-            className="p-4 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10 text-center"
-          >
-            <div
-              className="w-12 h-12 mx-auto mb-3 bg-[#00ff7f]"
-              style={{ borderRadius: r.value }}
-            />
-            <p className="text-sm font-medium text-white">{r.name}</p>
-            <p className="text-xs text-[#64748b]">{r.value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ZIndexSection() {
-  const zIndexes = [
-    { name: "base", value: 0 },
-    { name: "dropdown", value: 100 },
-    { name: "sticky", value: 200 },
-    { name: "modal", value: 300 },
-    { name: "popover", value: 400 },
-    { name: "tooltip", value: 500 },
-  ];
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Z-Index</h2>
-      <div className="space-y-3">
-        {zIndexes.map((z) => (
-          <div
-            key={z.name}
-            className="flex items-center gap-4 p-3 rounded-xl bg-[#141414]/80 backdrop-blur-lg border border-white/10"
-          >
-            <span className="w-24 text-sm font-medium text-white">
-              {z.name}
-            </span>
-            <span className="text-sm text-[#64748b]">{z.value}</span>
-            <div className="flex-1 h-2 bg-[#0a0a0a]/60 rounded-lg overflow-hidden">
-              <div
-                className="h-full bg-[#00ff7f]"
-                style={{ width: `${(z.value / 500) * 100}%` }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============ BRAND SECTIONS ============
-
-function FizzySection() {
-  const states = [
-    "idle",
-    "thinking",
-    "correct",
-    "wrong",
-    "celebrate",
-    "encourage",
-    "hint",
-    "excited",
-  ] as const;
-
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-2">Fizzy Mascot</h2>
-      <p className="text-[#94a3b8] mb-8">
-        Fizzy is the energy spark mascot that guides users through Fiziks. It
-        has multiple emotional states and sizes.
-      </p>
-
-      <div className="space-y-8">
-        {/* States */}
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-            Emotional States
-          </h3>
-          <div className="grid grid-cols-4 gap-6 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            {states.map((state) => (
-              <div key={state} className="text-center">
-                <Fizzy state={state} size="md" />
-                <p className="mt-2 text-sm text-[#94a3b8] capitalize">
-                  {state}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Sizes */}
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">Sizes</h3>
-          <div className="flex items-end gap-8 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <div className="text-center">
-              <Fizzy size="sm" />
-              <p className="mt-2 text-sm text-[#94a3b8]">Small (48px)</p>
-            </div>
-            <div className="text-center">
-              <Fizzy size="md" />
-              <p className="mt-2 text-sm text-[#94a3b8]">Medium (72px)</p>
-            </div>
-            <div className="text-center">
-              <Fizzy size="lg" />
-              <p className="mt-2 text-sm text-[#94a3b8]">Large (96px)</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Usage Examples */}
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-            Usage Examples
-          </h3>
-          <div className="grid grid-cols-2 gap-4">
-            {/* Correct Answer */}
-            <div className="flex flex-col items-center gap-4 p-8 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-[#22c55e]/30">
-              <Fizzy state="correct" size="lg" />
-              <div className="text-center">
-                <p className="text-xl font-bold text-[#22c55e]">Correct!</p>
-                <p className="text-sm text-[#94a3b8]">+15 XP earned</p>
-              </div>
-            </div>
-
-            {/* Wrong Answer */}
-            <div className="flex flex-col items-center gap-4 p-8 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-[#ef4444]/30">
-              <Fizzy state="wrong" size="lg" />
-              <div className="text-center">
-                <p className="text-xl font-bold text-[#ef4444]">Not quite!</p>
-                <p className="text-sm text-[#94a3b8]">The answer was 42 m/s</p>
-              </div>
-            </div>
-
-            {/* Hint */}
-            <div className="flex items-center gap-4 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-              <Fizzy state="hint" size="md" />
-              <div>
-                <p className="text-white font-medium">Need a hint?</p>
-                <p className="text-sm text-[#94a3b8]">
-                  Remember: kinetic energy = 1/2 mv²
-                </p>
-              </div>
-            </div>
-
-            {/* Thinking */}
-            <div className="flex items-center gap-4 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-              <Fizzy state="thinking" size="md" />
-              <div>
-                <p className="text-white font-medium">Processing...</p>
-                <p className="text-sm text-[#94a3b8]">
-                  Finding your next opponent
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============ PRIMITIVE SECTIONS ============
-
-function ButtonSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Button</h2>
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">Variants</h3>
-          <div className="flex flex-wrap gap-3 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="danger">Danger</Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">Sizes</h3>
-          <div className="flex items-center gap-3 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">States</h3>
-          <div className="flex gap-3 p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Button>Default</Button>
-            <Button disabled>Disabled</Button>
-            <Button isLoading>Loading</Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function InputSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Input</h2>
-      <div className="space-y-8 max-w-md">
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">Basic</h3>
-          <div className="p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Input placeholder="Enter text..." fullWidth />
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-            With Label & Hint
-          </h3>
-          <div className="p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Input
-              label="Password"
-              type="password"
-              placeholder="••••••••"
-              hint="Must be at least 8 characters"
-              fullWidth
-            />
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#94a3b8] mb-3">
-            With Error
-          </h3>
-          <div className="p-6 rounded-2xl bg-[#141414]/80 backdrop-blur-lg border border-white/10">
-            <Input
-              label="Username"
-              defaultValue="johndoe"
-              error="This username is already taken"
-              fullWidth
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CardSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Card</h2>
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Variants</h3>
-          <div className="grid grid-cols-3 gap-4">
-            <Card variant="default">
-              <CardTitle>Default</CardTitle>
-              <CardContent>Default card</CardContent>
-            </Card>
-            <Card variant="elevated">
-              <CardTitle>Elevated</CardTitle>
-              <CardContent>With shadow</CardContent>
-            </Card>
-            <Card variant="outlined">
-              <CardTitle>Outlined</CardTitle>
-              <CardContent>With border</CardContent>
-            </Card>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">
-            With Header & Footer
-          </h3>
-          <Card className="max-w-sm">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-            </CardHeader>
-            <CardContent>Main content goes here.</CardContent>
-            <CardFooter>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm">
-                  Cancel
-                </Button>
-                <Button size="sm">Save</Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TextSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Text</h2>
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Variants</h3>
-          <div className="space-y-3 p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Text variant="h1">Heading 1</Text>
-            <Text variant="h2">Heading 2</Text>
-            <Text variant="h3">Heading 3</Text>
-            <Text variant="body">Body text</Text>
-            <Text variant="caption">Caption</Text>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Colors</h3>
-          <div className="space-y-2 p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Text color="primary">Primary</Text>
-            <Text color="secondary">Secondary</Text>
-            <Text color="muted">Muted</Text>
-            <Text color="success">Success</Text>
-            <Text color="error">Error</Text>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BadgeSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Badge</h2>
-      <div className="flex flex-wrap gap-3 p-6 rounded-lg bg-[#141414] border border-white/6">
-        <Badge variant="default">Default</Badge>
-        <Badge variant="success">Success</Badge>
-        <Badge variant="warning">Warning</Badge>
-        <Badge variant="error">Error</Badge>
-        <Badge variant="info">Info</Badge>
-        <Badge variant="outline">Outline</Badge>
-      </div>
-    </div>
-  );
-}
-
-function AvatarSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Avatar</h2>
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Sizes</h3>
-          <div className="flex items-center gap-4 p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Avatar size="xs" name="XS" />
-            <Avatar size="sm" name="SM" />
-            <Avatar size="md" name="MD" />
-            <Avatar size="lg" name="LG" />
-            <Avatar size="xl" name="XL" />
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">
-            With Names
-          </h3>
-          <div className="flex gap-3 p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Avatar name="Alice" />
-            <Avatar name="Bob Smith" />
-            <Avatar name="Charlie" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SpinnerSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Spinner</h2>
-      <div className="flex items-center gap-6 p-6 rounded-lg bg-[#141414] border border-white/6">
-        <div className="text-center">
-          <Spinner size="sm" className="text-[#00ff7f]" />
-          <p className="text-xs text-[#71717a] mt-2">sm</p>
-        </div>
-        <div className="text-center">
-          <Spinner size="md" className="text-[#00ff7f]" />
-          <p className="text-xs text-[#71717a] mt-2">md</p>
-        </div>
-        <div className="text-center">
-          <Spinner size="lg" className="text-[#00ff7f]" />
-          <p className="text-xs text-[#71717a] mt-2">lg</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const CloseIcon = () => (
-  <svg
-    className="w-5 h-5"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </svg>
-);
-const MenuIcon = () => (
-  <svg
-    className="w-5 h-5"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M4 6h16M4 12h16M4 18h16"
-    />
-  </svg>
-);
-
-function IconButtonSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">IconButton</h2>
-      <div className="flex gap-3 p-6 rounded-lg bg-[#141414] border border-white/6">
-        <IconButton icon={<MenuIcon />} aria-label="Menu" variant="ghost" />
-        <IconButton icon={<CloseIcon />} aria-label="Close" variant="primary" />
-        <IconButton icon={<CloseIcon />} aria-label="Delete" variant="danger" />
-      </div>
-    </div>
-  );
-}
-
-function DividerSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Divider</h2>
-      <div className="p-6 rounded-lg bg-[#141414] border border-white/6">
-        <p className="text-white mb-4">Content above</p>
-        <Divider />
-        <p className="text-white mt-4">Content below</p>
-      </div>
-    </div>
-  );
-}
-
-function SkeletonSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Skeleton</h2>
-      <div className="space-y-4 p-6 rounded-lg bg-[#141414] border border-white/6">
-        <div className="flex items-center gap-4">
-          <Skeleton variant="circular" width={48} height={48} />
-          <div className="flex-1 space-y-2">
-            <Skeleton variant="text" width="60%" />
-            <Skeleton variant="text" width="40%" />
-          </div>
-        </div>
-        <Skeleton variant="rectangular" height={100} />
-      </div>
-    </div>
-  );
-}
-
-// ============ PATTERN SECTIONS ============
-
-function FormFieldSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">FormField</h2>
-      <div className="max-w-md space-y-6 p-6 rounded-lg bg-[#141414] border border-white/6">
-        <FormField label="Email" required hint="We'll never share your email.">
-          <input
-            className="w-full px-4 py-2 rounded-lg bg-[#0a0a0a] border border-white/6 text-white"
-            placeholder="you@example.com"
-          />
-        </FormField>
-        <FormField label="Password" error="Password is too weak">
-          <input
-            type="password"
-            className="w-full px-4 py-2 rounded-lg bg-[#0a0a0a] border border-[#ef4444] text-white"
-          />
-        </FormField>
-      </div>
-    </div>
-  );
-}
-
-function EmptyStateSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">EmptyState</h2>
-      <div className="p-6 rounded-lg bg-[#141414] border border-white/6">
-        <EmptyState
-          icon={
-            <svg
-              className="w-12 h-12"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          }
-          title="No quizzes yet"
-          description="Create your first quiz to get started."
-          action={<Button>Create Quiz</Button>}
-        />
-      </div>
-    </div>
-  );
-}
-
-function StatCardSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">StatCard</h2>
-      <div className="grid grid-cols-3 gap-4">
-        <StatCard
-          label="Total Score"
-          value="2,450"
-          change={{ value: "12%", type: "increase" }}
-        />
-        <StatCard
-          label="Matches Played"
-          value="48"
-          change={{ value: "3%", type: "decrease" }}
-        />
-        <StatCard
-          label="Win Rate"
-          value="67%"
-          change={{ value: "0%", type: "neutral" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-// ============ LAYOUT SECTIONS ============
-
-function ContainerSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Container</h2>
-      <div className="space-y-4">
-        {(["sm", "md", "lg"] as const).map((size) => (
-          <div
-            key={size}
-            className="p-4 rounded-lg bg-[#141414] border border-white/6"
-          >
-            <p className="text-xs text-[#71717a] mb-2">{size}</p>
-            <Container size={size} className="bg-[#00ff7f]/20 p-4 rounded">
-              <p className="text-white text-center">Container {size}</p>
-            </Container>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StackSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Stack</h2>
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Vertical</h3>
-          <div className="p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Stack spacing="md">
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 1
-              </div>
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 2
-              </div>
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 3
-              </div>
-            </Stack>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">
-            Horizontal
-          </h3>
-          <div className="p-6 rounded-lg bg-[#141414] border border-white/6">
-            <Stack direction="horizontal" spacing="md">
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 1
-              </div>
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 2
-              </div>
-              <div className="p-4 bg-[#00ff7f]/20 rounded text-white">
-                Item 3
-              </div>
-            </Stack>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function GridSection() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6">Grid</h2>
-      <div className="p-6 rounded-lg bg-[#141414] border border-white/6">
-        <Grid cols={3} gap="md">
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <div
-              key={n}
-              className="p-4 bg-[#00ff7f]/20 rounded text-white text-center"
-            >
-              {n}
-            </div>
+              {section.label}
+            </SidebarLink>
           ))}
-        </Grid>
+        </Sidebar>
+
+        {/* Main Content */}
+        <main className="flex-1 p-8 lg:p-12">
+          <div className="max-w-6xl mx-auto space-y-12">
+            {/* Header */}
+            <div className="space-y-6">
+              <SystemMessage>{"/// SYSTEM_READY: FIZIKS_DESIGN.exe"}</SystemMessage>
+              <Display>
+                <AccentText>FIZIKS</AccentText>
+                <br />
+                <span className="text-white">DESIGN</span>
+                <br />
+                <span className="text-white">SYSTEM</span>
+              </Display>
+              <Body className="text-[#999999] max-w-2xl">
+                A comprehensive cyberpunk-themed design system for Fiziks.
+                Features monospace typography, neon green accents, and
+                terminal-inspired components.
+              </Body>
+            </div>
+
+            {/* Typography Section */}
+            {activeSection === "typography" && (
+              <section id="typography" className="space-y-8">
+                <div>
+                  <SystemBadge>TYPOGRAPHY</SystemBadge>
+                  <H2 className="mt-4">Text Components</H2>
+                </div>
+
+                <div className="space-y-6 border border-[#00ff0033] p-8">
+                  <div className="space-y-3">
+                    <Label>Display Text</Label>
+                    <Display className="text-white">
+                      TURN <AccentText>IDEAS</AccentText> INTO REALITY
+                    </Display>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Heading 1</Label>
+                    <H1>
+                      System_<AccentText>Protocols</AccentText>
+                    </H1>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Heading 2</Label>
+                    <H2>
+                      The_<PurpleText>Network</PurpleText>
+                    </H2>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Heading 3</Label>
+                    <H3>Vibrant Community</H3>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Heading 4</Label>
+                    <H4>Build Your Company</H4>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Body Text</Label>
+                    <Body className="text-[#cccccc]">
+                      Learn physics the fun way with interactive simulations and
+                      engaging content designed for curious minds.
+                    </Body>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Small Text</Label>
+                    <Small className="text-[#999999]">
+                      Weekly standups • 1:1 Mentorship • Goal tracking
+                    </Small>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Code/Terminal Text</Label>
+                    <Code className="text-[#00ff00]">
+                      $ npm install @fiziks/design-system
+                    </Code>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>System Message</Label>
+                    <SystemMessage>
+                      {"/// SYSTEM_READY: FIZIKS_NODE_INIT"}
+                    </SystemMessage>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Text Variants</Label>
+                    <div className="flex gap-4">
+                      <AccentText>Accent Text</AccentText>
+                      <PurpleText>Purple Text</PurpleText>
+                      <MutedText>Muted Text</MutedText>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Buttons Section */}
+            {activeSection === "buttons" && (
+              <section id="buttons" className="space-y-8">
+                <div>
+                  <SystemBadge>BUTTONS</SystemBadge>
+                  <H2 className="mt-4">Button Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Button Variants</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <Button variant="primary">Primary Button</Button>
+                      <Button variant="secondary">Secondary Button</Button>
+                      <Button variant="ghost">Ghost Button</Button>
+                      <Button variant="link">Link Button</Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Button Sizes</Label>
+                    <div className="flex flex-wrap items-center gap-4">
+                      <Button size="sm">Small</Button>
+                      <Button size="md">Medium</Button>
+                      <Button size="lg">Large</Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Arrow Buttons (CTA)</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <ArrowButton variant="primary">Initiate</ArrowButton>
+                      <ArrowButton variant="secondary">Learn More</ArrowButton>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Icon Buttons</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <IconButton
+                        icon={<CodeIcon size={16} />}
+                        variant="primary"
+                      >
+                        Deploy
+                      </IconButton>
+                      <IconButton
+                        icon={<Zap size={16} />}
+                        variant="secondary"
+                        iconPosition="right"
+                      >
+                        Execute
+                      </IconButton>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Disabled State</Label>
+                    <Button disabled>Disabled Button</Button>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Cards Section */}
+            {activeSection === "cards" && (
+              <section id="cards" className="space-y-8">
+                <div>
+                  <SystemBadge>CARDS</SystemBadge>
+                  <H2 className="mt-4">Card Components</H2>
+                </div>
+
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <Label>Basic Cards</Label>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <Card variant="default">
+                        <H4 className="mb-2">Default Card</H4>
+                        <Small className="text-[#999999]">
+                          Standard card with subtle border
+                        </Small>
+                      </Card>
+                      <Card variant="bordered">
+                        <H4 className="mb-2">Bordered Card</H4>
+                        <Small className="text-[#999999]">
+                          Prominent green border
+                        </Small>
+                      </Card>
+                      <Card variant="glow">
+                        <H4 className="mb-2">Glow Card</H4>
+                        <Small className="text-[#999999]">
+                          Card with glow effect
+                        </Small>
+                      </Card>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Icon Cards</Label>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <IconCard
+                        icon={<CodeIcon />}
+                        title="6 Months"
+                        description="Duration of the program"
+                      />
+                      <IconCard
+                        icon={<Users />}
+                        title="8 Students"
+                        description="Small cohort of learners"
+                      />
+                      <IconCard
+                        icon={<MapPin />}
+                        title="Online"
+                        description="Learn from anywhere"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Feature Card</Label>
+                    <FeatureCard
+                      title="Interactive Learning"
+                      description="Engage with physics concepts through hands-on simulations and real-world applications."
+                    >
+                      <div className="space-y-2 mt-4">
+                        <Small className="text-[#999999]">
+                          • Live simulations
+                        </Small>
+                        <Small className="text-[#999999]">
+                          • Problem solving
+                        </Small>
+                        <Small className="text-[#999999]">
+                          • Visual explanations
+                        </Small>
+                      </div>
+                    </FeatureCard>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Info Card</Label>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <InfoCard
+                        title="Sync & Coaching"
+                        description="Stay clear minded and accountable with weekly syncs and coaching sessions."
+                        items={[
+                          "Weekly standups",
+                          "1:1 Mentorship",
+                          "Goal tracking",
+                        ]}
+                      />
+                      <InfoCard
+                        title="10X Trajectory"
+                        description="Connect with someone who will 10x your trajectory through intros and fireside chats."
+                        items={[
+                          "Fireside chats",
+                          "High-value intros",
+                          "Alumni network",
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Stat Cards</Label>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <StatCard
+                        label="Active Projects"
+                        value="42"
+                        icon={<CodeIcon />}
+                      />
+                      <StatCard
+                        label="Total Students"
+                        value="156"
+                        icon={<Users />}
+                      />
+                      <StatCard
+                        label="Success Rate"
+                        value="94%"
+                        icon={<Zap />}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Badges Section */}
+            {activeSection === "badges" && (
+              <section id="badges" className="space-y-8">
+                <div>
+                  <SystemBadge>BADGES</SystemBadge>
+                  <H2 className="mt-4">Badge Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Badge Variants</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <Badge variant="default">Default</Badge>
+                      <Badge variant="success">Success</Badge>
+                      <Badge variant="warning">Warning</Badge>
+                      <Badge variant="error">Error</Badge>
+                      <Badge variant="purple">Purple</Badge>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Status Badges</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <StatusBadge status="active">Online</StatusBadge>
+                      <StatusBadge status="inactive">Offline</StatusBadge>
+                      <StatusBadge status="pending">Pending</StatusBadge>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>System Badges</Label>
+                    <div className="flex flex-wrap gap-4">
+                      <SystemBadge>SYSTEM_READY</SystemBadge>
+                      <SystemBadge>NODE_ACTIVE</SystemBadge>
+                      <SystemBadge>DEPLOY_SUCCESS</SystemBadge>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Counter Badge</Label>
+                    <div className="flex flex-wrap items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-white">Notifications</span>
+                        <CounterBadge count={5} />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-white">Messages</span>
+                        <CounterBadge count={127} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Inputs Section */}
+            {activeSection === "inputs" && (
+              <section id="inputs" className="space-y-8">
+                <div>
+                  <SystemBadge>INPUTS</SystemBadge>
+                  <H2 className="mt-4">Input Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Text Input</Label>
+                    <div className="max-w-md">
+                      <Input
+                        label="Username"
+                        placeholder="Enter your username"
+                        helperText="Choose a unique identifier"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Text Input with Error</Label>
+                    <div className="max-w-md">
+                      <Input
+                        label="Email"
+                        placeholder="your@email.com"
+                        error="Invalid email format"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Textarea</Label>
+                    <div className="max-w-md">
+                      <Textarea
+                        label="Project Description"
+                        placeholder="Describe your project..."
+                        rows={4}
+                        helperText="Max 500 characters"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Select Dropdown</Label>
+                    <div className="max-w-md">
+                      <Select
+                        label="Project Type"
+                        options={[
+                          { value: "web", label: "Web Application" },
+                          { value: "mobile", label: "Mobile App" },
+                          { value: "api", label: "API Service" },
+                          { value: "tool", label: "Developer Tool" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Checkbox</Label>
+                    <div className="space-y-3">
+                      <Checkbox
+                        label="I agree to the terms and conditions"
+                        checked={checkboxState}
+                        onChange={(e) => setCheckboxState(e.target.checked)}
+                      />
+                      <Checkbox label="Subscribe to newsletter" />
+                      <Checkbox label="Enable notifications" disabled />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Radio Buttons</Label>
+                    <div className="space-y-3">
+                      <Radio
+                        label="Option 1"
+                        name="radio-group"
+                        value="option1"
+                        checked={radioState === "option1"}
+                        onChange={(e) => setRadioState(e.target.value)}
+                      />
+                      <Radio
+                        label="Option 2"
+                        name="radio-group"
+                        value="option2"
+                        checked={radioState === "option2"}
+                        onChange={(e) => setRadioState(e.target.value)}
+                      />
+                      <Radio
+                        label="Option 3"
+                        name="radio-group"
+                        value="option3"
+                        checked={radioState === "option3"}
+                        onChange={(e) => setRadioState(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Navigation Section */}
+            {activeSection === "navigation" && (
+              <section id="navigation" className="space-y-8">
+                <div>
+                  <SystemBadge>NAVIGATION</SystemBadge>
+                  <H2 className="mt-4">Navigation Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Navbar (See top of page)</Label>
+                    <Small className="text-[#999999]">
+                      The navigation bar at the top demonstrates the Navbar,
+                      Logo, and NavLink components.
+                    </Small>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Sidebar (See left side)</Label>
+                    <Small className="text-[#999999]">
+                      The sidebar on desktop demonstrates the Sidebar and
+                      SidebarLink components.
+                    </Small>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Breadcrumb</Label>
+                    <Breadcrumb
+                      items={[
+                        { label: "Home", href: "#" },
+                        { label: "Components", href: "#" },
+                        { label: "Navigation" },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Nav Links</Label>
+                    <div className="flex gap-2">
+                      <NavLink active>Active</NavLink>
+                      <NavLink>Inactive</NavLink>
+                      <NavLink>Another Link</NavLink>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Avatars Section */}
+            {activeSection === "avatars" && (
+              <section id="avatars" className="space-y-8">
+                <div>
+                  <SystemBadge>AVATARS</SystemBadge>
+                  <H2 className="mt-4">Avatar Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Avatar Sizes</Label>
+                    <div className="flex items-center gap-4">
+                      <Avatar size="xs" name="XS" />
+                      <Avatar size="sm" name="SM" />
+                      <Avatar size="md" name="MD" />
+                      <Avatar size="lg" name="LG" />
+                      <Avatar size="xl" name="XL" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Avatar Variants</Label>
+                    <div className="flex items-center gap-4">
+                      <Avatar name="Circle" variant="circle" />
+                      <Avatar name="Square" variant="square" />
+                      <Avatar name="Bordered" bordered />
+                      <Avatar name="Glow" bordered glow />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Avatar with Status</Label>
+                    <div className="flex items-center gap-4">
+                      <Avatar name="Online" status="online" bordered />
+                      <Avatar name="Offline" status="offline" bordered />
+                      <Avatar name="Away" status="away" bordered />
+                      <Avatar name="Busy" status="busy" bordered />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Avatar Group</Label>
+                    <AvatarGroup max={4} size="md">
+                      <Avatar name="User 1" bordered />
+                      <Avatar name="User 2" bordered />
+                      <Avatar name="User 3" bordered />
+                      <Avatar name="User 4" bordered />
+                      <Avatar name="User 5" bordered />
+                      <Avatar name="User 6" bordered />
+                    </AvatarGroup>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Dividers Section */}
+            {activeSection === "dividers" && (
+              <section id="dividers" className="space-y-8">
+                <div>
+                  <SystemBadge>DIVIDERS</SystemBadge>
+                  <H2 className="mt-4">Divider Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Solid Divider</Label>
+                    <Divider variant="solid" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Dashed Divider</Label>
+                    <Divider variant="dashed" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Dotted Divider</Label>
+                    <Divider variant="dotted" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Gradient Divider</Label>
+                    <Divider variant="gradient" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Divider with Label</Label>
+                    <Divider label="SECTION" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Terminal Divider</Label>
+                    <TerminalDivider text="// END SECTION" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Vertical Divider</Label>
+                    <div className="flex items-center h-16 gap-4">
+                      <span className="text-white">Left</span>
+                      <Divider orientation="vertical" className="h-full" />
+                      <span className="text-white">Right</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Skeletons Section */}
+            {activeSection === "skeletons" && (
+              <section id="skeletons" className="space-y-8">
+                <div>
+                  <SystemBadge>SKELETONS</SystemBadge>
+                  <H2 className="mt-4">Skeleton Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Text Skeleton</Label>
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="80%" />
+                    <Skeleton variant="text" width="60%" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Skeleton Variants</Label>
+                    <div className="flex items-center gap-4">
+                      <Skeleton variant="circular" width={40} height={40} />
+                      <Skeleton variant="rectangular" width={100} height={40} />
+                      <Skeleton variant="avatar" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Skeleton Text Block</Label>
+                    <SkeletonText lines={4} lastLineWidth="40%" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Skeleton Card</Label>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <SkeletonCard showHeader showAvatar />
+                      <SkeletonCard showHeader={false} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Skeleton with Glow</Label>
+                    <Skeleton variant="card" width="100%" height={100} glow />
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Spinners Section */}
+            {activeSection === "spinners" && (
+              <section id="spinners" className="space-y-8">
+                <div>
+                  <SystemBadge>SPINNERS</SystemBadge>
+                  <H2 className="mt-4">Spinner Components</H2>
+                </div>
+
+                <div className="space-y-8 border border-[#00ff0033] p-8">
+                  <div className="space-y-4">
+                    <Label>Spinner Sizes</Label>
+                    <div className="flex items-center gap-6">
+                      <Spinner size="xs" />
+                      <Spinner size="sm" />
+                      <Spinner size="md" />
+                      <Spinner size="lg" />
+                      <Spinner size="xl" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Spinner Variants</Label>
+                    <div className="flex items-center gap-8">
+                      <div className="text-center">
+                        <Spinner variant="default" />
+                        <Small className="text-[#999999] mt-2 block">
+                          Default
+                        </Small>
+                      </div>
+                      <div className="text-center">
+                        <Spinner variant="dots" />
+                        <Small className="text-[#999999] mt-2 block">
+                          Dots
+                        </Small>
+                      </div>
+                      <div className="text-center">
+                        <Spinner variant="pulse" />
+                        <Small className="text-[#999999] mt-2 block">
+                          Pulse
+                        </Small>
+                      </div>
+                      <div className="text-center">
+                        <Spinner variant="terminal" />
+                        <Small className="text-[#999999] mt-2 block">
+                          Terminal
+                        </Small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Spinner with Label</Label>
+                    <div className="flex flex-col gap-4">
+                      <Spinner label="Loading..." />
+                      <Spinner variant="dots" label="Processing..." />
+                      <Spinner
+                        variant="terminal"
+                        label="Initializing system..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Footer Section */}
+            <Footer>
+              <div className="space-y-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <Logo text="FIZIKS" icon={<Terminal className="w-5 h-5" />} />
+                  <div className="flex gap-4">
+                    <Button variant="link" size="sm">
+                      Documentation
+                    </Button>
+                    <Button variant="link" size="sm">
+                      GitHub
+                    </Button>
+                    <Button variant="link" size="sm">
+                      Discord
+                    </Button>
+                  </div>
+                </div>
+                <div className="border-t border-[#00ff0033] pt-6">
+                  <Small className="text-[#666666]">
+                    © 2026 Fiziks Design System. Built with React + Tailwind
+                    CSS.
+                  </Small>
+                </div>
+              </div>
+            </Footer>
+          </div>
+        </main>
+      </div>
+
+      {/* Scroll to top button */}
+      <div className="fixed bottom-8 right-8">
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <ChevronRight className="-rotate-90" size={16} />
+        </Button>
       </div>
     </div>
   );
