@@ -119,7 +119,7 @@ export const SearchEmpty: Story = {
     icon: <SearchIcon />,
     title: "No results for 'physics quantum'",
     description: "Try different keywords or check your spelling.",
-    action: <Button variant="outline">Clear Search</Button>,
+    action: <Button variant="secondary">Clear Search</Button>,
   },
 };
 

@@ -1,7 +1,7 @@
 export type {
-  SkeletonProps,
-  SkeletonVariant,
-  SkeletonTextProps,
   SkeletonCardProps,
+  SkeletonProps,
+  SkeletonTextProps,
+  SkeletonVariant,
 } from "./Skeleton";
-export { Skeleton, SkeletonText, SkeletonCard } from "./Skeleton";
+export { Skeleton, SkeletonCard, SkeletonText } from "./Skeleton";

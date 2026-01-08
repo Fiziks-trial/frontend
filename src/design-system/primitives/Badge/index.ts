@@ -1,7 +1,7 @@
 export type {
   BadgeProps,
   BadgeVariant,
-  StatusBadgeProps,
   CounterBadgeProps,
+  StatusBadgeProps,
 } from "./Badge";
-export { Badge, StatusBadge, SystemBadge, CounterBadge } from "./Badge";
+export { Badge, CounterBadge, StatusBadge, SystemBadge } from "./Badge";

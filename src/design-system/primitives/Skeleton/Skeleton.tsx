@@ -68,12 +68,14 @@ export const SkeletonText = forwardRef<HTMLDivElement, SkeletonTextProps>(
   ({ lines = 3, lastLineWidth = "60%", className, ...props }, ref) => {
     return (
       <div ref={ref} className={clsx("space-y-3", className)} {...props}>
-        {Array.from({ length: lines }).map((_, index) => (
-          /* biome-ignore lint/suspicious/noArrayIndexKey: Static skeleton placeholders don't reorder */
+        {Array.from({ length: lines }, (_, i) => ({
+          id: `skeleton-line-${i}`,
+          isLast: i === lines - 1,
+        })).map((line) => (
           <Skeleton
-            key={index}
+            key={line.id}
             variant="text"
-            width={index === lines - 1 ? lastLineWidth : "100%"}
+            width={line.isLast ? lastLineWidth : "100%"}
           />
         ))}
       </div>

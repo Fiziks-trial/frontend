@@ -1,9 +1,8 @@
 export type {
   CardProps,
   CardVariant,
-  IconCardProps,
   FeatureCardProps,
+  IconCardProps,
   InfoCardProps,
-  StatCardProps,
 } from "./Card";
-export { Card, IconCard, FeatureCard, InfoCard, StatCard } from "./Card";
+export { Card, FeatureCard, IconCard, InfoCard } from "./Card";

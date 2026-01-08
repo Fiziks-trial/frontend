@@ -1,71 +1,71 @@
 "use client";
 
-import { useState } from "react";
 import {
+  ChevronRight,
   Code as CodeIcon,
-  Zap,
-  Users,
   MapPin,
   Terminal,
-  ChevronRight,
+  Users,
+  Zap,
 } from "lucide-react";
+import { useState } from "react";
+import { StatCard } from "@/design-system/patterns/StatCard";
+import { Avatar, AvatarGroup } from "@/design-system/primitives/Avatar";
 import {
+  Badge,
+  CounterBadge,
+  StatusBadge,
+  SystemBadge,
+} from "@/design-system/primitives/Badge";
+import {
+  ArrowButton,
+  Button,
+  IconButton,
+} from "@/design-system/primitives/Button";
+import {
+  Card,
+  FeatureCard,
+  IconCard,
+  InfoCard,
+} from "@/design-system/primitives/Card";
+import { Divider, TerminalDivider } from "@/design-system/primitives/Divider";
+import {
+  Checkbox,
+  Input,
+  Radio,
+  Select,
+  Textarea,
+} from "@/design-system/primitives/Input";
+import {
+  Breadcrumb,
+  Footer,
+  Logo,
+  Navbar,
+  NavLink,
+  Sidebar,
+  SidebarLink,
+} from "@/design-system/primitives/Navigation";
+import {
+  Skeleton,
+  SkeletonCard,
+  SkeletonText,
+} from "@/design-system/primitives/Skeleton";
+import { Spinner } from "@/design-system/primitives/Spinner";
+import {
+  AccentText,
+  Body,
+  Code,
   Display,
   H1,
   H2,
   H3,
   H4,
-  Body,
-  Small,
-  Code,
-  SystemMessage,
   Label,
-  AccentText,
-  PurpleText,
   MutedText,
+  PurpleText,
+  Small,
+  SystemMessage,
 } from "@/design-system/primitives/Typography";
-import {
-  Button,
-  ArrowButton,
-  IconButton,
-} from "@/design-system/primitives/Button";
-import {
-  Card,
-  IconCard,
-  FeatureCard,
-  InfoCard,
-  StatCard,
-} from "@/design-system/primitives/Card";
-import {
-  Badge,
-  StatusBadge,
-  SystemBadge,
-  CounterBadge,
-} from "@/design-system/primitives/Badge";
-import {
-  Input,
-  Textarea,
-  Select,
-  Checkbox,
-  Radio,
-} from "@/design-system/primitives/Input";
-import {
-  Navbar,
-  Logo,
-  NavLink,
-  Sidebar,
-  SidebarLink,
-  Breadcrumb,
-  Footer,
-} from "@/design-system/primitives/Navigation";
-import { Avatar, AvatarGroup } from "@/design-system/primitives/Avatar";
-import { Divider, TerminalDivider } from "@/design-system/primitives/Divider";
-import {
-  Skeleton,
-  SkeletonText,
-  SkeletonCard,
-} from "@/design-system/primitives/Skeleton";
-import { Spinner } from "@/design-system/primitives/Spinner";
 
 type SectionId =
   | "typography"
@@ -130,7 +130,9 @@ export default function DesignSystemPage() {
           <div className="max-w-6xl mx-auto space-y-12">
             {/* Header */}
             <div className="space-y-6">
-              <SystemMessage>{"/// SYSTEM_READY: FIZIKS_DESIGN.exe"}</SystemMessage>
+              <SystemMessage>
+                {"/// SYSTEM_READY: FIZIKS_DESIGN.exe"}
+              </SystemMessage>
               <Display>
                 <AccentText>FIZIKS</AccentText>
                 <br />

@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { type HTMLAttributes, forwardRef } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 
 interface TypographyProps extends HTMLAttributes<HTMLElement> {
   children: React.ReactNode;

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "../Badge";
 import { Button } from "../Button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./Card";
+import { Card } from "./Card";
 
 const meta: Meta<typeof Card> = {
   title: "Primitives/Card",
@@ -10,13 +10,8 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "elevated", "outlined"],
+      options: ["default", "bordered", "glow"],
       description: "The visual style of the card",
-    },
-    padding: {
-      control: "select",
-      options: ["none", "sm", "md", "lg"],
-      description: "The padding inside the card",
     },
   },
 };
@@ -29,71 +24,45 @@ export const Default: Story = {
   args: {
     children: "This is a card with some content.",
     variant: "default",
-    padding: "md",
   },
 };
 
 // Variants
-export const Elevated: Story = {
+export const Bordered: Story = {
   args: {
-    children: "This is an elevated card with a shadow.",
-    variant: "elevated",
+    children: "This is a bordered card with a visible border.",
+    variant: "bordered",
   },
 };
 
-export const Outlined: Story = {
+export const Glow: Story = {
   args: {
-    children: "This is an outlined card with a border.",
-    variant: "outlined",
+    children: "This is a glow card with a neon shadow effect.",
+    variant: "glow",
   },
-};
-
-// With sub-components
-export const WithHeaderAndFooter: Story = {
-  render: () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-      </CardHeader>
-      <CardContent>
-        This is the main content of the card. It can contain any type of content
-        including text, images, or other components.
-      </CardContent>
-      <CardFooter>
-        <div className="flex gap-2">
-          <Button variant="ghost" size="sm">
-            Cancel
-          </Button>
-          <Button size="sm">Save</Button>
-        </div>
-      </CardFooter>
-    </Card>
-  ),
 };
 
 // Quiz Card Example
 export const QuizCard: Story = {
   render: () => (
-    <Card variant="elevated" className="max-w-sm">
-      <CardHeader>
+    <Card variant="bordered" className="max-w-sm">
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <CardTitle>Physics Quiz</CardTitle>
-          <Badge variant="info">10 Questions</Badge>
+          <h3 className="text-xl font-semibold text-white">Physics Quiz</h3>
+          <Badge variant="purple">10 Questions</Badge>
         </div>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-4">
+        <p className="text-[#999999]">
           Test your knowledge of classical mechanics and thermodynamics.
         </p>
-        <div className="flex items-center gap-2 text-sm text-(--color-text-muted)">
-          <span>⏱ 15 minutes</span>
+        <div className="flex items-center gap-2 text-sm text-[#666666]">
+          <span>15 minutes</span>
           <span>•</span>
-          <span>🎯 Medium</span>
+          <span>Medium</span>
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button fullWidth>Start Quiz</Button>
-      </CardFooter>
+        <Button variant="primary" className="w-full">
+          Start Quiz
+        </Button>
+      </div>
     </Card>
   ),
 };
@@ -101,13 +70,11 @@ export const QuizCard: Story = {
 // Stats Card Example
 export const StatsCard: Story = {
   render: () => (
-    <Card className="max-w-xs">
+    <Card variant="glow" className="max-w-xs">
       <div className="text-center">
-        <p className="text-sm text-(--color-text-muted) mb-1">Total Score</p>
-        <p className="text-4xl font-bold text-(--color-primary-400)">2,450</p>
-        <p className="text-sm text-(--color-success-500) mt-2">
-          ↑ 12% from last week
-        </p>
+        <p className="text-sm text-[#999999] mb-1">Total Score</p>
+        <p className="text-4xl font-bold text-[#00ff00]">2,450</p>
+        <p className="text-sm text-[#00ff00] mt-2">+12% from last week</p>
       </div>
     </Card>
   ),
@@ -118,16 +85,16 @@ export const AllVariants: Story = {
   render: () => (
     <div className="grid grid-cols-3 gap-4">
       <Card variant="default">
-        <CardTitle>Default</CardTitle>
-        <CardContent>Default card variant</CardContent>
+        <h4 className="text-white mb-2">Default</h4>
+        <p className="text-[#999999]">Default card variant</p>
       </Card>
-      <Card variant="elevated">
-        <CardTitle>Elevated</CardTitle>
-        <CardContent>Elevated with shadow</CardContent>
+      <Card variant="bordered">
+        <h4 className="text-white mb-2">Bordered</h4>
+        <p className="text-[#999999]">Bordered with visible border</p>
       </Card>
-      <Card variant="outlined">
-        <CardTitle>Outlined</CardTitle>
-        <CardContent>Outlined with border</CardContent>
+      <Card variant="glow">
+        <h4 className="text-white mb-2">Glow</h4>
+        <p className="text-[#999999]">Glow with neon shadow</p>
       </Card>
     </div>
   ),

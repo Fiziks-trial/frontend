@@ -1,8 +1,8 @@
-import { Avatar } from "@/design-system/primitives/Avatar/Avatar";
-import { Text } from "@/design-system/primitives/Text/Text";
-import { Stack } from "@/design-system/layouts/Stack/Stack";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Stack } from "@/design-system/layouts/Stack/Stack";
+import { Avatar } from "@/design-system/primitives/Avatar/Avatar";
+import { Text } from "@/design-system/primitives/Text/Text";
 
 const NAV_ITEMS = [
   { label: "Overview", href: "/dashboard", icon: "📊" },

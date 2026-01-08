@@ -1,6 +1,6 @@
 export {
   Fizzy,
   type FizzyProps,
-  type FizzyState,
   type FizzySize,
+  type FizzyState,
 } from "./Fizzy";

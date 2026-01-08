@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Geist_Mono, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 

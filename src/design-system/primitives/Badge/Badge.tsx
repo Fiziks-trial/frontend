@@ -98,7 +98,8 @@ export const SystemBadge = forwardRef<
       )}
       {...props}
     >
-      {"/// "}{children}
+      {"/// "}
+      {children}
     </span>
   );
 });
