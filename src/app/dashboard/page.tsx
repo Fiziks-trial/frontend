@@ -1,38 +1,57 @@
 "use client";
 
+import {
+  Activity,
+  Award,
+  Crosshair,
+  Flame,
+  Swords,
+  Target,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
+
 import { RecentGames } from "@/components/dashboard/RecentGames";
 import { Sidebar } from "@/components/layout/Sidebar";
-import { Grid } from "@/design-system/layouts/Grid/Grid";
-import { Stack } from "@/design-system/layouts/Stack/Stack";
 import { Badge } from "@/design-system/primitives/Badge/Badge";
-import { Button } from "@/design-system/primitives/Button/Button";
-import { Card } from "@/design-system/primitives/Card/Card";
+import {
+  ArrowButton,
+  Button,
+  IconButton as ButtonWithIcon,
+} from "@/design-system/primitives/Button/Button";
+import { Card, FeatureCard } from "@/design-system/primitives/Card/Card";
+import { TerminalDivider } from "@/design-system/primitives/Divider/Divider";
 import { Text } from "@/design-system/primitives/Text/Text";
+import { StatCard } from "@/design-system/patterns/StatCard/StatCard";
 
 interface Subject {
   id: number;
   name: string;
   elo: number;
   trend: string;
-  status: string;
+  status: "beginner" | "intermediate" | "expert" | "master" | "grandmaster";
+  icon: React.ReactNode;
+  progress: number;
 }
 
-// Mock Data
 const USER_STATS = {
   name: "Dr. Physics",
   totalBattles: 142,
   winRate: "68%",
   globalRank: "#42",
   totalElo: 2150,
+  currentStreak: 7,
 };
 
-const SUBJECT_STATS = [
+const SUBJECT_STATS: Subject[] = [
   {
     id: 1,
     name: "Classical Mechanics",
     elo: 1850,
     trend: "+12",
     status: "expert",
+    icon: <Target className="w-5 h-5" />,
+    progress: 62,
   },
   {
     id: 2,
@@ -40,6 +59,8 @@ const SUBJECT_STATS = [
     elo: 1620,
     trend: "-5",
     status: "intermediate",
+    icon: <Flame className="w-5 h-5" />,
+    progress: 54,
   },
   {
     id: 3,
@@ -47,27 +68,47 @@ const SUBJECT_STATS = [
     elo: 1940,
     trend: "+24",
     status: "master",
+    icon: <Zap className="w-5 h-5" />,
+    progress: 65,
   },
-  { id: 4, name: "Optics", elo: 1450, trend: "+8", status: "intermediate" },
-  { id: 5, name: "Modern Physics", elo: 2010, trend: "+15", status: "master" },
+  {
+    id: 4,
+    name: "Optics",
+    elo: 1450,
+    trend: "+8",
+    status: "intermediate",
+    icon: <Crosshair className="w-5 h-5" />,
+    progress: 48,
+  },
+  {
+    id: 5,
+    name: "Modern Physics",
+    elo: 2010,
+    trend: "+15",
+    status: "master",
+    icon: <Activity className="w-5 h-5" />,
+    progress: 67,
+  },
   {
     id: 6,
     name: "Quantum Mechanics",
     elo: 2200,
     trend: "+30",
     status: "grandmaster",
+    icon: <Award className="w-5 h-5" />,
+    progress: 73,
   },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-(--color-bg-primary) text-[var(--color-text-primary)]">
-      {/* Background Grid */}
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
       <div
-        className="fixed inset-0 z-0 pointer-events-none opacity-20"
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
         style={{
           backgroundImage:
-            "radial-gradient(circle at center, #333 1px, transparent 1px)",
+            "linear-gradient(#00ff0010 1px, transparent 1px), linear-gradient(90deg, #00ff0010 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -75,180 +116,236 @@ export default function DashboardPage() {
       <Sidebar />
 
       <main className="relative z-10 pl-64 min-h-screen">
-        <div className="max-w-7xl mx-auto px-8 py-8">
-          <Stack spacing="xl">
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              <div>
-                <Text
-                  variant="h2"
-                  className="text-3xl font-bold tracking-tight mb-1"
-                >
-                  Dashboard
-                </Text>
-                <Text
-                  variant="bodySmall"
-                  className="text-[var(--color-text-secondary)]"
-                >
-                  Welcome back, {USER_STATS.name}. Here is your physics
-                  performance.
-                </Text>
-              </div>
-              <div className="flex gap-3">
-                <Button variant="secondary" size="sm">
-                  Export Data
-                </Button>
-                <Button variant="primary" size="sm">
-                  Start Battle
-                </Button>
-              </div>
+        <div className="p-6">
+          {/* Header Section - Full Width */}
+          <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+            <div>
+              <Text variant="status" color="neon" className="mb-1">
+                {"/// COMMAND_CENTER"}
+              </Text>
+              <Text variant="h2" color="primary" className="mb-1">
+                Dashboard
+              </Text>
+              <Text variant="bodySmall" color="muted">
+                Welcome back, {USER_STATS.name}
+              </Text>
             </div>
+            <div className="flex gap-2">
+              <Button variant="ghost" size="sm">
+                Export
+              </Button>
+              <ArrowButton variant="primary" size="sm">
+                Battle
+              </ArrowButton>
+            </div>
+          </header>
 
-            {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-              {/* Left Column: Stats & Subjects */}
-              <div className="lg:col-span-3 space-y-8">
-                {/* Overview Stats */}
-                <Grid cols={4} gap="md">
-                  <StatsOverviewCard
+          {/* Main Content with Recent Battles starting at Performance level */}
+          <div className="flex gap-6">
+            {/* Left Column */}
+            <div className="flex-1 min-w-0 space-y-6">
+              {/* Stats Overview */}
+              <section>
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-4 h-4 text-[#00ff00]" />
+                  <Text variant="caption" color="muted" uppercase font="mono">
+                    Performance
+                  </Text>
+                </div>
+                <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+                  <StatCard
                     label="Total ELO"
-                    value={USER_STATS.totalElo}
-                    trend="+45 this week"
+                    value={USER_STATS.totalElo.toLocaleString()}
+                    change={{ value: "+45", type: "increase" }}
+                    icon={<TrendingUp className="w-4 h-4" />}
                   />
-                  <StatsOverviewCard
+                  <StatCard
                     label="Win Rate"
                     value={USER_STATS.winRate}
-                    trend="+2% this week"
+                    change={{ value: "+2%", type: "increase" }}
+                    icon={<Target className="w-4 h-4" />}
                   />
-                  <StatsOverviewCard
+                  <StatCard
                     label="Battles"
                     value={USER_STATS.totalBattles}
-                    trend="12 played today"
+                    change={{ value: "12 today", type: "neutral" }}
+                    icon={<Swords className="w-4 h-4" />}
                   />
-                  <StatsOverviewCard
-                    label="Global Rank"
+                  <StatCard
+                    label="Rank"
                     value={USER_STATS.globalRank}
-                    trend="Top 5%"
+                    change={{ value: "Top 5%", type: "increase" }}
+                    icon={<Award className="w-4 h-4" />}
                   />
-                </Grid>
+                </div>
+              </section>
 
-                {/* Subject Performance Section */}
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <Text variant="h4" className="text-lg font-semibold">
+              {/* Subject Mastery */}
+              <section>
+                <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-[#9945ff]" />
+                    <Text variant="caption" color="muted" uppercase font="mono">
                       Subject Mastery
                     </Text>
-                    <Button variant="ghost" size="sm">
-                      View All
-                    </Button>
                   </div>
-
-                  <Grid cols={3} gap="md">
-                    {SUBJECT_STATS.map((subject) => (
-                      <SubjectCard key={subject.id} subject={subject} />
-                    ))}
-                  </Grid>
+                  <Button variant="link" size="sm">
+                    View All
+                  </Button>
                 </div>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                  {SUBJECT_STATS.map((subject) => (
+                    <SubjectCard key={subject.id} subject={subject} />
+                  ))}
+                </div>
+              </section>
 
-              {/* Right Column: Recent Games */}
-              <div className="lg:col-span-1">
-                <RecentGames />
-              </div>
+              {/* Quick Actions */}
+              <section>
+                <TerminalDivider text="// ACTIONS" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                  <FeatureCard
+                    title="Practice"
+                    description="AI-powered practice sessions tailored to your weak points."
+                  >
+                    <ButtonWithIcon
+                      variant="secondary"
+                      size="sm"
+                      icon={<Target className="w-4 h-4" />}
+                      className="mt-3"
+                    >
+                      Start
+                    </ButtonWithIcon>
+                  </FeatureCard>
+                  <FeatureCard
+                    title="Arena"
+                    description="Face other physicists in ranked competitive matches."
+                  >
+                    <ButtonWithIcon
+                      variant="primary"
+                      size="sm"
+                      icon={<Swords className="w-4 h-4" />}
+                      className="mt-3"
+                    >
+                      Match
+                    </ButtonWithIcon>
+                  </FeatureCard>
+                  <FeatureCard
+                    title="Quests"
+                    description="Complete daily challenges for bonus XP and rewards."
+                  >
+                    <div className="mt-3 flex items-center gap-2">
+                      <Badge variant="warning">3 Left</Badge>
+                      <Button variant="link" size="sm">
+                        View
+                      </Button>
+                    </div>
+                  </FeatureCard>
+                </div>
+              </section>
             </div>
-          </Stack>
+
+            {/* Right Column: Recent Battles - starts at Performance level */}
+            <div className="hidden lg:block w-72 xl:w-80 shrink-0 self-start">
+              <RecentGames />
+            </div>
+          </div>
+
+          {/* Mobile: Recent Games below */}
+          <div className="lg:hidden mt-6">
+            <RecentGames />
+          </div>
         </div>
       </main>
     </div>
   );
 }
 
-// Sub-components for this page
-function StatsOverviewCard({
-  label,
-  value,
-  trend,
-}: {
-  label: string;
-  value: string | number;
-  trend: string;
-}) {
-  return (
-    <Card
-      variant="default"
-      className="p-5 border-(--glass-border) bg-(--color-bg-secondary)"
-    >
-      <Stack spacing="sm">
-        <Text
-          variant="caption"
-          className="uppercase tracking-wider text-(--color-text-muted) font-medium"
-        >
-          {label}
-        </Text>
-        <Text variant="h3" className="text-2xl font-bold text-white">
-          {value}
-        </Text>
-        <Text
-          variant="caption"
-          className="text-(--color-success-400) flex items-center gap-1"
-        >
-          <span className="text-[10px]">▲</span> {trend}
-        </Text>
-      </Stack>
-    </Card>
-  );
-}
-
 function SubjectCard({ subject }: { subject: Subject }) {
   const isPositive = subject.trend.startsWith("+");
+
+  const statusColors: Record<Subject["status"], string> = {
+    beginner: "default",
+    intermediate: "warning",
+    expert: "success",
+    master: "purple",
+    grandmaster: "purple",
+  };
 
   return (
     <Card
       variant="bordered"
-      className="group hover:border-[var(--color-primary-500)] transition-colors duration-300"
+      className="group hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] transition-all duration-300 p-0"
     >
-      <div className="p-5">
+      <div className="p-4">
+        {/* Header */}
         <div className="flex justify-between items-start mb-3">
+          <div className="w-9 h-9 bg-[#00ff0015] border border-[#00ff0033] flex items-center justify-center text-[#00ff00] group-hover:border-[#00ff00] group-hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all">
+            {subject.icon}
+          </div>
           <Badge
-            variant={subject.status === "grandmaster" ? "purple" : "default"}
+            variant={
+              statusColors[subject.status] as
+                | "default"
+                | "success"
+                | "warning"
+                | "error"
+                | "purple"
+            }
           >
             {subject.status}
           </Badge>
-          <span
-            className={`text-xs font-mono ${isPositive ? "text-(--color-success-400)" : "text-(--color-error-400)"}`}
-          >
-            {subject.trend}
-          </span>
         </div>
 
+        {/* Title */}
         <Text
-          variant="body"
-          className="font-medium mb-1 group-hover:text-[var(--color-primary-400)] transition-colors"
+          variant="bodySmall"
+          color="primary"
+          weight="medium"
+          className="mb-1 group-hover:text-[#00ff00] transition-colors"
         >
           {subject.name}
         </Text>
 
-        <div className="flex items-end gap-2 mt-3">
-          <Text
-            variant="h3"
-            className="leading-none text-[var(--color-text-primary)]"
-          >
-            {subject.elo}
+        {/* ELO Score */}
+        <div className="flex items-baseline gap-2 mb-3">
+          <Text variant="h4" color="neon" font="mono">
+            {subject.elo.toLocaleString()}
+          </Text>
+          <Text variant="caption" color="muted">
+            ELO
           </Text>
           <Text
             variant="caption"
-            className="mb-0.5 text-[var(--color-text-muted)]"
+            color={isPositive ? "success" : "error"}
+            font="mono"
+            className="ml-auto"
           >
-            ELO
+            {subject.trend}
           </Text>
         </div>
 
-        {/* Simple Progress Bar */}
-        <div className="w-full h-1 bg-[var(--color-bg-active)] rounded-full mt-3 overflow-hidden">
-          <div
-            className="h-full bg-[var(--color-primary-500)]"
-            style={{ width: `${(subject.elo / 3000) * 100}%` }}
-          />
+        {/* Progress Bar */}
+        <div className="space-y-1">
+          <div className="flex justify-between">
+            <Text variant="caption" color="muted" className="text-[10px]">
+              Next Rank
+            </Text>
+            <Text
+              variant="caption"
+              color="neon"
+              font="mono"
+              className="text-[10px]"
+            >
+              {subject.progress}%
+            </Text>
+          </div>
+          <div className="w-full h-1 bg-[#1a1a1a] overflow-hidden">
+            <div
+              className="h-full bg-linear-to-r from-[#00ff00] to-[#9945ff] transition-all duration-500"
+              style={{ width: `${subject.progress}%` }}
+            />
+          </div>
         </div>
       </div>
     </Card>

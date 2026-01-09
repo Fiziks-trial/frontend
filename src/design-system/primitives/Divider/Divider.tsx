@@ -100,9 +100,9 @@ export const TerminalDivider = forwardRef<HTMLDivElement, TerminalDividerProps>(
         className={clsx("flex items-center gap-2 py-4", className)}
         {...props}
       >
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#00ff0033]" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent to-[#00ff0033]" />
         <span className="text-xs font-mono text-[#00ff00]">{text}</span>
-        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#00ff0033]" />
+        <div className="h-px flex-1 bg-linear-to-l from-transparent to-[#00ff0033]" />
       </div>
     );
   },
