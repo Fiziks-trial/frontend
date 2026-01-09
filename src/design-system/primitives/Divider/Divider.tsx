@@ -27,29 +27,29 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
     const lineStyles = clsx(
       "flex-1",
       isHorizontal ? "h-px" : "w-px",
-      variant === "solid" && "bg-[#00ff0033]",
+      variant === "solid" && "bg-[rgba(255,255,255,0.1)]",
       variant === "dashed" && "bg-transparent border-0",
       variant === "dotted" && "bg-transparent border-0",
       variant === "gradient" &&
         (isHorizontal
-          ? "bg-gradient-to-r from-transparent via-[#00ff00] to-transparent"
-          : "bg-gradient-to-b from-transparent via-[#00ff00] to-transparent"),
-      glow && "shadow-[0_0_10px_rgba(0,255,0,0.3)]",
+          ? "bg-gradient-to-r from-transparent via-[#22c55e] to-transparent"
+          : "bg-gradient-to-b from-transparent via-[#22c55e] to-transparent"),
+      glow && "shadow-[0_0_10px_rgba(34,197,94,0.3)]",
     );
 
     // For dashed/dotted, use border instead
     const dashedStyles =
       variant === "dashed"
         ? isHorizontal
-          ? "border-t border-dashed border-[#00ff0033]"
-          : "border-l border-dashed border-[#00ff0033]"
+          ? "border-t border-dashed border-[rgba(255,255,255,0.1)]"
+          : "border-l border-dashed border-[rgba(255,255,255,0.1)]"
         : "";
 
     const dottedStyles =
       variant === "dotted"
         ? isHorizontal
-          ? "border-t border-dotted border-[#00ff0033]"
-          : "border-l border-dotted border-[#00ff0033]"
+          ? "border-t border-dotted border-[rgba(255,255,255,0.1)]"
+          : "border-l border-dotted border-[rgba(255,255,255,0.1)]"
         : "";
 
     if (label && isHorizontal) {
@@ -60,7 +60,7 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
           {...props}
         >
           <div className={clsx(lineStyles, dashedStyles, dottedStyles)} />
-          <span className="text-xs font-mono text-[#00ff00] uppercase tracking-wider whitespace-nowrap">
+          <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider whitespace-nowrap">
             {label}
           </span>
           <div className={clsx(lineStyles, dashedStyles, dottedStyles)} />
@@ -100,9 +100,11 @@ export const TerminalDivider = forwardRef<HTMLDivElement, TerminalDividerProps>(
         className={clsx("flex items-center gap-2 py-4", className)}
         {...props}
       >
-        <div className="h-px flex-1 bg-linear-to-r from-transparent to-[#00ff0033]" />
-        <span className="text-xs font-mono text-[#00ff00]">{text}</span>
-        <div className="h-px flex-1 bg-linear-to-l from-transparent to-[#00ff0033]" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent to-[rgba(255,255,255,0.15)]" />
+        <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
+          {text}
+        </span>
+        <div className="h-px flex-1 bg-linear-to-l from-transparent to-[rgba(255,255,255,0.15)]" />
       </div>
     );
   },

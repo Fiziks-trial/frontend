@@ -8,41 +8,41 @@
        COLORS - Hacker House Color System
        ======================================== */
 
-    /* Primary - Hacker Green (pure terminal green) */
-    --color-primary: #00ff00;
+    /* Primary - Desaturated green (professional, easier on eyes) */
+    --color-primary: #22c55e;
     --color-primary-foreground: #000000;
-    --color-primary-dim: #00cc00;
-    --color-primary-muted: #00ff0033;
+    --color-primary-dim: #16a34a;
+    --color-primary-muted: #22c55e33;
 
-    /* Neon variant for glows and accents */
-    --color-neon: #00ff00;
-    --color-neon-dim: #00cc00;
-    --color-neon-glow: rgba(0, 255, 0, 0.5);
-    --color-neon-subtle: rgba(0, 255, 0, 0.1);
+    /* Neon variant - reserved for key CTAs only */
+    --color-neon: #4ade80;
+    --color-neon-dim: #22c55e;
+    --color-neon-glow: rgba(34, 197, 94, 0.4);
+    --color-neon-subtle: rgba(34, 197, 94, 0.1);
 
     /* Purple accent (secondary highlight) */
-    --color-purple: #9945ff;
-    --color-purple-dim: #7a35cc;
-    --color-purple-muted: #9945ff20;
+    --color-purple: #a855f7;
+    --color-purple-dim: #9333ea;
+    --color-purple-muted: #a855f720;
 
     /* Secondary - Dark surfaces */
     --color-secondary: #1a1a1a;
     --color-secondary-foreground: #ffffff;
 
-    /* Semantic Colors */
-    --color-success: #00ff00;
-    --color-success-muted: #00ff0020;
-    --color-warning: #ffaa00;
-    --color-warning-muted: #ffaa0020;
-    --color-error: #ff0000;
-    --color-error-muted: #ff000020;
-    --color-info: #00aaff;
-    --color-info-muted: #00aaff20;
+    /* Semantic Colors - distinct from primary */
+    --color-success: #22c55e;
+    --color-success-muted: #22c55e20;
+    --color-warning: #d4a574;
+    --color-warning-muted: #d4a57420;
+    --color-error: #ef4444;
+    --color-error-muted: #ef444420;
+    --color-info: #3b82f6;
+    --color-info-muted: #3b82f620;
 
     /* Legacy support */
-    --color-success-400: #00ff00;
-    --color-warning-400: #ffaa00;
-    --color-error-400: #ff0000;
+    --color-success-400: #22c55e;
+    --color-warning-400: #d4a574;
+    --color-error-400: #ef4444;
 
     /* ========================================
        DARK BACKGROUNDS - Hacker House Style
@@ -67,16 +67,16 @@
     --glass-bg-lighter: #1a1a1a;
     --glass-bg-subtle: #1a1a1a;
 
-    /* Borders - green tinted */
-    --border: rgba(0, 255, 0, 0.2);
-    --glass-border: rgba(0, 255, 0, 0.2);
-    --glass-border-light: rgba(0, 255, 0, 0.33);
-    --glass-border-hover: #00ff00;
-    --glass-border-focus: #00ff00;
-    --color-border-default: rgba(0, 255, 0, 0.2);
-    --color-border-muted: rgba(0, 255, 0, 0.1);
-    --color-border-hover: #00ff00;
-    --color-border-focus: #00ff00;
+    /* Borders - neutral gray (clean, professional) */
+    --border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-light: rgba(255, 255, 255, 0.15);
+    --glass-border-hover: rgba(255, 255, 255, 0.25);
+    --glass-border-focus: #22c55e;
+    --color-border-default: rgba(255, 255, 255, 0.1);
+    --color-border-muted: rgba(255, 255, 255, 0.06);
+    --color-border-hover: rgba(255, 255, 255, 0.2);
+    --color-border-focus: #22c55e;
 
     /* Text Colors */
     --color-text-primary: #ffffff;
@@ -100,29 +100,27 @@
     --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
     --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 
-    /* Neon glows - primary (green) */
-    --glow-sm: 0 0 10px rgba(0, 255, 0, 0.3);
-    --glow-md: 0 0 20px rgba(0, 255, 0, 0.5);
-    --glow-lg: 0 0 30px rgba(0, 255, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.3);
-    --glow-primary: 0 0 20px rgba(0, 255, 0, 0.5);
-    --glow-primary-intense:
-      0 0 30px rgba(0, 255, 0, 0.6), 0 0 60px rgba(0, 255, 0, 0.3);
-    --glow-subtle: 0 0 10px rgba(0, 255, 0, 0.2);
-    --glow-neon: 0 0 20px rgba(0, 255, 0, 0.5), 0 0 40px rgba(0, 255, 0, 0.3);
+    /* Subtle glows - used sparingly for key CTAs only */
+    --glow-sm: 0 0 8px rgba(34, 197, 94, 0.2);
+    --glow-md: 0 0 12px rgba(34, 197, 94, 0.25);
+    --glow-lg: 0 0 20px rgba(34, 197, 94, 0.3);
+    --glow-primary: 0 0 12px rgba(34, 197, 94, 0.3);
+    --glow-primary-intense: 0 0 20px rgba(34, 197, 94, 0.4);
+    --glow-subtle: 0 0 6px rgba(34, 197, 94, 0.15);
+    --glow-neon: 0 0 16px rgba(34, 197, 94, 0.35);
 
     /* Purple glow */
-    --glow-purple: 0 0 20px rgba(153, 69, 255, 0.5);
-    --glow-purple-intense:
-      0 0 30px rgba(153, 69, 255, 0.6), 0 0 60px rgba(153, 69, 255, 0.3);
+    --glow-purple: 0 0 12px rgba(168, 85, 247, 0.3);
+    --glow-purple-intense: 0 0 20px rgba(168, 85, 247, 0.4);
 
-    /* Semantic glows */
-    --glow-success: 0 0 20px rgba(0, 255, 0, 0.5);
-    --glow-error: 0 0 20px rgba(255, 0, 0, 0.5);
-    --glow-warning: 0 0 20px rgba(255, 170, 0, 0.5);
+    /* Semantic glows - subtle */
+    --glow-success: 0 0 10px rgba(34, 197, 94, 0.25);
+    --glow-error: 0 0 10px rgba(239, 68, 68, 0.25);
+    --glow-warning: 0 0 10px rgba(245, 158, 11, 0.25);
 
-    /* Glass shadow (card hover) */
-    --shadow-glass: 0 0 0 1px rgba(0, 255, 0, 0.1);
-    --shadow-glass-lg: 0 0 20px rgba(0, 255, 0, 0.2);
+    /* Glass shadow (card hover) - neutral */
+    --shadow-glass: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-glass-lg: 0 4px 12px rgba(0, 0, 0, 0.4);
 
     /* ========================================
        TYPOGRAPHY - Hacker House Style
@@ -132,9 +130,9 @@
     --font-family-display:
       var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
 
-    /* Sans font - Geist Mono for body (terminal aesthetic) */
+    /* Sans font - Space Grotesk for body (readable, modern) */
     --font-family-sans:
-      var(--font-geist-mono), "Geist Mono", "JetBrains Mono", monospace;
+      var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
 
     /* Mono font - JetBrains Mono for code */
     --font-family-mono:

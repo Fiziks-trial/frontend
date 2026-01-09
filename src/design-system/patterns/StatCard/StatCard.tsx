@@ -30,16 +30,16 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-xs lg:text-sm text-(--color-text-muted) mb-0.5 lg:mb-1 truncate">
+            <p className="text-[10px] lg:text-xs text-(--color-text-muted) mb-0.5 lg:mb-1 truncate">
               {label}
             </p>
-            <p className="text-xl lg:text-3xl font-bold text-(--color-text-primary)">
+            <p className="text-lg lg:text-2xl font-bold text-(--color-text-primary)">
               {value}
             </p>
             {change && (
               <p
                 className={clsx(
-                  "text-xs lg:text-sm mt-1 lg:mt-2 font-medium",
+                  "text-[10px] lg:text-xs mt-1 lg:mt-2 font-medium",
                   change.type === "increase" && "text-(--color-success-400)",
                   change.type === "decrease" && "text-(--color-error-400)",
                   change.type === "neutral" && "text-(--color-text-muted)",

@@ -155,7 +155,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Text Components</H2>
                 </div>
 
-                <div className="space-y-6 border border-[#00ff0033] p-8">
+                <div className="space-y-6 border border-[#22c55e33] p-8">
                   <div className="space-y-3">
                     <Label>Display Text</Label>
                     <Display className="text-white">
@@ -204,7 +204,7 @@ export default function DesignSystemPage() {
 
                   <div className="space-y-3">
                     <Label>Code/Terminal Text</Label>
-                    <Code className="text-[#00ff00]">
+                    <Code className="text-[#22c55e]">
                       $ npm install @fiziks/design-system
                     </Code>
                   </div>
@@ -236,7 +236,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Button Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Button Variants</Label>
                     <div className="flex flex-wrap gap-4">
@@ -421,7 +421,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Badge Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Badge Variants</Label>
                     <div className="flex flex-wrap gap-4">
@@ -476,7 +476,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Input Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Text Input</Label>
                     <div className="max-w-md">
@@ -577,7 +577,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Navigation Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Navbar (See top of page)</Label>
                     <Small className="text-[#999999]">
@@ -625,7 +625,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Avatar Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Avatar Sizes</Label>
                     <div className="flex items-center gap-4">
@@ -680,7 +680,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Divider Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Solid Divider</Label>
                     <Divider variant="solid" />
@@ -731,7 +731,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Skeleton Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Text Skeleton</Label>
                     <Skeleton variant="text" width="100%" />
@@ -777,7 +777,7 @@ export default function DesignSystemPage() {
                   <H2 className="mt-4">Spinner Components</H2>
                 </div>
 
-                <div className="space-y-8 border border-[#00ff0033] p-8">
+                <div className="space-y-8 border border-[#22c55e33] p-8">
                   <div className="space-y-4">
                     <Label>Spinner Sizes</Label>
                     <div className="flex items-center gap-6">
@@ -851,7 +851,7 @@ export default function DesignSystemPage() {
                     </Button>
                   </div>
                 </div>
-                <div className="border-t border-[#00ff0033] pt-6">
+                <div className="border-t border-[#22c55e33] pt-6">
                   <Small className="text-[#666666]">
                     © 2026 Fiziks Design System. Built with React + Tailwind
                     CSS.

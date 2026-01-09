@@ -143,7 +143,7 @@ export const SystemMessage = forwardRef<HTMLDivElement, TypographyProps>(
     <div
       ref={ref}
       className={clsx(
-        "text-[#00ff00] text-sm font-mono border border-[#00ff0033] px-3 py-1 inline-block",
+        "text-[#22c55e] text-sm font-mono border border-[#22c55e33] px-3 py-1 inline-block",
         className,
       )}
       {...props}
@@ -176,7 +176,7 @@ Label.displayName = "Label";
  */
 export const AccentText = forwardRef<HTMLSpanElement, TypographyProps>(
   ({ children, className, ...props }, ref) => (
-    <span ref={ref} className={clsx("text-[#00ff00]", className)} {...props}>
+    <span ref={ref} className={clsx("text-[#22c55e]", className)} {...props}>
       {children}
     </span>
   ),
@@ -188,7 +188,7 @@ AccentText.displayName = "AccentText";
  */
 export const PurpleText = forwardRef<HTMLSpanElement, TypographyProps>(
   ({ children, className, ...props }, ref) => (
-    <span ref={ref} className={clsx("text-[#9945ff]", className)} {...props}>
+    <span ref={ref} className={clsx("text-[#a855f7]", className)} {...props}>
       {children}
     </span>
   ),

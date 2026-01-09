@@ -9,9 +9,11 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-[#0a0a0a] border border-[#00ff0033]",
-  bordered: "bg-transparent border border-[#00ff00]",
-  glow: "bg-[#0a0a0a] border border-[#00ff00] shadow-[0_0_20px_rgba(0,255,0,0.3)]",
+  default:
+    "bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] hover:border-[#22c55e40]",
+  bordered:
+    "bg-transparent border border-[rgba(255,255,255,0.15)] hover:border-[#22c55e50]",
+  glow: "bg-[#0a0a0a] border border-[rgba(255,255,255,0.15)] hover:border-[#22c55e60]",
 };
 
 /**
@@ -49,17 +51,17 @@ export const IconCard = forwardRef<HTMLDivElement, IconCardProps>(
         ref={ref}
         variant="bordered"
         className={clsx(
-          "group hover:shadow-[0_0_20px_rgba(0,255,0,0.3)] transition-all duration-300",
+          "group hover:border-[#22c55e50] transition-all duration-300",
           className,
         )}
         {...props}
       >
-        <div className="flex flex-col items-center text-center space-y-4">
-          <div className="text-[#00ff00] text-4xl">{icon}</div>
-          <h3 className="text-xl uppercase tracking-wide text-white">
+        <div className="flex flex-col items-center text-center space-y-3">
+          <div className="text-[#22c55e] text-2xl">{icon}</div>
+          <h3 className="text-base uppercase tracking-wide text-white">
             {title}
           </h3>
-          <p className="text-sm text-[#999999]">{description}</p>
+          <p className="text-xs text-[#999999]">{description}</p>
         </div>
       </Card>
     );
@@ -83,22 +85,22 @@ export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
       <div
         ref={ref}
         className={clsx(
-          "relative bg-[#0a0a0a] border border-[#00ff0033] p-8 group hover:border-[#00ff00] transition-all duration-300",
+          "relative bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] p-4 lg:p-6 group hover:border-[#22c55e40] transition-all duration-300",
           className,
         )}
         {...props}
       >
         {/* Corner decorations */}
-        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00ff00]" />
-        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00ff00]" />
-        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00ff00]" />
-        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00ff00]" />
+        <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#22c55e66]" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#22c55e66]" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[#22c55e66]" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#22c55e66]" />
 
-        <div className="space-y-4">
-          <h3 className="text-2xl uppercase tracking-wide text-[#00ff00]">
+        <div className="space-y-3">
+          <h3 className="text-base uppercase tracking-wide text-white">
             {title}
           </h3>
-          <p className="text-sm text-[#999999] leading-relaxed">
+          <p className="text-xs text-[#999999] leading-relaxed">
             {description}
           </p>
           {children}
@@ -125,17 +127,17 @@ export const InfoCard = forwardRef<HTMLDivElement, InfoCardProps>(
         ref={ref}
         variant="bordered"
         className={clsx(
-          "hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] transition-all duration-300",
+          "hover:border-[#22c55e50] transition-all duration-300",
           className,
         )}
         {...props}
       >
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div>
-            <h3 className="text-xl uppercase tracking-wide text-[#00ff00] mb-3">
+            <h3 className="text-base uppercase tracking-wide text-white mb-2">
               {title}
             </h3>
-            <p className="text-sm text-[#cccccc] leading-relaxed">
+            <p className="text-xs text-[#cccccc] leading-relaxed">
               {description}
             </p>
           </div>
@@ -145,7 +147,7 @@ export const InfoCard = forwardRef<HTMLDivElement, InfoCardProps>(
                 key={item}
                 className="text-sm text-[#999999] flex items-start"
               >
-                <span className="text-[#00ff00] mr-2">•</span>
+                <span className="text-[#22c55e] mr-2">•</span>
                 {item}
               </li>
             ))}
@@ -172,12 +174,12 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
       <Card ref={ref} variant="glow" className={className} {...props}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-[#999999] mb-2">
+            <p className="text-[10px] uppercase tracking-wider text-[#999999] mb-1">
               {label}
             </p>
-            <p className="text-3xl font-mono text-[#00ff00]">{value}</p>
+            <p className="text-xl font-mono text-white">{value}</p>
           </div>
-          {icon && <div className="text-4xl text-[#00ff0066]">{icon}</div>}
+          {icon && <div className="text-2xl text-[#999999]">{icon}</div>}
         </div>
       </Card>
     );

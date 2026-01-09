@@ -39,14 +39,14 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
             <span
               key={i}
               className={clsx(
-                "bg-[#00ff00] rounded-full animate-bounce",
+                "bg-[#22c55e] rounded-full animate-bounce",
                 dotSizeStyles[size],
               )}
               style={{ animationDelay: `${i * 0.15}s` }}
             />
           ))}
           {label && (
-            <span className="ml-2 text-sm font-mono text-[#00ff00]">
+            <span className="ml-2 text-sm font-mono text-[#22c55e]">
               {label}
             </span>
           )}
@@ -63,12 +63,12 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
         >
           <span
             className={clsx(
-              "bg-[#00ff00] rounded-full animate-pulse",
+              "bg-[#22c55e] rounded-full animate-pulse",
               sizeStyles[size],
             )}
           />
           {label && (
-            <span className="text-sm font-mono text-[#00ff00]">{label}</span>
+            <span className="text-sm font-mono text-[#22c55e]">{label}</span>
           )}
         </div>
       );
@@ -79,7 +79,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
         <div
           ref={ref}
           className={clsx(
-            "inline-flex items-center gap-2 font-mono text-[#00ff00]",
+            "inline-flex items-center gap-2 font-mono text-[#22c55e]",
             className,
           )}
           {...props}
@@ -98,7 +98,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
         {...props}
       >
         <svg
-          className={clsx("animate-spin text-[#00ff00]", sizeStyles[size])}
+          className={clsx("animate-spin text-[#22c55e]", sizeStyles[size])}
           fill="none"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -118,7 +118,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
           />
         </svg>
         {label && (
-          <span className="text-sm font-mono text-[#00ff00]">{label}</span>
+          <span className="text-sm font-mono text-[#22c55e]">{label}</span>
         )}
       </div>
     );
@@ -148,7 +148,7 @@ export const LoadingOverlay = forwardRef<HTMLDivElement, LoadingOverlayProps>(
         {...props}
       >
         <Spinner size="lg" />
-        <span className="text-sm font-mono text-[#00ff00] tracking-wider animate-pulse">
+        <span className="text-sm font-mono text-[#22c55e] tracking-wider animate-pulse">
           {text}
         </span>
       </div>

@@ -34,9 +34,9 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
       <div
         ref={ref}
         className={clsx(
-          "bg-[#0a0a0a] border border-[#00ff0020]",
+          "bg-[#0a0a0a] border border-[#22c55e20]",
           animated && "animate-pulse",
-          glow && "shadow-[0_0_10px_rgba(0,255,0,0.1)]",
+          glow && "shadow-[0_0_10px_rgba(34,197,94,0.1)]",
           variant === "text" && "h-4 rounded-none",
           variant === "circular" && "rounded-full",
           variant === "rectangular" && "rounded-none",
@@ -98,7 +98,7 @@ export const SkeletonCard = forwardRef<HTMLDivElement, SkeletonCardProps>(
       <div
         ref={ref}
         className={clsx(
-          "bg-[#0a0a0a] border border-[#00ff0033] p-6 space-y-4",
+          "bg-[#0a0a0a] border border-[#22c55e33] p-6 space-y-4",
           className,
         )}
         {...props}

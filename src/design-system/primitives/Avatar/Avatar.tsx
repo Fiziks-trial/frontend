@@ -41,9 +41,9 @@ const statusSizeStyles: Record<AvatarSize, string> = {
 };
 
 const statusColorStyles: Record<string, string> = {
-  online: "bg-[#00ff00]",
+  online: "bg-[#22c55e]",
   offline: "bg-[#666666]",
-  away: "bg-[#ffaa00]",
+  away: "bg-[#f59e0b]",
   busy: "bg-[#ff0040]",
 };
 
@@ -79,11 +79,11 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         ref={ref}
         className={clsx(
           "relative inline-flex items-center justify-center",
-          "font-mono font-medium text-[#00ff00] bg-[#0a0a0a]",
+          "font-mono font-medium text-[#22c55e] bg-[#0a0a0a]",
           "overflow-hidden transition-all duration-200",
           variant === "circle" ? "rounded-full" : "rounded-none",
-          bordered && "border-2 border-[#00ff00]",
-          glow && "shadow-[0_0_15px_rgba(0,255,0,0.4)]",
+          bordered && "border-2 border-[#22c55e]",
+          glow && "shadow-[0_0_15px_rgba(34,197,94,0.4)]",
           sizeStyles[size],
           className,
         )}
@@ -137,8 +137,8 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
           <div
             className={clsx(
               "inline-flex items-center justify-center",
-              "font-mono font-medium text-[#00ff00] bg-[#0a0a0a]",
-              "border-2 border-[#00ff00] rounded-full",
+              "font-mono font-medium text-[#22c55e] bg-[#0a0a0a]",
+              "border-2 border-[#22c55e] rounded-full",
               sizeStyles[size],
             )}
           >

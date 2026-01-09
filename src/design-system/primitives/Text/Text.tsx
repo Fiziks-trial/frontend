@@ -61,12 +61,12 @@ const colorStyles: Record<TextColor, string> = {
   primary: "text-white",
   secondary: "text-[#cccccc]",
   muted: "text-[#999999]",
-  accent: "text-[#00ff00]",
-  neon: "text-[#00ff00]",
-  purple: "text-[#9945ff]",
-  success: "text-[#00ff00]",
-  error: "text-[#ff0000]",
-  warning: "text-[#ffaa00]",
+  accent: "text-[#22c55e]",
+  neon: "text-[#22c55e]",
+  purple: "text-[#a855f7]",
+  success: "text-[#22c55e]",
+  error: "text-[#ef4444]",
+  warning: "text-[#d4a574]",
 };
 
 const fontStyles: Record<TextFont, string> = {

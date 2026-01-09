@@ -59,11 +59,11 @@ export function RecentGames() {
   return (
     <Card variant="default" className="p-0">
       {/* Header */}
-      <div className="p-3 lg:p-4 border-b border-[#00ff0033]">
+      <div className="p-3 lg:p-4 border-b border-[rgba(255,255,255,0.1)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Swords className="w-4 h-4 text-[#00ff00]" />
-            <Text variant="label" color="primary" uppercase>
+            <Swords className="w-4 h-4 text-[#22c55e]" />
+            <Text variant="label" color="accent" uppercase className="text-sm">
               Recent Battles
             </Text>
           </div>
@@ -75,21 +75,26 @@ export function RecentGames() {
       </div>
 
       {/* Games List */}
-      <div className="divide-y divide-[#00ff0020]">
+      <div className="divide-y divide-[rgba(255,255,255,0.06)]">
         {RECENT_GAMES.map((game, index) => (
           <GameItem key={game.id} game={game} isFirst={index === 0} />
         ))}
       </div>
 
       {/* Footer */}
-      <div className="p-3 lg:p-4 border-t border-[#00ff0033]">
+      <div className="p-3 lg:p-4 border-t border-[rgba(255,255,255,0.1)]">
         <div className="flex items-center justify-between">
-          <Text variant="caption" color="muted">
+          <Text variant="caption" color="muted" className="text-xs">
             {RECENT_GAMES.filter((g) => g.result === "win").length} wins today
           </Text>
           <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-[#00ff00] rounded-full animate-pulse" />
-            <Text variant="caption" color="neon" font="mono">
+            <div className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
+            <Text
+              variant="caption"
+              color="success"
+              font="mono"
+              className="text-xs"
+            >
               LIVE
             </Text>
           </div>
@@ -104,8 +109,8 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
 
   return (
     <div
-      className={`p-3 lg:p-4 hover:bg-[#00ff0008] transition-colors cursor-pointer ${
-        isFirst ? "bg-[#00ff0005]" : ""
+      className={`p-3 lg:p-4 hover:bg-[#22c55e08] transition-colors cursor-pointer ${
+        isFirst ? "bg-[#22c55e05]" : ""
       }`}
     >
       {/* Top Row: Avatar, Name, Result */}
@@ -114,7 +119,7 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
           <div className="relative shrink-0">
             <Avatar size="xs" name={game.opponent} />
             {isFirst && (
-              <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-[#00ff00] border border-[#0a0a0a] rounded-full" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-[#22c55e] border border-[#0a0a0a] rounded-full" />
             )}
           </div>
           <div className="min-w-0">
@@ -122,13 +127,13 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
               variant="caption"
               color="primary"
               weight="medium"
-              className="truncate block"
+              className="truncate block text-xs"
             >
               vs {game.opponent}
             </Text>
             <div className="flex items-center gap-1 mt-0.5">
               <Clock className="w-3 h-3 text-[#666666] shrink-0" />
-              <Text variant="caption" color="muted" className="text-[10px]">
+              <Text variant="caption" color="muted" className="text-xs">
                 {game.date}
               </Text>
               <span className="text-[#333] mx-0.5">|</span>
@@ -136,7 +141,7 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
                 variant="caption"
                 color={game.mode === "Tournament" ? "purple" : "muted"}
                 font="mono"
-                className="text-[10px]"
+                className="text-xs"
               >
                 {game.mode}
               </Text>
@@ -145,7 +150,7 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
         </div>
         <Badge
           variant={isWin ? "success" : "error"}
-          className="text-[9px] shrink-0"
+          className="text-[10px] shrink-0"
         >
           {game.result.toUpperCase()}
         </Badge>
@@ -153,12 +158,17 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
 
       {/* Bottom Row: Score and ELO Change */}
       <div className="flex items-center justify-between pl-6 lg:pl-9">
-        <Text variant="caption" color="secondary" font="mono" className="text-[10px]">
+        <Text
+          variant="caption"
+          color="secondary"
+          font="mono"
+          className="text-xs"
+        >
           {game.score}
         </Text>
         <div
           className={`flex items-center gap-1 px-1.5 py-0.5 ${
-            isWin ? "bg-[#00ff0015]" : "bg-[#ff000015]"
+            isWin ? "bg-[#22c55e15]" : "bg-[#ef444415]"
           }`}
         >
           <Text
@@ -166,11 +176,11 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
             color={isWin ? "success" : "error"}
             font="mono"
             weight="medium"
-            className="text-[10px]"
+            className="text-xs"
           >
             {game.eloChange}
           </Text>
-          <Text variant="caption" color="muted" className="text-[9px]">
+          <Text variant="caption" color="muted" className="text-[10px]">
             ELO
           </Text>
         </div>
