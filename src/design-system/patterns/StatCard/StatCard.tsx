@@ -18,7 +18,7 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
       <div
         ref={ref}
         className={clsx(
-          "p-5 rounded-2xl",
+          "p-3 lg:p-5 rounded-2xl",
           "bg-(--glass-bg-light) backdrop-blur-lg",
           "border border-(--glass-border)",
           "shadow-(--shadow-glass)",
@@ -28,16 +28,18 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
           className,
         )}
       >
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-sm text-(--color-text-muted) mb-1">{label}</p>
-            <p className="text-3xl font-bold text-(--color-text-primary)">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-xs lg:text-sm text-(--color-text-muted) mb-0.5 lg:mb-1 truncate">
+              {label}
+            </p>
+            <p className="text-xl lg:text-3xl font-bold text-(--color-text-primary)">
               {value}
             </p>
             {change && (
               <p
                 className={clsx(
-                  "text-sm mt-2 font-medium",
+                  "text-xs lg:text-sm mt-1 lg:mt-2 font-medium",
                   change.type === "increase" && "text-(--color-success-400)",
                   change.type === "decrease" && "text-(--color-error-400)",
                   change.type === "neutral" && "text-(--color-text-muted)",
@@ -50,7 +52,7 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
             )}
           </div>
           {icon && (
-            <div className="text-(--color-text-muted) p-2 rounded-xl bg-(--glass-bg-subtle)">
+            <div className="text-(--color-text-muted) p-1.5 lg:p-2 rounded-xl bg-(--glass-bg-subtle) shrink-0">
               {icon}
             </div>
           )}

@@ -13,6 +13,10 @@ import {
 
 import { RecentGames } from "@/components/dashboard/RecentGames";
 import { Sidebar } from "@/components/layout/Sidebar";
+import {
+  SidebarProvider,
+  useSidebar,
+} from "@/components/layout/SidebarContext";
 import { Badge } from "@/design-system/primitives/Badge/Badge";
 import {
   ArrowButton,
@@ -102,6 +106,16 @@ const SUBJECT_STATS: Subject[] = [
 
 export default function DashboardPage() {
   return (
+    <SidebarProvider>
+      <DashboardContent />
+    </SidebarProvider>
+  );
+}
+
+function DashboardContent() {
+  const { isCollapsed } = useSidebar();
+
+  return (
     <div className="min-h-screen bg-[#050505]">
       {/* Background Grid Pattern */}
       <div
@@ -115,10 +129,13 @@ export default function DashboardPage() {
 
       <Sidebar />
 
-      <main className="relative z-10 pl-64 min-h-screen">
-        <div className="p-6">
+      <main
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${isCollapsed ? "lg:pl-16" : "lg:pl-64"
+          }`}
+      >
+        <div className="p-4 lg:p-6">
           {/* Header Section - Full Width */}
-          <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+          <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-4 mb-4 lg:mb-6">
             <div>
               <Text variant="status" color="neon" className="mb-1">
                 {"/// COMMAND_CENTER"}
@@ -141,9 +158,9 @@ export default function DashboardPage() {
           </header>
 
           {/* Main Content with Recent Battles starting at Performance level */}
-          <div className="flex gap-6">
+          <div className="flex gap-4 lg:gap-6">
             {/* Left Column */}
-            <div className="flex-1 min-w-0 space-y-6">
+            <div className="flex-1 min-w-0 space-y-4 lg:space-y-6">
               {/* Stats Overview */}
               <section>
                 <div className="flex items-center gap-2 mb-3">
@@ -152,7 +169,7 @@ export default function DashboardPage() {
                     Performance
                   </Text>
                 </div>
-                <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
                   <StatCard
                     label="Total ELO"
                     value={USER_STATS.totalElo.toLocaleString()}
@@ -180,30 +197,10 @@ export default function DashboardPage() {
                 </div>
               </section>
 
-              {/* Subject Mastery */}
-              <section>
-                <div className="flex justify-between items-center mb-3">
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-[#9945ff]" />
-                    <Text variant="caption" color="muted" uppercase font="mono">
-                      Subject Mastery
-                    </Text>
-                  </div>
-                  <Button variant="link" size="sm">
-                    View All
-                  </Button>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                  {SUBJECT_STATS.map((subject) => (
-                    <SubjectCard key={subject.id} subject={subject} />
-                  ))}
-                </div>
-              </section>
-
               {/* Quick Actions */}
               <section>
                 <TerminalDivider text="// ACTIONS" />
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-3 lg:mt-4">
                   <FeatureCard
                     title="Practice"
                     description="AI-powered practice sessions tailored to your weak points."
@@ -243,6 +240,26 @@ export default function DashboardPage() {
                   </FeatureCard>
                 </div>
               </section>
+
+              {/* Subject Mastery */}
+              <section>
+                <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-[#9945ff]" />
+                    <Text variant="caption" color="muted" uppercase font="mono">
+                      Subject Mastery
+                    </Text>
+                  </div>
+                  <Button variant="link" size="sm">
+                    View All
+                  </Button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-3">
+                  {SUBJECT_STATS.map((subject) => (
+                    <SubjectCard key={subject.id} subject={subject} />
+                  ))}
+                </div>
+              </section>
             </div>
 
             {/* Right Column: Recent Battles - starts at Performance level */}
@@ -252,7 +269,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Mobile: Recent Games below */}
-          <div className="lg:hidden mt-6">
+          <div className="lg:hidden mt-4">
             <RecentGames />
           </div>
         </div>
@@ -277,21 +294,22 @@ function SubjectCard({ subject }: { subject: Subject }) {
       variant="bordered"
       className="group hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] transition-all duration-300 p-0"
     >
-      <div className="p-4">
+      <div className="p-3 lg:p-4">
         {/* Header */}
-        <div className="flex justify-between items-start mb-3">
-          <div className="w-9 h-9 bg-[#00ff0015] border border-[#00ff0033] flex items-center justify-center text-[#00ff00] group-hover:border-[#00ff00] group-hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all">
+        <div className="flex justify-between items-start mb-2 lg:mb-3">
+          <div className="w-8 h-8 lg:w-9 lg:h-9 bg-[#00ff0015] border border-[#00ff0033] flex items-center justify-center text-[#00ff00] group-hover:border-[#00ff00] group-hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all">
             {subject.icon}
           </div>
           <Badge
             variant={
               statusColors[subject.status] as
-                | "default"
-                | "success"
-                | "warning"
-                | "error"
-                | "purple"
+              | "default"
+              | "success"
+              | "warning"
+              | "error"
+              | "purple"
             }
+            className="text-[9px] lg:text-[10px]"
           >
             {subject.status}
           </Badge>
@@ -299,27 +317,27 @@ function SubjectCard({ subject }: { subject: Subject }) {
 
         {/* Title */}
         <Text
-          variant="bodySmall"
+          variant="caption"
           color="primary"
           weight="medium"
-          className="mb-1 group-hover:text-[#00ff00] transition-colors"
+          className="mb-1 group-hover:text-[#00ff00] transition-colors lg:text-sm"
         >
           {subject.name}
         </Text>
 
         {/* ELO Score */}
-        <div className="flex items-baseline gap-2 mb-3">
-          <Text variant="h4" color="neon" font="mono">
+        <div className="flex items-baseline gap-1 lg:gap-2 mb-2 lg:mb-3">
+          <Text variant="body" color="neon" font="mono" className="font-bold lg:text-xl">
             {subject.elo.toLocaleString()}
           </Text>
-          <Text variant="caption" color="muted">
+          <Text variant="caption" color="muted" className="text-[10px]">
             ELO
           </Text>
           <Text
             variant="caption"
             color={isPositive ? "success" : "error"}
             font="mono"
-            className="ml-auto"
+            className="ml-auto text-[10px]"
           >
             {subject.trend}
           </Text>
@@ -328,14 +346,14 @@ function SubjectCard({ subject }: { subject: Subject }) {
         {/* Progress Bar */}
         <div className="space-y-1">
           <div className="flex justify-between">
-            <Text variant="caption" color="muted" className="text-[10px]">
+            <Text variant="caption" color="muted" className="text-[9px] lg:text-[10px]">
               Next Rank
             </Text>
             <Text
               variant="caption"
               color="neon"
               font="mono"
-              className="text-[10px]"
+              className="text-[9px] lg:text-[10px]"
             >
               {subject.progress}%
             </Text>
