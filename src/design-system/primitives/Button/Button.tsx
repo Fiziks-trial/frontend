@@ -11,16 +11,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseStyles =
-  "inline-flex items-center justify-center font-mono uppercase tracking-wider transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center font-medium uppercase tracking-wider transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-[#00ff00] text-black hover:bg-[#00cc00] hover:shadow-[0_0_20px_rgba(0,255,0,0.5)]",
+  primary: "bg-[#22c55e] text-black hover:bg-[#16a34a] active:bg-[#15803d]",
   secondary:
-    "bg-transparent border border-[#00ff00] text-[#00ff00] hover:bg-[#00ff0010] hover:shadow-[0_0_20px_rgba(0,255,0,0.3)]",
+    "bg-transparent border border-[rgba(255,255,255,0.2)] text-white hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.3)]",
   ghost:
     "bg-transparent text-white border border-white/20 hover:border-white/40 hover:bg-white/5",
-  link: "bg-transparent text-[#00ff00] hover:text-[#00cc00] hover:underline",
+  link: "bg-transparent text-[#22c55e] hover:text-[#16a34a] hover:underline",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

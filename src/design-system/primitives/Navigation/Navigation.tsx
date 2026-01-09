@@ -15,7 +15,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(
       <nav
         ref={ref}
         className={clsx(
-          "border-b border-[#00ff0033] bg-black/50 backdrop-blur-sm",
+          "border-b border-[#22c55e33] bg-black/50 backdrop-blur-sm",
           className,
         )}
         {...props}
@@ -48,7 +48,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
         className={clsx("flex items-center gap-2", className)}
         {...props}
       >
-        {icon && <span className="text-[#00ff00]">{icon}</span>}
+        {icon && <span className="text-[#22c55e]">{icon}</span>}
         <span className="text-white font-mono tracking-wider">{text}</span>
       </div>
     );
@@ -78,8 +78,8 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         className={clsx(
           "px-4 py-2 text-sm font-mono uppercase tracking-wider transition-all duration-200",
           active
-            ? "text-[#00ff00] border-b-2 border-[#00ff00]"
-            : "text-white hover:text-[#00ff00]",
+            ? "text-[#22c55e] border-b-2 border-[#22c55e]"
+            : "text-white hover:text-[#22c55e]",
           className,
         )}
         {...props}
@@ -115,19 +115,19 @@ export const MobileMenuButton = forwardRef<
     >
       <span
         className={clsx(
-          "w-full h-0.5 bg-[#00ff00] transition-all duration-200",
+          "w-full h-0.5 bg-[#22c55e] transition-all duration-200",
           isOpen && "rotate-45 translate-y-1.5",
         )}
       />
       <span
         className={clsx(
-          "w-full h-0.5 bg-[#00ff00] transition-all duration-200",
+          "w-full h-0.5 bg-[#22c55e] transition-all duration-200",
           isOpen && "opacity-0",
         )}
       />
       <span
         className={clsx(
-          "w-full h-0.5 bg-[#00ff00] transition-all duration-200",
+          "w-full h-0.5 bg-[#22c55e] transition-all duration-200",
           isOpen && "-rotate-45 -translate-y-1.5",
         )}
       />
@@ -149,7 +149,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
       <aside
         ref={ref}
         className={clsx(
-          "w-64 border-r border-[#00ff0033] bg-[#0a0a0a] p-6",
+          "w-64 border-r border-[#22c55e33] bg-[#0a0a0a] p-6",
           className,
         )}
         {...props}
@@ -192,8 +192,8 @@ export const SidebarLink = forwardRef<HTMLAnchorElement, SidebarLinkProps>(
         className={clsx(
           "flex items-center gap-3 px-4 py-3 text-sm font-mono transition-all duration-200",
           active
-            ? "bg-[#00ff0020] border-l-2 border-[#00ff00] text-[#00ff00]"
-            : "text-white hover:bg-[#00ff0010] hover:text-[#00ff00] border-l-2 border-transparent",
+            ? "bg-[#22c55e20] border-l-2 border-[#22c55e] text-[#22c55e]"
+            : "text-white hover:bg-[#22c55e10] hover:text-[#22c55e] border-l-2 border-transparent",
           className,
         )}
         {...props}
@@ -228,11 +228,11 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
       >
         {items.map((item, index) => (
           <span key={item.label} className="flex items-center gap-2">
-            {index > 0 && <span className="text-[#00ff00]">/</span>}
+            {index > 0 && <span className="text-[#22c55e]">/</span>}
             {item.href ? (
               <a
                 href={item.href}
-                className="text-[#999999] hover:text-[#00ff00] transition-colors"
+                className="text-[#999999] hover:text-[#22c55e] transition-colors"
               >
                 {item.label}
               </a>
@@ -260,7 +260,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
       <footer
         ref={ref}
         className={clsx(
-          "border-t border-[#00ff0033] bg-black/50 backdrop-blur-sm",
+          "border-t border-[#22c55e33] bg-black/50 backdrop-blur-sm",
           className,
         )}
         {...props}

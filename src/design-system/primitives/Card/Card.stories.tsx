@@ -73,8 +73,8 @@ export const StatsCard: Story = {
     <Card variant="glow" className="max-w-xs">
       <div className="text-center">
         <p className="text-sm text-[#999999] mb-1">Total Score</p>
-        <p className="text-4xl font-bold text-[#00ff00]">2,450</p>
-        <p className="text-sm text-[#00ff00] mt-2">+12% from last week</p>
+        <p className="text-4xl font-bold text-[#22c55e]">2,450</p>
+        <p className="text-sm text-[#22c55e] mt-2">+12% from last week</p>
       </div>
     </Card>
   ),

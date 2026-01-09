@@ -14,11 +14,11 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-[#0a0a0a] border-[#00ff0066] text-[#00ff00]",
-  success: "bg-[#00ff0020] border-[#00ff00] text-[#00ff00]",
-  warning: "bg-[#ffaa0020] border-[#ffaa00] text-[#ffaa00]",
-  error: "bg-[#ff000020] border-[#ff0000] text-[#ff0000]",
-  purple: "bg-[#9945ff20] border-[#9945ff] text-[#9945ff]",
+  default: "bg-[#0a0a0a] border-[rgba(255,255,255,0.15)] text-[#cccccc]",
+  success: "bg-[#22c55e15] border-[#22c55e66] text-[#22c55e]",
+  warning: "bg-[#d4a57415] border-[#d4a57466] text-[#d4a574]",
+  error: "bg-[#ef444415] border-[#ef444466] text-[#ef4444]",
+  purple: "bg-[#a855f715] border-[#a855f766] text-[#a855f7]",
 };
 
 /**
@@ -30,7 +30,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center px-3 py-1 text-xs font-mono uppercase tracking-wider border",
+          "inline-flex items-center px-3 py-1 text-xs font-medium uppercase tracking-wider border",
           variantStyles[variant],
           className,
         )}
@@ -52,9 +52,9 @@ export interface StatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const statusColors = {
-  active: "bg-[#00ff00]",
+  active: "bg-[#22c55e]",
   inactive: "bg-[#666666]",
-  pending: "bg-[#ffaa00]",
+  pending: "bg-[#f59e0b]",
 };
 
 export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
@@ -63,7 +63,7 @@ export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center gap-2 px-3 py-1 text-xs font-mono uppercase tracking-wider border border-[#00ff0066] bg-[#0a0a0a] text-white",
+          "inline-flex items-center gap-2 px-3 py-1 text-xs font-mono uppercase tracking-wider border border-[rgba(255,255,255,0.15)] bg-[#0a0a0a] text-white",
           className,
         )}
         {...props}
@@ -93,7 +93,7 @@ export const SystemBadge = forwardRef<
     <span
       ref={ref}
       className={clsx(
-        "inline-flex items-center px-2 py-1 text-xs font-mono border border-[#00ff0033] text-[#00ff00]",
+        "inline-flex items-center px-2 py-1 text-xs font-mono border border-[rgba(255,255,255,0.1)] text-[#999999]",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ export const CounterBadge = forwardRef<HTMLSpanElement, CounterBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-xs font-mono bg-[#00ff00] text-black rounded-full",
+          "inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-xs font-mono bg-[#22c55e] text-black rounded-full",
           className,
         )}
         {...props}

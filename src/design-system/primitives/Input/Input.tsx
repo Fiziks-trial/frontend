@@ -25,7 +25,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-xs uppercase tracking-wider text-[#00ff00]"
+            className="block text-xs uppercase tracking-wider text-[#22c55e]"
           >
             {label}
           </label>
@@ -35,15 +35,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={clsx(
             "w-full px-4 py-3 bg-[#0a0a0a] border",
-            error ? "border-[#ff0000]" : "border-[#00ff0033]",
+            error ? "border-[#ef4444]" : "border-[#22c55e33]",
             "text-white font-mono text-sm",
-            "focus:outline-none focus:border-[#00ff00] focus:shadow-[0_0_10px_rgba(0,255,0,0.3)]",
+            "focus:outline-none focus:border-[#22c55e] focus:shadow-[0_0_10px_rgba(34,197,94,0.3)]",
             "transition-all duration-200",
             className,
           )}
           {...props}
         />
-        {error && <p className="text-xs text-[#ff0000] font-mono">{error}</p>}
+        {error && <p className="text-xs text-[#ef4444] font-mono">{error}</p>}
         {helperText && !error && (
           <p className="text-xs text-[#999999] font-mono">{helperText}</p>
         )}
@@ -72,7 +72,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="block text-xs uppercase tracking-wider text-[#00ff00]"
+            className="block text-xs uppercase tracking-wider text-[#22c55e]"
           >
             {label}
           </label>
@@ -82,15 +82,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={textareaId}
           className={clsx(
             "w-full px-4 py-3 bg-[#0a0a0a] border",
-            error ? "border-[#ff0000]" : "border-[#00ff0033]",
+            error ? "border-[#ef4444]" : "border-[#22c55e33]",
             "text-white font-mono text-sm",
-            "focus:outline-none focus:border-[#00ff00] focus:shadow-[0_0_10px_rgba(0,255,0,0.3)]",
+            "focus:outline-none focus:border-[#22c55e] focus:shadow-[0_0_10px_rgba(34,197,94,0.3)]",
             "transition-all duration-200 resize-none",
             className,
           )}
           {...props}
         />
-        {error && <p className="text-xs text-[#ff0000] font-mono">{error}</p>}
+        {error && <p className="text-xs text-[#ef4444] font-mono">{error}</p>}
         {helperText && !error && (
           <p className="text-xs text-[#999999] font-mono">{helperText}</p>
         )}
@@ -118,7 +118,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="block text-xs uppercase tracking-wider text-[#00ff00]"
+            className="block text-xs uppercase tracking-wider text-[#22c55e]"
           >
             {label}
           </label>
@@ -128,9 +128,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={selectId}
           className={clsx(
             "w-full px-4 py-3 bg-[#0a0a0a] border",
-            error ? "border-[#ff0000]" : "border-[#00ff0033]",
+            error ? "border-[#ef4444]" : "border-[#22c55e33]",
             "text-white font-mono text-sm",
-            "focus:outline-none focus:border-[#00ff00] focus:shadow-[0_0_10px_rgba(0,255,0,0.3)]",
+            "focus:outline-none focus:border-[#22c55e] focus:shadow-[0_0_10px_rgba(34,197,94,0.3)]",
             "transition-all duration-200",
             className,
           )}
@@ -146,7 +146,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && <p className="text-xs text-[#ff0000] font-mono">{error}</p>}
+        {error && <p className="text-xs text-[#ef4444] font-mono">{error}</p>}
       </div>
     );
   },
@@ -172,7 +172,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             className="peer sr-only"
             {...props}
           />
-          <div className="w-5 h-5 border border-[#00ff0033] bg-[#0a0a0a] peer-checked:bg-[#00ff00] peer-checked:border-[#00ff00] transition-all duration-200 peer-focus:shadow-[0_0_10px_rgba(0,255,0,0.3)]" />
+          <div className="w-5 h-5 border border-[#22c55e33] bg-[#0a0a0a] peer-checked:bg-[#22c55e] peer-checked:border-[#22c55e] transition-all duration-200 peer-focus:shadow-[0_0_10px_rgba(34,197,94,0.3)]" />
           <svg
             className="absolute top-0.5 left-0.5 w-4 h-4 text-black opacity-0 peer-checked:opacity-100 transition-opacity"
             fill="none"
@@ -189,7 +189,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           </svg>
         </div>
         {label && (
-          <span className="text-sm text-white font-mono group-hover:text-[#00ff00] transition-colors">
+          <span className="text-sm text-white font-mono group-hover:text-[#22c55e] transition-colors">
             {label}
           </span>
         )}
@@ -213,11 +213,11 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       <label className="flex items-center gap-3 cursor-pointer group">
         <div className="relative">
           <input ref={ref} type="radio" className="peer sr-only" {...props} />
-          <div className="w-5 h-5 rounded-full border border-[#00ff0033] bg-[#0a0a0a] peer-checked:border-[#00ff00] transition-all duration-200 peer-focus:shadow-[0_0_10px_rgba(0,255,0,0.3)]" />
-          <div className="absolute top-1.5 left-1.5 w-2 h-2 rounded-full bg-[#00ff00] opacity-0 peer-checked:opacity-100 transition-opacity" />
+          <div className="w-5 h-5 rounded-full border border-[#22c55e33] bg-[#0a0a0a] peer-checked:border-[#22c55e] transition-all duration-200 peer-focus:shadow-[0_0_10px_rgba(34,197,94,0.3)]" />
+          <div className="absolute top-1.5 left-1.5 w-2 h-2 rounded-full bg-[#22c55e] opacity-0 peer-checked:opacity-100 transition-opacity" />
         </div>
         {label && (
-          <span className="text-sm text-white font-mono group-hover:text-[#00ff00] transition-colors">
+          <span className="text-sm text-white font-mono group-hover:text-[#22c55e] transition-colors">
             {label}
           </span>
         )}
