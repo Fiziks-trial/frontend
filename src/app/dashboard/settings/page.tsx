@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Shield, Users, Zap, Eye, LogOut } from "lucide-react";
+import { Bell, Shield, Users, LogOut } from "lucide-react";
 import { useState } from "react";
 
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -12,6 +12,7 @@ import { Avatar } from "@/design-system/primitives/Avatar/Avatar";
 import { Card } from "@/design-system/primitives/Card/Card";
 import { Button } from "@/design-system/primitives/Button/Button";
 import { Input } from "@/design-system/primitives/Input/Input";
+import { Text } from "@/design-system/primitives/Text/Text";
 
 interface UserProfile {
   username: string;
@@ -64,7 +65,7 @@ function SettingsContent() {
   const settingGroups = [
     {
       title: "Profile Visibility",
-      icon: Eye,
+      icon: Shield,
       color: "text-[#3b82f6]",
       items: [
         {
@@ -115,7 +116,7 @@ function SettingsContent() {
     },
     {
       title: "Preferences",
-      icon: Zap,
+      icon: LogOut,
       color: "text-[#22c55e]",
       items: [
         {
@@ -129,25 +130,37 @@ function SettingsContent() {
   ];
 
   return (
-    <div className="flex h-screen bg-black">
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(#22c55e10 1px, transparent 1px), linear-gradient(90deg, #22c55e10 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
       <Sidebar />
 
-      {/* Main Content */}
       <main
-        className={`flex-1 overflow-auto transition-all duration-300 ${
-          isCollapsed ? "ml-20" : "ml-64"
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${
+          isCollapsed ? "lg:pl-16" : "lg:pl-64"
         }`}
       >
-        <div className="min-h-screen bg-gradient-to-b from-black via-black to-[#0a0a0a]">
-          {/* Header */}
-          <div className="px-8 py-12 border-b border-[rgba(255,255,255,0.1)]">
-            <h1 className="text-4xl md:text-5xl font-mono font-bold tracking-wide text-white mb-2">
+        <div className="p-4 lg:p-6">
+          {/* Header Section */}
+          <header className="mb-4 lg:mb-6">
+            <Text variant="status" color="muted" className="mb-1">
+              /// SETTINGS
+            </Text>
+            <Text variant="h2" color="primary" className="mb-1">
               Settings
-            </h1>
-            <p className="text-base font-mono text-[#999999]">
+            </Text>
+            <Text variant="bodySmall" color="muted">
               Manage your account and preferences
-            </p>
-          </div>
+            </Text>
+          </header>
 
           <div className="px-8 py-8 max-w-6xl">
             {/* Profile Section */}

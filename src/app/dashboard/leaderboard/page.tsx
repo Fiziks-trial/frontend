@@ -1,6 +1,6 @@
 "use client";
 
-import { Trophy, Target, Zap, TrendingUp, Crown } from "lucide-react";
+import { Trophy, Crown } from "lucide-react";
 import { useState } from "react";
 
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -104,122 +104,166 @@ function LeaderboardContent() {
   };
 
   return (
-    <div
-      className={`flex-1 transition-all duration-300 ${isCollapsed ? "lg:ml-16" : "lg:ml-64"} ml-16`}
-    >
-      <div className="min-h-screen bg-[#0a0a0a] p-4 lg:p-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-mono font-bold tracking-wide text-[#22c55e] mb-2">
-            Leaderboard
-          </h1>
-          <p className="text-base font-mono text-[#999999]">
-            Compete with players worldwide
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(#22c55e10 1px, transparent 1px), linear-gradient(90deg, #22c55e10 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
-        {/* User Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {/* Your Rank */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Trophy className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Your Rank
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              #{USER_STATS.rank}
-            </p>
-          </Card>
+      <Sidebar />
 
-          {/* Problems Solved */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Target className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Problems Solved
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              {USER_STATS.problemsSolved}
-            </p>
-          </Card>
+      <main
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${
+          isCollapsed ? "lg:pl-16" : "lg:pl-64"
+        }`}
+      >
+        <div className="p-4 lg:p-6">
+          {/* Header Section */}
+          <header className="mb-4 lg:mb-6">
+            <Text variant="status" color="muted" className="mb-1">
+              /// RANKINGS
+            </Text>
+            <Text variant="h2" color="primary" className="mb-1">
+              Leaderboard
+            </Text>
+            <Text variant="bodySmall" color="muted">
+              Compete with players worldwide
+            </Text>
+          </header>
 
-          {/* Best Streak */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Zap className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Best Streak
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              {USER_STATS.bestStreak}x
-            </p>
-          </Card>
-
-          {/* Total Points */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <TrendingUp className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Total Points
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              {USER_STATS.totalPoints.toLocaleString()}
-            </p>
-          </Card>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="flex gap-3 mb-8">
-          {LEADERBOARD_FILTERS.map((filter) => (
-            <button
-              type="button"
-              key={filter}
-              onClick={() => setSelectedFilter(filter)}
-              className={`px-6 py-2 rounded-full transition-all ${
-                selectedFilter === filter
-                  ? "bg-[#3b82f6]"
-                  : "bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)]"
-              }`}
-            >
-              <Text
-                variant="label"
-                font="mono"
-                color={selectedFilter === filter ? "primary" : "muted"}
-                weight={selectedFilter === filter ? "semibold" : "medium"}
-              >
-                {filter}
+          {/* Stats Overview */}
+          <section>
+            <div className="flex items-center gap-2 mb-3">
+              <Trophy className="w-4 h-4 text-[#22c55e]" />
+              <Text variant="caption" color="accent" uppercase font="mono">
+                Your Stats
               </Text>
-            </button>
-          ))}
-        </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
+              {/* Your Rank */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Your Rank
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  #{USER_STATS.rank}
+                </Text>
+              </Card>
 
-        {/* Leaderboard Section */}
-        <div>
-          <Text variant="h2" font="mono" color="primary" className="mb-6">
-            Top Players This Month
-          </Text>
+              {/* Problems Solved */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Problems Solved
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.problemsSolved}
+                </Text>
+              </Card>
 
-          {/* Leaderboard List */}
-          <div className="space-y-4">
+              {/* Best Streak */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Best Streak
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.bestStreak}x
+                </Text>
+              </Card>
+
+              {/* Total Points */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Total Points
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.totalPoints.toLocaleString()}
+                </Text>
+              </Card>
+            </div>
+          </section>
+
+          {/* Filter Tabs */}
+          <section className="mb-4 lg:mb-6">
+            <div className="flex gap-2 lg:gap-3">
+              {LEADERBOARD_FILTERS.map((filter) => (
+                <button
+                  type="button"
+                  key={filter}
+                  onClick={() => setSelectedFilter(filter)}
+                  className={`px-3 lg:px-4 py-1.5 lg:py-2 transition-all ${
+                    selectedFilter === filter
+                      ? "bg-[#22c55e] border border-[#22c55e]"
+                      : "bg-transparent border border-[rgba(255,255,255,0.1)] hover:border-[#22c55e40]"
+                  }`}
+                >
+                  <Text
+                    variant="label"
+                    font="mono"
+                    color={selectedFilter === filter ? "primary" : "muted"}
+                    weight={selectedFilter === filter ? "semibold" : "medium"}
+                  >
+                    {filter}
+                  </Text>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Leaderboard Section */}
+          <section>
+            <div className="flex items-center gap-2 mb-3">
+              <Trophy className="w-4 h-4 text-[#22c55e]" />
+              <Text
+                variant="caption"
+                color="accent"
+                uppercase
+                font="mono"
+              >
+                Top Players This Month
+              </Text>
+            </div>
+
+            {/* Leaderboard List */}
+            <div className="space-y-2 lg:space-y-3">
             {GLOBAL_LEADERBOARD.map((player) => (
               <Card
                 key={player.rank}
                 variant="glow"
-                className="p-4 lg:p-6 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
+                className="p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
               >
-                <div className="flex items-center gap-4 lg:gap-6">
+                <div className="flex items-center gap-3 lg:gap-4">
                   {/* Rank */}
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)]">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] shrink-0">
                     {player.rank === 1 ? (
-                      <Crown className="w-6 h-6" />
+                      <Crown className="w-5 h-5 text-[#22c55e]" />
                     ) : (
                       <Text
-                        variant="h3"
+                        variant="body"
                         font="mono"
                         weight="bold"
                         color="accent"
@@ -230,52 +274,67 @@ function LeaderboardContent() {
                   </div>
 
                   {/* Player Info */}
-                  <div className="flex items-center gap-4 flex-1">
-                    <Avatar size="md" name={player.avatar} bordered />
+                  <div className="flex items-center gap-2 lg:gap-3 flex-1 min-w-0">
+                    <Avatar size="sm" name={player.avatar} bordered />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <p className="text-base font-mono font-semibold text-white">
+                        <Text variant="body" color="primary" className="font-semibold">
                           {player.username}
-                        </p>
+                        </Text>
                         <Badge variant={getLevelColor(player.level)}>
                           Lvl {player.level}
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-4 mt-2">
-                        <div className="flex items-center gap-1">
-                          <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                            ◉ {player.problemsSolved} solved
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                            ⏱ {player.avgTime}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
-                            🔥 {player.streak}x streak
-                          </span>
-                        </div>
+                      <div className="flex items-center gap-2 lg:gap-3 mt-1 flex-wrap">
+                        <Text
+                          variant="caption"
+                          color="muted"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          ◉ {player.problemsSolved} solved
+                        </Text>
+                        <Text
+                          variant="caption"
+                          color="muted"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          ⏱ {player.avgTime}
+                        </Text>
+                        <Text
+                          variant="caption"
+                          color="accent"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          🔥 {player.streak}x
+                        </Text>
                       </div>
                     </div>
                   </div>
 
                   {/* Points */}
-                  <div className="text-right">
-                    <p className="text-2xl font-mono font-bold text-[#22c55e]">
+                  <div className="text-right shrink-0">
+                    <Text variant="h4" color="accent" className="font-mono">
                       💰 {player.totalPoints.toLocaleString()}
-                    </p>
-                    <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                      points
-                    </p>
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="uppercase tracking-wider"
+                      font="mono"
+                    >
+                      pts
+                    </Text>
                   </div>
                 </div>
               </Card>
             ))}
-          </div>
+            </div>
+          </section>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
@@ -283,10 +342,7 @@ function LeaderboardContent() {
 export default function LeaderboardPage() {
   return (
     <SidebarProvider>
-      <div className="flex bg-[#0a0a0a]">
-        <Sidebar />
-        <LeaderboardContent />
-      </div>
+      <LeaderboardContent />
     </SidebarProvider>
   );
 }

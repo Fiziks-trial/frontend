@@ -1,6 +1,6 @@
 "use client";
 
-import { Swords, ChevronRight, Trophy, X, Flame, Zap } from "lucide-react";
+import { Swords, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -164,118 +164,187 @@ function MyBattlesContent() {
   });
 
   return (
-    <div
-      className={`flex-1 transition-all duration-300 ${isCollapsed ? "lg:ml-16" : "lg:ml-64"} ml-16`}
-    >
-      <div className="min-h-screen bg-[#0a0a0a] p-4 lg:p-8">
-        {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <Swords className="w-8 h-8" />
-              <h1 className="text-4xl md:text-5xl font-mono font-bold tracking-wide text-[#22c55e]">
-                My Battles
-              </h1>
-            </div>
-            <p className="text-base font-mono text-[#999999]">
-              Challenge others and prove your mastery
-            </p>
-          </div>
-          <Button variant="primary" size="md" className="rounded">
-            Find Opponent
-          </Button>
-        </div>
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(#22c55e10 1px, transparent 1px), linear-gradient(90deg, #22c55e10 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card variant="glow" className="p-4 lg:p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <Trophy className="w-5 h-5" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Win Rate
-              </span>
-            </div>
-            <p className="text-3xl font-mono font-bold text-[#22c55e] mb-1">
-              {USER_STATS.winRate}
-            </p>
-            <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-              {USER_STATS.victories} Victories
-            </p>
-          </Card>
+      <Sidebar />
 
-          <Card variant="glow" className="p-4 lg:p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <X className="w-5 h-5" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Defeat Rate
-              </span>
-            </div>
-            <p className="text-3xl font-mono font-bold text-[#22c55e] mb-1">
-              {USER_STATS.defeatRate}
-            </p>
-            <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-              {USER_STATS.defeats} Defeats
-            </p>
-          </Card>
-
-          <Card variant="glow" className="p-4 lg:p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <Flame className="w-5 h-5" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Win Streak
-              </span>
-            </div>
-            <p className="text-3xl font-mono font-bold text-[#22c55e] mb-1">
-              {USER_STATS.currentWinStreak}
-            </p>
-            <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-              Active
-            </p>
-          </Card>
-
-          <Card variant="glow" className="p-4 lg:p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <Zap className="w-5 h-5" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Points Won
-              </span>
-            </div>
-            <p className="text-3xl font-mono font-bold text-[#22c55e] mb-1">
-              {USER_STATS.pointsWon.toLocaleString()}
-            </p>
-            <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-              All Time
-            </p>
-          </Card>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="flex gap-3 mb-8">
-          {STATUS_FILTER.map((filter) => (
-            <button
-              type="button"
-              key={filter}
-              onClick={() => setSelectedFilter(filter)}
-              className={`px-4 py-2 rounded transition-all ${
-                selectedFilter === filter
-                  ? "bg-[#f97316]"
-                  : "bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)]"
-              }`}
-            >
-              <Text
-                variant="label"
-                font="mono"
-                color={selectedFilter === filter ? "primary" : "muted"}
-                weight={selectedFilter === filter ? "semibold" : "medium"}
-              >
-                {filter}
+      <main
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${
+          isCollapsed ? "lg:pl-16" : "lg:pl-64"
+        }`}
+      >
+        <div className="p-4 lg:p-6">
+          {/* Header Section */}
+          <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-4 mb-4 lg:mb-6">
+            <div>
+              <Text variant="status" color="muted" className="mb-1">
+                /// BATTLES
               </Text>
-            </button>
-          ))}
-        </div>
+              <Text variant="h2" color="primary" className="mb-1">
+                My Battles
+              </Text>
+              <Text variant="bodySmall" color="muted">
+                Challenge others and prove your mastery
+              </Text>
+            </div>
+            <Button variant="primary" size="sm">
+              Find Opponent
+            </Button>
+          </header>
 
-        {/* Battles List */}
-        <div className="space-y-6">
+          {/* Stats Overview */}
+          <section>
+            <div className="flex items-center gap-2 mb-3">
+              <Swords className="w-4 h-4 text-[#22c55e]" />
+              <Text variant="caption" color="accent" uppercase font="mono">
+                Performance
+              </Text>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
+          <Card variant="glow" className="p-3 lg:p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Win Rate
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.winRate}
+                </Text>
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="uppercase tracking-wider"
+                  font="mono"
+                >
+                  {USER_STATS.victories} Victories
+                </Text>
+              </div>
+            </div>
+          </Card>
+
+          <Card variant="glow" className="p-3 lg:p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Defeat Rate
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.defeatRate}
+                </Text>
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="uppercase tracking-wider"
+                  font="mono"
+                >
+                  {USER_STATS.defeats} Defeats
+                </Text>
+              </div>
+            </div>
+          </Card>
+
+          <Card variant="glow" className="p-3 lg:p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Win Streak
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.currentWinStreak}
+                </Text>
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="uppercase tracking-wider"
+                  font="mono"
+                >
+                  Active
+                </Text>
+              </div>
+            </div>
+          </Card>
+
+          <Card variant="glow" className="p-3 lg:p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Points Won
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.pointsWon.toLocaleString()}
+                </Text>
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="uppercase tracking-wider"
+                  font="mono"
+                >
+                  All Time
+                </Text>
+              </div>
+            </div>
+          </Card>
+            </div>
+          </section>
+
+          {/* Filter Tabs */}
+          <section className="mb-4 lg:mb-6">
+            <div className="flex gap-2 lg:gap-3">
+              {STATUS_FILTER.map((filter) => (
+                <button
+                  type="button"
+                  key={filter}
+                  onClick={() => setSelectedFilter(filter)}
+                  className={`px-3 lg:px-4 py-1.5 lg:py-2 transition-all ${
+                    selectedFilter === filter
+                      ? "bg-[#22c55e] border border-[#22c55e]"
+                      : "bg-transparent border border-[rgba(255,255,255,0.1)] hover:border-[#22c55e40]"
+                  }`}
+                >
+                  <Text
+                    variant="label"
+                    font="mono"
+                    color={selectedFilter === filter ? "primary" : "muted"}
+                    weight={selectedFilter === filter ? "semibold" : "medium"}
+                  >
+                    {filter}
+                  </Text>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Battles List */}
+          <section className="space-y-3 lg:space-y-4">
           {filteredBattles.map((battle) => (
             <Card
               key={battle.id}
@@ -404,21 +473,22 @@ function MyBattlesContent() {
               </div>
             </Card>
           ))}
-        </div>
+          </section>
 
-        {/* Empty State */}
-        {filteredBattles.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16">
-            <Swords className="w-12 h-12 mb-4" />
-            <Text variant="h3" color="muted" className="mb-2">
-              No battles found
-            </Text>
-            <Text variant="body" color="muted">
-              Challenge someone to start your first battle
-            </Text>
-          </div>
-        )}
-      </div>
+          {/* Empty State */}
+          {filteredBattles.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16">
+              <Swords className="w-12 h-12 mb-4 text-[#999999]" />
+              <Text variant="h2" color="muted" className="mb-2">
+                No battles found
+              </Text>
+              <Text variant="body" color="muted">
+                Challenge someone to start your first battle
+              </Text>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
@@ -426,10 +496,7 @@ function MyBattlesContent() {
 export default function MyBattlesPage() {
   return (
     <SidebarProvider>
-      <div className="flex bg-[#0a0a0a]">
-        <Sidebar />
-        <MyBattlesContent />
-      </div>
+      <MyBattlesContent />
     </SidebarProvider>
   );
 }
