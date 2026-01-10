@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  BookOpen,
   ChevronLeft,
   ChevronRight,
   LayoutDashboard,
@@ -23,6 +24,7 @@ import { useSidebar } from "./SidebarContext";
 const NAV_ITEMS = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "My Battles", href: "/dashboard/battles", icon: Swords },
+  { label: "Practice Problems", href: "/dashboard/practice", icon: BookOpen },
   { label: "Leaderboard", href: "/dashboard/leaderboard", icon: Trophy },
   { label: "Achievements", href: "/dashboard/achievements", icon: Medal },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
