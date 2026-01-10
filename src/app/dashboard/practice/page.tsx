@@ -12,6 +12,7 @@ import { Badge } from "@/design-system/primitives/Badge/Badge";
 import { Button } from "@/design-system/primitives/Button/Button";
 import { Card } from "@/design-system/primitives/Card/Card";
 import { Input, Select } from "@/design-system/primitives/Input/Input";
+import { Text } from "@/design-system/primitives/Text/Text";
 
 interface Problem {
   id: string;
@@ -156,63 +157,82 @@ function PracticeProblemsContent() {
   };
 
   return (
-    <div
-      className={`flex-1 transition-all duration-300 ${isCollapsed ? "lg:ml-16" : "lg:ml-64"} ml-16`}
-    >
-      <div className="min-h-screen bg-[#0a0a0a] p-4 lg:p-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-mono font-bold tracking-wide text-white mb-2">
-            Practice Problems
-          </h1>
-          <p className="text-base font-mono text-[#999999]">
-            Master physics, mathematics, and chemistry through interactive
-            problem-solving
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(#22c55e10 1px, transparent 1px), linear-gradient(90deg, #22c55e10 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
-        {/* Filters Section */}
-        <div className="space-y-4 mb-8">
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
-            <Input
-              type="text"
-              placeholder="Search problems..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12"
-            />
+      <Sidebar />
+
+      <main
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${
+          isCollapsed ? "lg:pl-16" : "lg:pl-64"
+        }`}
+      >
+        <div className="p-4 lg:p-6">
+          {/* Header Section */}
+          <header className="mb-4 lg:mb-6">
+            <Text variant="status" color="muted" className="mb-1">
+              /// PRACTICE
+            </Text>
+            <Text variant="h2" color="primary" className="mb-1">
+              Practice Problems
+            </Text>
+            <Text variant="bodySmall" color="muted">
+              Master physics, mathematics, and chemistry through interactive
+              problem-solving
+            </Text>
+          </header>
+
+          {/* Filters Section */}
+          <div className="space-y-4 mb-4 lg:mb-6">
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#999999]" />
+              <Input
+                type="text"
+                placeholder="Search problems..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            {/* Dropdowns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-3">
+              {/* Subjects Dropdown */}
+              <Select
+                label="All Subjects"
+                value={selectedSubject}
+                onChange={(e) => setSelectedSubject(e.target.value)}
+                options={SUBJECTS.map((subject) => ({
+                  value: subject,
+                  label: subject,
+                }))}
+              />
+
+              {/* Levels Dropdown */}
+              <Select
+                label="All Levels"
+                value={selectedLevel}
+                onChange={(e) => setSelectedLevel(e.target.value)}
+                options={LEVELS.map((level) => ({
+                  value: level,
+                  label: level,
+                }))}
+              />
+            </div>
           </div>
 
-          {/* Dropdowns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Subjects Dropdown */}
-            <Select
-              label="All Subjects"
-              value={selectedSubject}
-              onChange={(e) => setSelectedSubject(e.target.value)}
-              options={SUBJECTS.map((subject) => ({
-                value: subject,
-                label: subject,
-              }))}
-            />
-
-            {/* Levels Dropdown */}
-            <Select
-              label="All Levels"
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-              options={LEVELS.map((level) => ({
-                value: level,
-                label: level,
-              }))}
-            />
-          </div>
-        </div>
-
-        {/* Problems Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {/* Problems Grid */}
+          <section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-3">
           {filteredProblems.map((problem) => (
             <Card
               key={problem.id}
@@ -255,63 +275,85 @@ function PracticeProblemsContent() {
               </div>
 
               {/* Content */}
-              <div className="p-4 flex-1 flex flex-col">
+              <div className="p-3 lg:p-4 flex-1 flex flex-col">
                 {/* Title */}
-                <p className="text-base font-mono font-semibold text-white mb-2 line-clamp-2">
+                <Text variant="body" color="primary" className="mb-2 line-clamp-2 font-semibold">
                   {problem.title}
-                </p>
+                </Text>
 
                 {/* Subject */}
-                <p className="text-[10px] font-mono text-[#999999] mb-3 uppercase tracking-wider">
+                <Text variant="caption" color="muted" className="mb-3 uppercase tracking-wider">
                   {problem.subject}
-                </p>
+                </Text>
 
                 {/* Difficulty Badge */}
-                <div className="mb-4">
+                <div className="mb-3 lg:mb-4">
                   <Badge variant={getDifficultyColor(problem.difficulty)}>
                     {problem.difficulty}
                   </Badge>
                 </div>
 
                 {/* Stats Footer */}
-                <div className="mt-auto pt-3 border-t border-[rgba(255,255,255,0.1)] space-y-2">
+                <div className="mt-auto pt-2 lg:pt-3 border-t border-[rgba(255,255,255,0.1)] space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="text-[10px] uppercase tracking-wider"
+                      font="mono"
+                    >
                       Points
-                    </span>
-                    <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="accent"
+                      className="text-[10px] uppercase tracking-wider"
+                      font="mono"
+                    >
                       {problem.points} pts
-                    </span>
+                    </Text>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="text-[10px] uppercase tracking-wider"
+                      font="mono"
+                    >
                       Solved
-                    </span>
-                    <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="accent"
+                      className="text-[10px] uppercase tracking-wider"
+                      font="mono"
+                    >
                       {problem.solved}%
-                    </span>
+                    </Text>
                   </div>
                 </div>
               </div>
             </Card>
           ))}
-        </div>
-
-        {/* Empty State */}
-        {filteredProblems.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16">
-            <div className="mb-4">
-              <Search className="w-12 h-12" />
             </div>
-            <p className="text-2xl font-mono font-bold text-[#999999] mb-2">
-              No problems found
-            </p>
-            <p className="text-base font-mono text-[#999999]">
-              Try adjusting your filters or search query
-            </p>
-          </div>
-        )}
-      </div>
+          </section>
+
+          {/* Empty State */}
+          {filteredProblems.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="mb-4">
+                <Search className="w-12 h-12 text-[#999999]" />
+              </div>
+              <Text variant="h2" font="mono" color="muted" className="mb-2">
+                No problems found
+              </Text>
+              <Text variant="body" font="mono" color="muted">
+                Try adjusting your filters or search query
+              </Text>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
@@ -319,10 +361,7 @@ function PracticeProblemsContent() {
 export default function PracticeProblemsPage() {
   return (
     <SidebarProvider>
-      <div className="flex bg-[#0a0a0a]">
-        <Sidebar />
-        <PracticeProblemsContent />
-      </div>
+      <PracticeProblemsContent />
     </SidebarProvider>
   );
 }

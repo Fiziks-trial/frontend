@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, Star, Zap, Target, Lock, Unlock, Trophy } from "lucide-react";
+import { Award, Star, Zap, Lock, Trophy, Target } from "lucide-react";
 import { useState } from "react";
 
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -10,6 +10,7 @@ import {
 } from "@/components/layout/SidebarContext";
 import { Badge } from "@/design-system/primitives/Badge/Badge";
 import { Card } from "@/design-system/primitives/Card/Card";
+import { Text } from "@/design-system/primitives/Text/Text";
 
 interface Achievement {
   id: string;
@@ -188,63 +189,91 @@ function AchievementsContent() {
   });
 
   return (
-    <div
-      className={`flex-1 transition-all duration-300 ${isCollapsed ? "lg:ml-16" : "lg:ml-64"} ml-16`}
-    >
-      <div className="min-h-screen bg-[#0a0a0a] p-4 lg:p-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Award className="w-8 h-8" />
-            <h1 className="text-4xl md:text-5xl font-mono font-bold tracking-wide text-[#22c55e]">
+    <div className="min-h-screen bg-[#050505]">
+      {/* Background Grid Pattern */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(#22c55e10 1px, transparent 1px), linear-gradient(90deg, #22c55e10 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <Sidebar />
+
+      <main
+        className={`relative z-10 min-h-screen transition-all duration-300 pl-16 ${
+          isCollapsed ? "lg:pl-16" : "lg:pl-64"
+        }`}
+      >
+        <div className="p-4 lg:p-6">
+          {/* Header Section */}
+          <header className="mb-4 lg:mb-6">
+            <Text variant="status" color="muted" className="mb-1">
+              /// ACHIEVEMENTS
+            </Text>
+            <Text variant="h2" color="primary" className="mb-1">
               Achievements
-            </h1>
-          </div>
-          <p className="text-base font-mono text-[#999999]">
-            Unlock achievements and earn rewards
-          </p>
-        </div>
+            </Text>
+            <Text variant="bodySmall" color="muted">
+              Unlock achievements and earn rewards
+            </Text>
+          </header>
 
-        {/* User Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {/* Total Achievements */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Trophy className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Total Achievements
-              </span>
+          {/* Stats Overview */}
+          <section>
+            <div className="flex items-center gap-2 mb-3">
+              <Trophy className="w-4 h-4 text-[#22c55e]" />
+              <Text variant="caption" color="accent" uppercase font="mono">
+                Your Progress
+              </Text>
             </div>
-            <p className="text-4xl font-mono font-bold text-white">
-              {USER_STATS.unlockedCount}/{USER_STATS.totalAchievements}
-            </p>
-          </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
+              {/* Total Achievements */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Total Achievements
+                </Text>
+                <Text variant="h3" color="primary" className="mb-1 lg:mb-2">
+                  {USER_STATS.unlockedCount}/{USER_STATS.totalAchievements}
+                </Text>
+              </Card>
 
-          {/* Completion Rate */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Target className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Completion Rate
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              {USER_STATS.completionPercentage}%
-            </p>
-          </Card>
+              {/* Completion Rate */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Completion Rate
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.completionPercentage}%
+                </Text>
+              </Card>
 
-          {/* Unlocked Count */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Unlock className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Unlocked
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-[#22c55e]">
-              {USER_STATS.unlockedCount}
-            </p>
-          </Card>
+              {/* Unlocked Count */}
+              <Card variant="glow" className="p-3 lg:p-4">
+                <Text
+                  variant="caption"
+                  color="muted"
+                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                  font="mono"
+                >
+                  Unlocked
+                </Text>
+                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                  {USER_STATS.unlockedCount}
+                </Text>
+              </Card>
 
           {/* Total Rewards */}
           <Card variant="glow" className="p-6">
@@ -358,21 +387,23 @@ function AchievementsContent() {
                 )}
             </Card>
           ))}
-        </div>
+            </div>
+          </section>
 
-        {/* Empty State */}
-        {filteredAchievements.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16">
-            <Lock className="w-12 h-12 mb-4" />
-            <p className="text-2xl font-mono font-bold text-[#999999] mb-2">
-              No achievements found
-            </p>
-            <p className="text-base font-mono text-[#999999]">
-              Keep solving problems to unlock achievements
-            </p>
-          </div>
-        )}
-      </div>
+          {/* Empty State */}
+          {filteredAchievements.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16">
+              <Lock className="w-12 h-12 mb-4 text-[#999999]" />
+              <Text variant="h2" color="muted" className="mb-2">
+                No achievements found
+              </Text>
+              <Text variant="body" color="muted">
+                Keep solving problems to unlock achievements
+              </Text>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
@@ -380,10 +411,7 @@ function AchievementsContent() {
 export default function AchievementsPage() {
   return (
     <SidebarProvider>
-      <div className="flex bg-[#0a0a0a]">
-        <Sidebar />
-        <AchievementsContent />
-      </div>
+      <AchievementsContent />
     </SidebarProvider>
   );
 }
