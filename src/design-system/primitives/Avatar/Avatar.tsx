@@ -3,7 +3,7 @@ import Image from "next/image";
 import { forwardRef, type HTMLAttributes } from "react";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
-export type AvatarVariant = "circle" | "square";
+export type AvatarVariant = "circle" | "rounded";
 
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   size?: AvatarSize;
@@ -41,11 +41,27 @@ const statusSizeStyles: Record<AvatarSize, string> = {
 };
 
 const statusColorStyles: Record<string, string> = {
-  online: "bg-[#22c55e]",
-  offline: "bg-[#666666]",
-  away: "bg-[#f59e0b]",
-  busy: "bg-[#ff0040]",
+  online: "bg-emerald-500",
+  offline: "bg-zinc-500",
+  away: "bg-amber-500",
+  busy: "bg-red-500",
 };
+
+// Generate consistent colors based on name
+function getAvatarGradient(name: string): string {
+  const gradients = [
+    "from-indigo-500 to-purple-500",
+    "from-emerald-500 to-teal-500",
+    "from-amber-500 to-orange-500",
+    "from-pink-500 to-rose-500",
+    "from-cyan-500 to-blue-500",
+    "from-violet-500 to-purple-500",
+  ];
+  const index = name
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return gradients[index % gradients.length];
+}
 
 function getInitials(name: string): string {
   const parts = name.trim().split(" ");
@@ -73,17 +89,19 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
   ) => {
     const hasImage = !!src;
     const displayName = name || alt || "User";
+    const gradient = getAvatarGradient(displayName);
 
     return (
       <div
         ref={ref}
         className={clsx(
           "relative inline-flex items-center justify-center",
-          "font-mono font-medium text-[#22c55e] bg-[#0a0a0a]",
+          "font-medium text-white",
+          hasImage ? "bg-zinc-800" : `bg-gradient-to-br ${gradient}`,
           "overflow-hidden transition-all duration-200",
-          variant === "circle" ? "rounded-full" : "rounded-none",
-          bordered && "border-2 border-[#22c55e]",
-          glow && "shadow-[0_0_15px_rgba(34,197,94,0.4)]",
+          variant === "circle" ? "rounded-full" : "rounded-xl",
+          bordered && "ring-2 ring-indigo-500/50",
+          glow && "shadow-lg shadow-indigo-500/30",
           sizeStyles[size],
           className,
         )}
@@ -98,12 +116,12 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
             className="w-full h-full object-cover"
           />
         ) : (
-          <span>{getInitials(displayName)}</span>
+          <span className="font-semibold">{getInitials(displayName)}</span>
         )}
         {status && (
           <span
             className={clsx(
-              "absolute bottom-0 right-0 rounded-full border-2 border-black",
+              "absolute bottom-0 right-0 rounded-full ring-2 ring-[#18181b]",
               statusSizeStyles[size],
               statusColorStyles[status],
             )}
@@ -131,14 +149,14 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
     const remainingCount = childArray.length - max;
 
     return (
-      <div ref={ref} className={clsx("flex -space-x-2", className)} {...props}>
+      <div ref={ref} className={clsx("flex -space-x-3", className)} {...props}>
         {visibleAvatars}
         {remainingCount > 0 && (
           <div
             className={clsx(
               "inline-flex items-center justify-center",
-              "font-mono font-medium text-[#22c55e] bg-[#0a0a0a]",
-              "border-2 border-[#22c55e] rounded-full",
+              "font-semibold text-white bg-zinc-700",
+              "ring-2 ring-[#18181b] rounded-full",
               sizeStyles[size],
             )}
           >

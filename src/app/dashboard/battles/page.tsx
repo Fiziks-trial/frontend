@@ -210,109 +210,109 @@ function MyBattlesContent() {
               </Text>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
-          <Card variant="glow" className="p-3 lg:p-4">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
-                  font="mono"
-                >
-                  Win Rate
-                </Text>
-                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
-                  {USER_STATS.winRate}
-                </Text>
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="uppercase tracking-wider"
-                  font="mono"
-                >
-                  {USER_STATS.victories} Victories
-                </Text>
-              </div>
-            </div>
-          </Card>
+              <Card variant="glow" className="p-3 lg:p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                      font="mono"
+                    >
+                      Win Rate
+                    </Text>
+                    <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                      {USER_STATS.winRate}
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="uppercase tracking-wider"
+                      font="mono"
+                    >
+                      {USER_STATS.victories} Victories
+                    </Text>
+                  </div>
+                </div>
+              </Card>
 
-          <Card variant="glow" className="p-3 lg:p-4">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
-                  font="mono"
-                >
-                  Defeat Rate
-                </Text>
-                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
-                  {USER_STATS.defeatRate}
-                </Text>
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="uppercase tracking-wider"
-                  font="mono"
-                >
-                  {USER_STATS.defeats} Defeats
-                </Text>
-              </div>
-            </div>
-          </Card>
+              <Card variant="glow" className="p-3 lg:p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                      font="mono"
+                    >
+                      Defeat Rate
+                    </Text>
+                    <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                      {USER_STATS.defeatRate}
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="uppercase tracking-wider"
+                      font="mono"
+                    >
+                      {USER_STATS.defeats} Defeats
+                    </Text>
+                  </div>
+                </div>
+              </Card>
 
-          <Card variant="glow" className="p-3 lg:p-4">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
-                  font="mono"
-                >
-                  Win Streak
-                </Text>
-                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
-                  {USER_STATS.currentWinStreak}
-                </Text>
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="uppercase tracking-wider"
-                  font="mono"
-                >
-                  Active
-                </Text>
-              </div>
-            </div>
-          </Card>
+              <Card variant="glow" className="p-3 lg:p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                      font="mono"
+                    >
+                      Win Streak
+                    </Text>
+                    <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                      {USER_STATS.currentWinStreak}
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="uppercase tracking-wider"
+                      font="mono"
+                    >
+                      Active
+                    </Text>
+                  </div>
+                </div>
+              </Card>
 
-          <Card variant="glow" className="p-3 lg:p-4">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="mb-0.5 lg:mb-1 uppercase tracking-wider"
-                  font="mono"
-                >
-                  Points Won
-                </Text>
-                <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
-                  {USER_STATS.pointsWon.toLocaleString()}
-                </Text>
-                <Text
-                  variant="caption"
-                  color="muted"
-                  className="uppercase tracking-wider"
-                  font="mono"
-                >
-                  All Time
-                </Text>
-              </div>
-            </div>
-          </Card>
+              <Card variant="glow" className="p-3 lg:p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="mb-0.5 lg:mb-1 uppercase tracking-wider"
+                      font="mono"
+                    >
+                      Points Won
+                    </Text>
+                    <Text variant="h3" color="accent" className="mb-1 lg:mb-2">
+                      {USER_STATS.pointsWon.toLocaleString()}
+                    </Text>
+                    <Text
+                      variant="caption"
+                      color="muted"
+                      className="uppercase tracking-wider"
+                      font="mono"
+                    >
+                      All Time
+                    </Text>
+                  </div>
+                </div>
+              </Card>
             </div>
           </section>
 
@@ -345,134 +345,134 @@ function MyBattlesContent() {
 
           {/* Battles List */}
           <section className="space-y-3 lg:space-y-4">
-          {filteredBattles.map((battle) => (
-            <Card
-              key={battle.id}
-              variant="glow"
-              className="p-0 overflow-hidden hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 p-6">
-                {/* Image */}
-                <div
-                  className="h-48 lg:h-full rounded-lg relative min-h-[200px]"
-                  style={{ background: battle.imageUrl }}
-                >
-                  <div className="absolute inset-0 rounded-lg" />
+            {filteredBattles.map((battle) => (
+              <Card
+                key={battle.id}
+                variant="glow"
+                className="p-0 overflow-hidden hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 p-6">
+                  {/* Image */}
+                  <div
+                    className="h-48 lg:h-full rounded-lg relative min-h-[200px]"
+                    style={{ background: battle.imageUrl }}
+                  >
+                    <div className="absolute inset-0 rounded-lg" />
+                  </div>
+
+                  {/* Battle Info */}
+                  <div className="lg:col-span-3 flex flex-col justify-between">
+                    {/* Header with Status */}
+                    <div className="mb-4">
+                      <div className="flex items-center gap-3 mb-4 flex-wrap">
+                        <Badge variant={getStatusBadgeColor(battle.status)}>
+                          {getStatusLabel(battle.status)}
+                        </Badge>
+                        <Badge variant={getDifficultyColor(battle.difficulty)}>
+                          {battle.difficulty}
+                        </Badge>
+                        <Badge variant="default">{battle.subject}</Badge>
+                      </div>
+
+                      {/* Opponent Info */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <Avatar
+                          size="sm"
+                          name={battle.opponent.avatar}
+                          bordered
+                        />
+                        <div>
+                          <p className="text-base font-mono font-semibold text-white">
+                            {battle.opponent.name}
+                          </p>
+                          <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
+                            Level {battle.opponent.level} •{" "}
+                            {battle.opponent.rating} rating
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Progress and Stats */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 pb-6 border-b border-[rgba(255,255,255,0.1)]">
+                      {/* Your Progress */}
+                      <div>
+                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
+                          Your Progress
+                        </p>
+                        <p className="text-2xl font-mono font-bold text-white">
+                          {battle.yourProgress}/5
+                        </p>
+                      </div>
+
+                      {/* Opponent Progress */}
+                      <div>
+                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
+                          Opponent Progress
+                        </p>
+                        <p className="text-2xl font-mono font-bold text-[#ef4444]">
+                          {battle.opponentProgress}/5
+                        </p>
+                      </div>
+
+                      {/* Wager */}
+                      <div>
+                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
+                          Wager
+                        </p>
+                        <p className="text-2xl font-mono font-bold text-[#22c55e]">
+                          {battle.wager} pts
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Time and Action */}
+                    <div className="flex items-center justify-between">
+                      {battle.status === "in-progress" && (
+                        <div>
+                          <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider block mb-1">
+                            Time Remaining
+                          </p>
+                          <p className="text-xl font-mono font-bold text-[#22c55e]">
+                            {battle.timeRemaining}
+                          </p>
+                        </div>
+                      )}
+                      {battle.status === "pending" && (
+                        <div>
+                          <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider block mb-1">
+                            Time to Accept
+                          </p>
+                          <p className="text-xl font-mono font-bold text-[#f97316]">
+                            {battle.timeRemaining}
+                          </p>
+                        </div>
+                      )}
+                      {battle.status === "in-progress" && (
+                        <Button
+                          variant="primary"
+                          size="md"
+                          className="rounded flex items-center gap-2"
+                        >
+                          Continue Battle
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {battle.status === "pending" && (
+                        <Button
+                          variant="secondary"
+                          size="md"
+                          className="rounded"
+                          disabled
+                        >
+                          Awaiting Opponent
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-
-                {/* Battle Info */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
-                  {/* Header with Status */}
-                  <div className="mb-4">
-                    <div className="flex items-center gap-3 mb-4 flex-wrap">
-                      <Badge variant={getStatusBadgeColor(battle.status)}>
-                        {getStatusLabel(battle.status)}
-                      </Badge>
-                      <Badge variant={getDifficultyColor(battle.difficulty)}>
-                        {battle.difficulty}
-                      </Badge>
-                      <Badge variant="default">{battle.subject}</Badge>
-                    </div>
-
-                    {/* Opponent Info */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <Avatar
-                        size="sm"
-                        name={battle.opponent.avatar}
-                        bordered
-                      />
-                      <div>
-                        <p className="text-base font-mono font-semibold text-white">
-                          {battle.opponent.name}
-                        </p>
-                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                          Level {battle.opponent.level} •{" "}
-                          {battle.opponent.rating} rating
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Progress and Stats */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 pb-6 border-b border-[rgba(255,255,255,0.1)]">
-                    {/* Your Progress */}
-                    <div>
-                      <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
-                        Your Progress
-                      </p>
-                      <p className="text-2xl font-mono font-bold text-white">
-                        {battle.yourProgress}/5
-                      </p>
-                    </div>
-
-                    {/* Opponent Progress */}
-                    <div>
-                      <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
-                        Opponent Progress
-                      </p>
-                      <p className="text-2xl font-mono font-bold text-[#ef4444]">
-                        {battle.opponentProgress}/5
-                      </p>
-                    </div>
-
-                    {/* Wager */}
-                    <div>
-                      <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-2">
-                        Wager
-                      </p>
-                      <p className="text-2xl font-mono font-bold text-[#22c55e]">
-                        {battle.wager} pts
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Time and Action */}
-                  <div className="flex items-center justify-between">
-                    {battle.status === "in-progress" && (
-                      <div>
-                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider block mb-1">
-                          Time Remaining
-                        </p>
-                        <p className="text-xl font-mono font-bold text-[#22c55e]">
-                          {battle.timeRemaining}
-                        </p>
-                      </div>
-                    )}
-                    {battle.status === "pending" && (
-                      <div>
-                        <p className="text-[10px] font-mono text-[#999999] uppercase tracking-wider block mb-1">
-                          Time to Accept
-                        </p>
-                        <p className="text-xl font-mono font-bold text-[#f97316]">
-                          {battle.timeRemaining}
-                        </p>
-                      </div>
-                    )}
-                    {battle.status === "in-progress" && (
-                      <Button
-                        variant="primary"
-                        size="md"
-                        className="rounded flex items-center gap-2"
-                      >
-                        Continue Battle
-                        <ChevronRight className="w-4 h-4" />
-                      </Button>
-                    )}
-                    {battle.status === "pending" && (
-                      <Button
-                        variant="secondary"
-                        size="md"
-                        className="rounded"
-                        disabled
-                      >
-                        Awaiting Opponent
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
           </section>
 
           {/* Empty State */}

@@ -238,99 +238,98 @@ function LeaderboardContent() {
           <section>
             <div className="flex items-center gap-2 mb-3">
               <Trophy className="w-4 h-4 text-[#22c55e]" />
-              <Text
-                variant="caption"
-                color="accent"
-                uppercase
-                font="mono"
-              >
+              <Text variant="caption" color="accent" uppercase font="mono">
                 Top Players This Month
               </Text>
             </div>
 
             {/* Leaderboard List */}
             <div className="space-y-2 lg:space-y-3">
-            {GLOBAL_LEADERBOARD.map((player) => (
-              <Card
-                key={player.rank}
-                variant="glow"
-                className="p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
-              >
-                <div className="flex items-center gap-3 lg:gap-4">
-                  {/* Rank */}
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] shrink-0">
-                    {player.rank === 1 ? (
-                      <Crown className="w-5 h-5 text-[#22c55e]" />
-                    ) : (
-                      <Text
-                        variant="body"
-                        font="mono"
-                        weight="bold"
-                        color="accent"
-                      >
-                        {player.rank}
-                      </Text>
-                    )}
-                  </div>
-
-                  {/* Player Info */}
-                  <div className="flex items-center gap-2 lg:gap-3 flex-1 min-w-0">
-                    <Avatar size="sm" name={player.avatar} bordered />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Text variant="body" color="primary" className="font-semibold">
-                          {player.username}
-                        </Text>
-                        <Badge variant={getLevelColor(player.level)}>
-                          Lvl {player.level}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2 lg:gap-3 mt-1 flex-wrap">
+              {GLOBAL_LEADERBOARD.map((player) => (
+                <Card
+                  key={player.rank}
+                  variant="glow"
+                  className="p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
+                >
+                  <div className="flex items-center gap-3 lg:gap-4">
+                    {/* Rank */}
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] shrink-0">
+                      {player.rank === 1 ? (
+                        <Crown className="w-5 h-5 text-[#22c55e]" />
+                      ) : (
                         <Text
-                          variant="caption"
-                          color="muted"
-                          className="text-[10px] uppercase tracking-wider"
+                          variant="body"
                           font="mono"
-                        >
-                          ◉ {player.problemsSolved} solved
-                        </Text>
-                        <Text
-                          variant="caption"
-                          color="muted"
-                          className="text-[10px] uppercase tracking-wider"
-                          font="mono"
-                        >
-                          ⏱ {player.avgTime}
-                        </Text>
-                        <Text
-                          variant="caption"
+                          weight="bold"
                           color="accent"
-                          className="text-[10px] uppercase tracking-wider"
-                          font="mono"
                         >
-                          🔥 {player.streak}x
+                          {player.rank}
                         </Text>
+                      )}
+                    </div>
+
+                    {/* Player Info */}
+                    <div className="flex items-center gap-2 lg:gap-3 flex-1 min-w-0">
+                      <Avatar size="sm" name={player.avatar} bordered />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <Text
+                            variant="body"
+                            color="primary"
+                            className="font-semibold"
+                          >
+                            {player.username}
+                          </Text>
+                          <Badge variant={getLevelColor(player.level)}>
+                            Lvl {player.level}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-2 lg:gap-3 mt-1 flex-wrap">
+                          <Text
+                            variant="caption"
+                            color="muted"
+                            className="text-[10px] uppercase tracking-wider"
+                            font="mono"
+                          >
+                            ◉ {player.problemsSolved} solved
+                          </Text>
+                          <Text
+                            variant="caption"
+                            color="muted"
+                            className="text-[10px] uppercase tracking-wider"
+                            font="mono"
+                          >
+                            ⏱ {player.avgTime}
+                          </Text>
+                          <Text
+                            variant="caption"
+                            color="accent"
+                            className="text-[10px] uppercase tracking-wider"
+                            font="mono"
+                          >
+                            🔥 {player.streak}x
+                          </Text>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Points */}
-                  <div className="text-right shrink-0">
-                    <Text variant="h4" color="accent" className="font-mono">
-                      💰 {player.totalPoints.toLocaleString()}
-                    </Text>
-                    <Text
-                      variant="caption"
-                      color="muted"
-                      className="uppercase tracking-wider"
-                      font="mono"
-                    >
-                      pts
-                    </Text>
+                    {/* Points */}
+                    <div className="text-right shrink-0">
+                      <Text variant="h4" color="accent" className="font-mono">
+                        💰 {player.totalPoints.toLocaleString()}
+                      </Text>
+                      <Text
+                        variant="caption"
+                        color="muted"
+                        className="uppercase tracking-wider"
+                        font="mono"
+                      >
+                        pts
+                      </Text>
+                    </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
             </div>
           </section>
         </div>

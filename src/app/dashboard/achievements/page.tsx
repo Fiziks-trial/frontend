@@ -275,118 +275,120 @@ function AchievementsContent() {
                 </Text>
               </Card>
 
-          {/* Total Rewards */}
-          <Card variant="glow" className="p-6">
-            <div className="mb-4">
-              <Zap className="w-8 h-8 mb-3" />
-              <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                Total Rewards
-              </span>
-            </div>
-            <p className="text-4xl font-mono font-bold text-white">
-              {USER_STATS.totalRewards.toLocaleString()}
-            </p>
-          </Card>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="flex gap-3 mb-8">
-          {ACHIEVEMENT_FILTERS.map((filter) => (
-            <button
-              type="button"
-              key={filter}
-              onClick={() => setSelectedFilter(filter)}
-              className={`px-6 py-2 rounded-full transition-all ${
-                selectedFilter === filter
-                  ? "bg-[#22c55e]"
-                  : "bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)]"
-              }`}
-            >
-              <span
-                className={`text-xs font-mono ${selectedFilter === filter ? "text-white font-semibold" : "text-[#999999] font-medium"}`}
-              >
-                {filter}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Achievements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredAchievements.map((achievement) => (
-            <Card
-              key={achievement.id}
-              variant="glow"
-              className={`p-6 flex flex-col h-full hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200 ${
-                achievement.status === "locked" ? "opacity-60" : ""
-              }`}
-            >
-              {/* Status Badge */}
-              <div className="flex items-center justify-between mb-4">
-                <Badge variant={getStatusBadgeColor(achievement.status)}>
-                  {achievement.status === "unlocked" ? "Unlocked" : "Locked"}
-                </Badge>
-                <Badge variant={getDifficultyColor(achievement.difficulty)}>
-                  {achievement.difficulty}
-                </Badge>
-              </div>
-
-              {/* Icon */}
-              <div className="mb-4">
-                <div className="w-12 h-12 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center">
-                  {achievement.icon}
-                </div>
-              </div>
-
-              {/* Achievement Info */}
-              <div className="flex-1">
-                <p className="text-base font-mono font-semibold text-white mb-2">
-                  {achievement.name}
-                </p>
-                <p className="text-[10px] font-mono text-[#999999] mb-4 block uppercase tracking-wider">
-                  {achievement.description}
-                </p>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
+              {/* Total Rewards */}
+              <Card variant="glow" className="p-6">
+                <div className="mb-4">
+                  <Zap className="w-8 h-8 mb-3" />
                   <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                    Progress
-                  </span>
-                  <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
-                    {achievement.progress}/{achievement.maxProgress}
+                    Total Rewards
                   </span>
                 </div>
-                <div className="w-full h-2 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#22c55e] transition-all duration-300"
-                    style={{
-                      width: `${(achievement.progress / achievement.maxProgress) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Reward */}
-              <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,255,255,0.1)]">
-                <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
-                  Reward
-                </span>
-                <p className="text-base font-mono font-bold text-[#22c55e]">
-                  +{achievement.reward}
+                <p className="text-4xl font-mono font-bold text-white">
+                  {USER_STATS.totalRewards.toLocaleString()}
                 </p>
-              </div>
+              </Card>
+            </div>
 
-              {/* Unlocked Date */}
-              {achievement.status === "unlocked" &&
-                achievement.unlockedDate && (
-                  <p className="text-[10px] font-mono text-[#999999] mt-3 pt-3 border-t border-[rgba(255,255,255,0.1)] uppercase tracking-wider">
-                    Unlocked: {achievement.unlockedDate}
-                  </p>
-                )}
-            </Card>
-          ))}
+            {/* Filter Tabs */}
+            <div className="flex gap-3 mb-8">
+              {ACHIEVEMENT_FILTERS.map((filter) => (
+                <button
+                  type="button"
+                  key={filter}
+                  onClick={() => setSelectedFilter(filter)}
+                  className={`px-6 py-2 rounded-full transition-all ${
+                    selectedFilter === filter
+                      ? "bg-[#22c55e]"
+                      : "bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)]"
+                  }`}
+                >
+                  <span
+                    className={`text-xs font-mono ${selectedFilter === filter ? "text-white font-semibold" : "text-[#999999] font-medium"}`}
+                  >
+                    {filter}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Achievements Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {filteredAchievements.map((achievement) => (
+                <Card
+                  key={achievement.id}
+                  variant="glow"
+                  className={`p-6 flex flex-col h-full hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200 ${
+                    achievement.status === "locked" ? "opacity-60" : ""
+                  }`}
+                >
+                  {/* Status Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge variant={getStatusBadgeColor(achievement.status)}>
+                      {achievement.status === "unlocked"
+                        ? "Unlocked"
+                        : "Locked"}
+                    </Badge>
+                    <Badge variant={getDifficultyColor(achievement.difficulty)}>
+                      {achievement.difficulty}
+                    </Badge>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="mb-4">
+                    <div className="w-12 h-12 rounded-lg bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center">
+                      {achievement.icon}
+                    </div>
+                  </div>
+
+                  {/* Achievement Info */}
+                  <div className="flex-1">
+                    <p className="text-base font-mono font-semibold text-white mb-2">
+                      {achievement.name}
+                    </p>
+                    <p className="text-[10px] font-mono text-[#999999] mb-4 block uppercase tracking-wider">
+                      {achievement.description}
+                    </p>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
+                        Progress
+                      </span>
+                      <span className="text-[10px] font-mono text-[#22c55e] uppercase tracking-wider">
+                        {achievement.progress}/{achievement.maxProgress}
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[#22c55e] transition-all duration-300"
+                        style={{
+                          width: `${(achievement.progress / achievement.maxProgress) * 100}%`,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Reward */}
+                  <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,255,255,0.1)]">
+                    <span className="text-[10px] font-mono text-[#999999] uppercase tracking-wider">
+                      Reward
+                    </span>
+                    <p className="text-base font-mono font-bold text-[#22c55e]">
+                      +{achievement.reward}
+                    </p>
+                  </div>
+
+                  {/* Unlocked Date */}
+                  {achievement.status === "unlocked" &&
+                    achievement.unlockedDate && (
+                      <p className="text-[10px] font-mono text-[#999999] mt-3 pt-3 border-t border-[rgba(255,255,255,0.1)] uppercase tracking-wider">
+                        Unlocked: {achievement.unlockedDate}
+                      </p>
+                    )}
+                </Card>
+              ))}
             </div>
           </section>
 

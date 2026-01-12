@@ -641,7 +641,7 @@ export default function DesignSystemPage() {
                     <Label>Avatar Variants</Label>
                     <div className="flex items-center gap-4">
                       <Avatar name="Circle" variant="circle" />
-                      <Avatar name="Square" variant="square" />
+                      <Avatar name="Square" variant="rounded" />
                       <Avatar name="Bordered" bordered />
                       <Avatar name="Glow" bordered glow />
                     </div>

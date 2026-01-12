@@ -180,7 +180,8 @@ function ProblemContent() {
                   <div className="flex items-center gap-2 mb-2">
                     <Clock className="w-5 h-5 text-[#999999]" />
                     <p className="text-2xl font-mono font-bold text-[#999999]">
-                      {Math.floor(timeElapsed / 60)}:{(timeElapsed % 60).toString().padStart(2, "0")}
+                      {Math.floor(timeElapsed / 60)}:
+                      {(timeElapsed % 60).toString().padStart(2, "0")}
                     </p>
                   </div>
                 </div>
@@ -551,7 +552,8 @@ function ProblemContent() {
                         Time Elapsed
                       </p>
                       <p className="text-2xl font-mono font-bold text-white">
-                        {Math.floor(timeElapsed / 60)}:{(timeElapsed % 60).toString().padStart(2, "0")}
+                        {Math.floor(timeElapsed / 60)}:
+                        {(timeElapsed % 60).toString().padStart(2, "0")}
                       </p>
                     </div>
                   </div>

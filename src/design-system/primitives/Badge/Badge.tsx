@@ -6,7 +6,8 @@ export type BadgeVariant =
   | "success"
   | "warning"
   | "error"
-  | "purple";
+  | "purple"
+  | "info";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
@@ -14,15 +15,16 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-[#0a0a0a] border-[rgba(255,255,255,0.15)] text-[#cccccc]",
-  success: "bg-[#22c55e15] border-[#22c55e66] text-[#22c55e]",
-  warning: "bg-[#d4a57415] border-[#d4a57466] text-[#d4a574]",
-  error: "bg-[#ef444415] border-[#ef444466] text-[#ef4444]",
-  purple: "bg-[#a855f715] border-[#a855f766] text-[#a855f7]",
+  default: "bg-zinc-500/10 text-zinc-400",
+  success: "bg-emerald-500/10 text-emerald-400",
+  warning: "bg-amber-500/10 text-amber-400",
+  error: "bg-red-500/10 text-red-400",
+  purple: "bg-purple-500/10 text-purple-400",
+  info: "bg-indigo-500/10 text-indigo-400",
 };
 
 /**
- * Badge component following Hacker House design system
+ * Badge component following Craft-inspired design system
  */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ variant = "default", className, children, ...props }, ref) => {
@@ -30,7 +32,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center px-3 py-1 text-xs font-medium uppercase tracking-wider border",
+          "inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full",
           variantStyles[variant],
           className,
         )}
@@ -52,9 +54,9 @@ export interface StatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const statusColors = {
-  active: "bg-[#22c55e]",
-  inactive: "bg-[#666666]",
-  pending: "bg-[#f59e0b]",
+  active: "bg-emerald-500",
+  inactive: "bg-zinc-500",
+  pending: "bg-amber-500",
 };
 
 export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
@@ -63,14 +65,15 @@ export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center gap-2 px-3 py-1 text-xs font-mono uppercase tracking-wider border border-[rgba(255,255,255,0.15)] bg-[#0a0a0a] text-white",
+          "inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-full bg-white/[0.05] text-white",
           className,
         )}
         {...props}
       >
         <span
           className={clsx(
-            "w-2 h-2 rounded-full animate-pulse",
+            "w-2 h-2 rounded-full",
+            status === "active" && "animate-pulse",
             statusColors[status],
           )}
         />
@@ -82,8 +85,7 @@ export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
 StatusBadge.displayName = "StatusBadge";
 
 /**
- * SystemBadge - Terminal-style system badge
- * Prefixed with "///"
+ * SystemBadge - Subtle system indicator badge
  */
 export const SystemBadge = forwardRef<
   HTMLSpanElement,
@@ -93,12 +95,11 @@ export const SystemBadge = forwardRef<
     <span
       ref={ref}
       className={clsx(
-        "inline-flex items-center px-2 py-1 text-xs font-mono border border-[rgba(255,255,255,0.1)] text-[#999999]",
+        "inline-flex items-center px-2 py-1 text-xs font-medium text-zinc-500 bg-white/[0.03] rounded-md",
         className,
       )}
       {...props}
     >
-      {"/// "}
       {children}
     </span>
   );
@@ -118,7 +119,7 @@ export const CounterBadge = forwardRef<HTMLSpanElement, CounterBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-xs font-mono bg-[#22c55e] text-black rounded-full",
+          "inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-xs font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full",
           className,
         )}
         {...props}

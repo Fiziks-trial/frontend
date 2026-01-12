@@ -233,108 +233,116 @@ function PracticeProblemsContent() {
           {/* Problems Grid */}
           <section>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-3">
-          {filteredProblems.map((problem) => (
-            <Card
-              key={problem.id}
-              variant="glow"
-              className="flex flex-col h-full overflow-hidden p-0 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
-            >
-              {/* Image/Thumbnail */}
-              <div
-                className="h-40 w-full relative"
-                style={{ background: problem.image }}
-              >
-                {/* Status Badge */}
-                <div className="absolute top-3 right-3">
-                  <Badge variant={getStatusBadgeColor(problem.status)}>
-                    {getStatusLabel(problem.status)}
-                  </Badge>
-                </div>
-
-                {/* Action Button/Lock */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-all duration-200">
-                  {problem.status === "locked" ? (
-                    <div className="flex flex-col items-center gap-2">
-                      <Lock className="w-6 h-6" />
+              {filteredProblems.map((problem) => (
+                <Card
+                  key={problem.id}
+                  variant="glow"
+                  className="flex flex-col h-full overflow-hidden p-0 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-200"
+                >
+                  {/* Image/Thumbnail */}
+                  <div
+                    className="h-40 w-full relative"
+                    style={{ background: problem.image }}
+                  >
+                    {/* Status Badge */}
+                    <div className="absolute top-3 right-3">
+                      <Badge variant={getStatusBadgeColor(problem.status)}>
+                        {getStatusLabel(problem.status)}
+                      </Badge>
                     </div>
-                  ) : (
-                    <a href={`/dashboard/problems/${problem.id}`}>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="rounded flex items-center gap-2"
-                      >
-                        <Play className="w-4 h-4" />
-                        {problem.status === "completed"
-                          ? "Play Again"
-                          : "Start"}
-                      </Button>
-                    </a>
-                  )}
-                </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-3 lg:p-4 flex-1 flex flex-col">
-                {/* Title */}
-                <Text variant="body" color="primary" className="mb-2 line-clamp-2 font-semibold">
-                  {problem.title}
-                </Text>
+                    {/* Action Button/Lock */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-all duration-200">
+                      {problem.status === "locked" ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <Lock className="w-6 h-6" />
+                        </div>
+                      ) : (
+                        <a href={`/dashboard/problems/${problem.id}`}>
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            className="rounded flex items-center gap-2"
+                          >
+                            <Play className="w-4 h-4" />
+                            {problem.status === "completed"
+                              ? "Play Again"
+                              : "Start"}
+                          </Button>
+                        </a>
+                      )}
+                    </div>
+                  </div>
 
-                {/* Subject */}
-                <Text variant="caption" color="muted" className="mb-3 uppercase tracking-wider">
-                  {problem.subject}
-                </Text>
+                  {/* Content */}
+                  <div className="p-3 lg:p-4 flex-1 flex flex-col">
+                    {/* Title */}
+                    <Text
+                      variant="body"
+                      color="primary"
+                      className="mb-2 line-clamp-2 font-semibold"
+                    >
+                      {problem.title}
+                    </Text>
 
-                {/* Difficulty Badge */}
-                <div className="mb-3 lg:mb-4">
-                  <Badge variant={getDifficultyColor(problem.difficulty)}>
-                    {problem.difficulty}
-                  </Badge>
-                </div>
-
-                {/* Stats Footer */}
-                <div className="mt-auto pt-2 lg:pt-3 border-t border-[rgba(255,255,255,0.1)] space-y-1.5">
-                  <div className="flex justify-between items-center">
+                    {/* Subject */}
                     <Text
                       variant="caption"
                       color="muted"
-                      className="text-[10px] uppercase tracking-wider"
-                      font="mono"
+                      className="mb-3 uppercase tracking-wider"
                     >
-                      Points
+                      {problem.subject}
                     </Text>
-                    <Text
-                      variant="caption"
-                      color="accent"
-                      className="text-[10px] uppercase tracking-wider"
-                      font="mono"
-                    >
-                      {problem.points} pts
-                    </Text>
+
+                    {/* Difficulty Badge */}
+                    <div className="mb-3 lg:mb-4">
+                      <Badge variant={getDifficultyColor(problem.difficulty)}>
+                        {problem.difficulty}
+                      </Badge>
+                    </div>
+
+                    {/* Stats Footer */}
+                    <div className="mt-auto pt-2 lg:pt-3 border-t border-[rgba(255,255,255,0.1)] space-y-1.5">
+                      <div className="flex justify-between items-center">
+                        <Text
+                          variant="caption"
+                          color="muted"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          Points
+                        </Text>
+                        <Text
+                          variant="caption"
+                          color="accent"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          {problem.points} pts
+                        </Text>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <Text
+                          variant="caption"
+                          color="muted"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          Solved
+                        </Text>
+                        <Text
+                          variant="caption"
+                          color="accent"
+                          className="text-[10px] uppercase tracking-wider"
+                          font="mono"
+                        >
+                          {problem.solved}%
+                        </Text>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <Text
-                      variant="caption"
-                      color="muted"
-                      className="text-[10px] uppercase tracking-wider"
-                      font="mono"
-                    >
-                      Solved
-                    </Text>
-                    <Text
-                      variant="caption"
-                      color="accent"
-                      className="text-[10px] uppercase tracking-wider"
-                      font="mono"
-                    >
-                      {problem.solved}%
-                    </Text>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
+                </Card>
+              ))}
             </div>
           </section>
 

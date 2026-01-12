@@ -11,25 +11,25 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseStyles =
-  "inline-flex items-center justify-center font-medium uppercase tracking-wider transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-[#22c55e] text-black hover:bg-[#16a34a] active:bg-[#15803d]",
+  primary:
+    "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30",
   secondary:
-    "bg-transparent border border-[rgba(255,255,255,0.2)] text-white hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.3)]",
-  ghost:
-    "bg-transparent text-white border border-white/20 hover:border-white/40 hover:bg-white/5",
-  link: "bg-transparent text-[#22c55e] hover:text-[#16a34a] hover:underline",
+    "bg-white/[0.05] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white hover:border-white/[0.12]",
+  ghost: "bg-transparent text-zinc-400 hover:text-white hover:bg-white/[0.05]",
+  link: "bg-transparent text-indigo-400 hover:text-indigo-300 hover:underline underline-offset-4",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-4 py-2 text-xs",
-  md: "px-6 py-3 text-sm",
-  lg: "px-8 py-4 text-base",
+  sm: "px-4 py-2 text-xs rounded-lg",
+  md: "px-5 py-2.5 text-sm rounded-xl",
+  lg: "px-6 py-3 text-base rounded-xl",
 };
 
 /**
- * Button component following Hacker House design system
+ * Button component following Craft-inspired design system
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -56,7 +56,6 @@ Button.displayName = "Button";
 
 /**
  * Arrow Button - CTA style button with arrow suffix
- * Used for actions like "INITIATE >"
  */
 export const ArrowButton = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -68,10 +67,24 @@ export const ArrowButton = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         variant={variant}
         size={size}
-        className={className}
+        className={clsx("gap-2", className)}
         {...props}
       >
-        {children} <span className="ml-2">&gt;</span>
+        {children}
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
       </Button>
     );
   },
@@ -104,16 +117,12 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         variant={variant}
         size={size}
-        className={className}
+        className={clsx("gap-2", className)}
         {...props}
       >
-        {iconPosition === "left" && icon && (
-          <span className="mr-2">{icon}</span>
-        )}
+        {iconPosition === "left" && icon}
         {children}
-        {iconPosition === "right" && icon && (
-          <span className="ml-2">{icon}</span>
-        )}
+        {iconPosition === "right" && icon}
       </Button>
     );
   },

@@ -1,10 +1,6 @@
-import { ChevronRight, Clock, Swords } from "lucide-react";
+import { ChevronRight, Clock, Swords, Trophy } from "lucide-react";
 
 import { Avatar } from "@/design-system/primitives/Avatar/Avatar";
-import { Badge } from "@/design-system/primitives/Badge/Badge";
-import { Button } from "@/design-system/primitives/Button/Button";
-import { Card } from "@/design-system/primitives/Card/Card";
-import { Text } from "@/design-system/primitives/Text/Text";
 
 interface Game {
   id: number;
@@ -57,50 +53,47 @@ const RECENT_GAMES: Game[] = [
 
 export function RecentGames() {
   return (
-    <Card variant="default" className="p-0">
+    <div className="bg-[#18181b]/60 rounded-2xl border border-white/[0.08] backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="p-3 lg:p-4 border-b border-[rgba(255,255,255,0.1)]">
+      <div className="p-5 border-b border-white/[0.06]">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Swords className="w-4 h-4 text-[#22c55e]" />
-            <Text variant="label" color="accent" uppercase className="text-sm">
-              Recent Battles
-            </Text>
-          </div>
-          <Button variant="link" size="sm" className="text-xs">
+          <h3 className="text-white font-semibold flex items-center gap-2">
+            <Swords className="w-4 h-4 text-indigo-400" />
+            Recent Battles
+          </h3>
+          <button
+            type="button"
+            className="text-sm text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
+          >
             View All
-            <ChevronRight className="w-3 h-3 ml-1" />
-          </Button>
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
       {/* Games List */}
-      <div className="divide-y divide-[rgba(255,255,255,0.06)]">
+      <div className="divide-y divide-white/[0.04]">
         {RECENT_GAMES.map((game, index) => (
           <GameItem key={game.id} game={game} isFirst={index === 0} />
         ))}
       </div>
 
       {/* Footer */}
-      <div className="p-3 lg:p-4 border-t border-[rgba(255,255,255,0.1)]">
+      <div className="p-4 border-t border-white/[0.06] bg-white/[0.02]">
         <div className="flex items-center justify-between">
-          <Text variant="caption" color="muted" className="text-xs">
+          <span className="text-xs text-zinc-500">
             {RECENT_GAMES.filter((g) => g.result === "win").length} wins today
-          </Text>
-          <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
-            <Text
-              variant="caption"
-              color="success"
-              font="mono"
-              className="text-xs"
-            >
-              LIVE
-            </Text>
+          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-xs font-medium text-emerald-400">LIVE</span>
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
 
@@ -109,80 +102,71 @@ function GameItem({ game, isFirst }: { game: Game; isFirst: boolean }) {
 
   return (
     <div
-      className={`p-3 lg:p-4 hover:bg-[#22c55e08] transition-colors cursor-pointer ${
-        isFirst ? "bg-[#22c55e05]" : ""
+      className={`p-4 hover:bg-white/[0.02] transition-colors cursor-pointer group ${
+        isFirst ? "bg-indigo-500/[0.03]" : ""
       }`}
     >
-      {/* Top Row: Avatar, Name, Result */}
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="flex items-center gap-2 lg:gap-3 min-w-0">
+      {/* Top Row */}
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <div className="flex items-center gap-3 min-w-0">
           <div className="relative shrink-0">
-            <Avatar size="xs" name={game.opponent} />
+            <Avatar size="sm" name={game.opponent} />
             {isFirst && (
-              <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-[#22c55e] border border-[#0a0a0a] rounded-full" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-[#18181b] rounded-full" />
             )}
           </div>
           <div className="min-w-0">
-            <Text
-              variant="caption"
-              color="primary"
-              weight="medium"
-              className="truncate block text-xs"
-            >
+            <span className="text-sm font-medium text-white truncate block">
               vs {game.opponent}
-            </Text>
-            <div className="flex items-center gap-1 mt-0.5">
-              <Clock className="w-3 h-3 text-[#666666] shrink-0" />
-              <Text variant="caption" color="muted" className="text-xs">
-                {game.date}
-              </Text>
-              <span className="text-[#333] mx-0.5">|</span>
-              <Text
-                variant="caption"
-                color={game.mode === "Tournament" ? "purple" : "muted"}
-                font="mono"
-                className="text-xs"
+            </span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <div className="flex items-center gap-1 text-zinc-500">
+                <Clock className="w-3 h-3" />
+                <span className="text-xs">{game.date}</span>
+              </div>
+              <span className="text-zinc-700">•</span>
+              <span
+                className={`text-xs font-medium ${
+                  game.mode === "Tournament"
+                    ? "text-purple-400"
+                    : game.mode === "Ranked"
+                      ? "text-indigo-400"
+                      : "text-zinc-500"
+                }`}
               >
                 {game.mode}
-              </Text>
+              </span>
             </div>
           </div>
         </div>
-        <Badge
-          variant={isWin ? "success" : "error"}
-          className="text-[10px] shrink-0"
-        >
-          {game.result.toUpperCase()}
-        </Badge>
-      </div>
-
-      {/* Bottom Row: Score and ELO Change */}
-      <div className="flex items-center justify-between pl-6 lg:pl-9">
-        <Text
-          variant="caption"
-          color="secondary"
-          font="mono"
-          className="text-xs"
-        >
-          {game.score}
-        </Text>
-        <div
-          className={`flex items-center gap-1 px-1.5 py-0.5 ${
-            isWin ? "bg-[#22c55e15]" : "bg-[#ef444415]"
+        <span
+          className={`text-xs font-semibold px-2 py-1 rounded-lg ${
+            isWin
+              ? "bg-emerald-500/10 text-emerald-400"
+              : "bg-red-500/10 text-red-400"
           }`}
         >
-          <Text
-            variant="caption"
-            color={isWin ? "success" : "error"}
-            font="mono"
-            weight="medium"
-            className="text-xs"
+          {game.result.toUpperCase()}
+        </span>
+      </div>
+
+      {/* Bottom Row */}
+      <div className="flex items-center justify-between pl-11">
+        <span className="text-xs text-zinc-500 font-mono">{game.score}</span>
+        <div
+          className={`flex items-center gap-1.5 px-2 py-1 rounded-lg ${
+            isWin ? "bg-emerald-500/10" : "bg-red-500/10"
+          }`}
+        >
+          {isWin && <Trophy className="w-3 h-3 text-emerald-400" />}
+          <span
+            className={`text-xs font-semibold ${
+              isWin ? "text-emerald-400" : "text-red-400"
+            }`}
           >
             {game.eloChange}
-          </Text>
-          <Text variant="caption" color="muted" className="text-[10px]">
-            ELO
-          </Text>
+          </span>
+          <span className="text-[10px] text-zinc-500">ELO</span>
         </div>
       </div>
     </div>

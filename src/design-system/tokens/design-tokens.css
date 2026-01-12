@@ -1,144 +1,159 @@
 /* Fiziks Design Tokens */
-/* "Hacker House" Theme - Terminal aesthetic with neon green accent */
+/* "Craft" Theme - Clean, modern, polished aesthetic inspired by Craft.do */
 /* Single source of truth for all design values */
 
 @layer base {
   :root {
     /* ========================================
-       COLORS - Hacker House Color System
+       COLORS - Craft-Inspired Color System
        ======================================== */
 
-    /* Primary - Desaturated green (professional, easier on eyes) */
-    --color-primary: #22c55e;
-    --color-primary-foreground: #000000;
-    --color-primary-dim: #16a34a;
-    --color-primary-muted: #22c55e33;
+    /* Primary - Vibrant blue (modern, professional) */
+    --color-primary: #6366f1;
+    --color-primary-foreground: #ffffff;
+    --color-primary-dim: #4f46e5;
+    --color-primary-muted: #6366f120;
+    --color-primary-light: #818cf8;
 
-    /* Neon variant - reserved for key CTAs only */
-    --color-neon: #4ade80;
-    --color-neon-dim: #22c55e;
-    --color-neon-glow: rgba(34, 197, 94, 0.4);
-    --color-neon-subtle: rgba(34, 197, 94, 0.1);
+    /* Accent colors */
+    --color-accent: #f59e0b;
+    --color-accent-dim: #d97706;
+    --color-accent-muted: #f59e0b20;
 
     /* Purple accent (secondary highlight) */
     --color-purple: #a855f7;
     --color-purple-dim: #9333ea;
     --color-purple-muted: #a855f720;
+    --color-purple-light: #c084fc;
 
-    /* Secondary - Dark surfaces */
-    --color-secondary: #1a1a1a;
+    /* Teal for success states */
+    --color-teal: #14b8a6;
+    --color-teal-dim: #0d9488;
+    --color-teal-muted: #14b8a620;
+
+    /* Secondary - Soft grays */
+    --color-secondary: #374151;
     --color-secondary-foreground: #ffffff;
 
-    /* Semantic Colors - distinct from primary */
-    --color-success: #22c55e;
-    --color-success-muted: #22c55e20;
-    --color-warning: #d4a574;
-    --color-warning-muted: #d4a57420;
+    /* Semantic Colors */
+    --color-success: #10b981;
+    --color-success-muted: #10b98120;
+    --color-warning: #f59e0b;
+    --color-warning-muted: #f59e0b20;
     --color-error: #ef4444;
     --color-error-muted: #ef444420;
     --color-info: #3b82f6;
     --color-info-muted: #3b82f620;
 
     /* Legacy support */
-    --color-success-400: #22c55e;
-    --color-warning-400: #d4a574;
+    --color-success-400: #10b981;
+    --color-warning-400: #f59e0b;
     --color-error-400: #ef4444;
 
+    /* Green for compatibility */
+    --color-neon: #10b981;
+    --color-neon-dim: #059669;
+    --color-neon-glow: rgba(16, 185, 129, 0.4);
+    --color-neon-subtle: rgba(16, 185, 129, 0.1);
+
     /* ========================================
-       DARK BACKGROUNDS - Hacker House Style
+       DARK BACKGROUNDS - Craft Dark Mode
        ======================================== */
 
-    /* Base backgrounds - true black */
-    --background: #000000;
+    /* Base backgrounds - Rich dark with depth */
+    --background: #0f0f12;
     --foreground: #ffffff;
-    --color-bg-primary: #000000;
-    --color-bg-secondary: #0a0a0a;
-    --color-bg-card: #0a0a0a;
-    --color-bg-elevated: #1a1a1a;
-    --color-bg-hover: #0a0a0a;
-    --color-bg-active: #1a1a1a;
-    --color-bg-overlay: rgba(0, 0, 0, 0.9);
+    --color-bg-primary: #0f0f12;
+    --color-bg-secondary: #18181b;
+    --color-bg-card: rgba(24, 24, 27, 0.8);
+    --color-bg-elevated: #27272a;
+    --color-bg-hover: rgba(39, 39, 42, 0.5);
+    --color-bg-active: #3f3f46;
+    --color-bg-overlay: rgba(0, 0, 0, 0.75);
+    --color-bg-surface: #1c1c1f;
 
-    /* Card surfaces */
-    --card: #0a0a0a;
+    /* Card surfaces with glassmorphism */
+    --card: rgba(24, 24, 27, 0.6);
     --card-foreground: #ffffff;
-    --glass-bg: #0a0a0a;
-    --glass-bg-light: #0a0a0a;
-    --glass-bg-lighter: #1a1a1a;
-    --glass-bg-subtle: #1a1a1a;
+    --glass-bg: rgba(24, 24, 27, 0.7);
+    --glass-bg-light: rgba(39, 39, 42, 0.5);
+    --glass-bg-lighter: rgba(63, 63, 70, 0.4);
+    --glass-bg-subtle: rgba(39, 39, 42, 0.3);
 
-    /* Borders - neutral gray (clean, professional) */
-    --border: rgba(255, 255, 255, 0.1);
+    /* Borders - subtle and sophisticated */
+    --border: rgba(255, 255, 255, 0.08);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-border-light: rgba(255, 255, 255, 0.15);
-    --glass-border-hover: rgba(255, 255, 255, 0.25);
-    --glass-border-focus: #22c55e;
-    --color-border-default: rgba(255, 255, 255, 0.1);
-    --color-border-muted: rgba(255, 255, 255, 0.06);
-    --color-border-hover: rgba(255, 255, 255, 0.2);
-    --color-border-focus: #22c55e;
+    --glass-border-light: rgba(255, 255, 255, 0.12);
+    --glass-border-hover: rgba(255, 255, 255, 0.2);
+    --glass-border-focus: #6366f1;
+    --color-border-default: rgba(255, 255, 255, 0.08);
+    --color-border-muted: rgba(255, 255, 255, 0.05);
+    --color-border-hover: rgba(255, 255, 255, 0.15);
+    --color-border-focus: #6366f1;
 
-    /* Text Colors */
-    --color-text-primary: #ffffff;
-    --color-text-secondary: #cccccc;
-    --color-text-muted: #999999;
-    --color-text-inverse: #000000;
+    /* Text Colors - high readability */
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+    --color-text-inverse: #09090b;
 
     /* Input styling */
     --input: transparent;
-    --input-background: #0a0a0a;
+    --input-background: rgba(24, 24, 27, 0.5);
 
     /* ========================================
-       SHADOWS - Neon Glow System
+       SHADOWS - Modern Soft Shadows
        ======================================== */
 
-    /* Base shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
-    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
-    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Base shadows - soft and layered */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.3);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 
-    /* Subtle glows - used sparingly for key CTAs only */
-    --glow-sm: 0 0 8px rgba(34, 197, 94, 0.2);
-    --glow-md: 0 0 12px rgba(34, 197, 94, 0.25);
-    --glow-lg: 0 0 20px rgba(34, 197, 94, 0.3);
-    --glow-primary: 0 0 12px rgba(34, 197, 94, 0.3);
-    --glow-primary-intense: 0 0 20px rgba(34, 197, 94, 0.4);
-    --glow-subtle: 0 0 6px rgba(34, 197, 94, 0.15);
-    --glow-neon: 0 0 16px rgba(34, 197, 94, 0.35);
+    /* Colored glows - subtle and modern */
+    --glow-sm: 0 0 15px rgba(99, 102, 241, 0.15);
+    --glow-md: 0 0 25px rgba(99, 102, 241, 0.2);
+    --glow-lg: 0 0 40px rgba(99, 102, 241, 0.25);
+    --glow-primary: 0 0 20px rgba(99, 102, 241, 0.25);
+    --glow-primary-intense: 0 0 30px rgba(99, 102, 241, 0.35);
+    --glow-subtle: 0 0 10px rgba(99, 102, 241, 0.1);
+    --glow-neon: 0 0 25px rgba(16, 185, 129, 0.25);
 
     /* Purple glow */
-    --glow-purple: 0 0 12px rgba(168, 85, 247, 0.3);
-    --glow-purple-intense: 0 0 20px rgba(168, 85, 247, 0.4);
+    --glow-purple: 0 0 20px rgba(168, 85, 247, 0.25);
+    --glow-purple-intense: 0 0 30px rgba(168, 85, 247, 0.35);
 
-    /* Semantic glows - subtle */
-    --glow-success: 0 0 10px rgba(34, 197, 94, 0.25);
-    --glow-error: 0 0 10px rgba(239, 68, 68, 0.25);
-    --glow-warning: 0 0 10px rgba(245, 158, 11, 0.25);
+    /* Semantic glows */
+    --glow-success: 0 0 20px rgba(16, 185, 129, 0.2);
+    --glow-error: 0 0 20px rgba(239, 68, 68, 0.2);
+    --glow-warning: 0 0 20px rgba(245, 158, 11, 0.2);
 
-    /* Glass shadow (card hover) - neutral */
-    --shadow-glass: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-glass-lg: 0 4px 12px rgba(0, 0, 0, 0.4);
+    /* Glass shadow (card hover) */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-glass-lg: 0 16px 48px rgba(0, 0, 0, 0.25);
 
     /* ========================================
-       TYPOGRAPHY - Hacker House Style
+       TYPOGRAPHY - Clean & Modern
        ======================================== */
 
     /* Display font - Space Grotesk for headings */
     --font-family-display:
-      var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+      var(--font-space-grotesk), "Space Grotesk", "SF Pro Display",
+      -apple-system, system-ui, sans-serif;
 
-    /* Sans font - Space Grotesk for body (readable, modern) */
+    /* Sans font - Clean sans-serif for body */
     --font-family-sans:
-      var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+      var(--font-space-grotesk), "Space Grotesk", "SF Pro Text", -apple-system,
+      system-ui, sans-serif;
 
     /* Mono font - JetBrains Mono for code */
     --font-family-mono:
-      var(--font-jetbrains), "JetBrains Mono", "Fira Code", monospace;
+      var(--font-jetbrains), "JetBrains Mono", "SF Mono", monospace;
 
-    /* Font Sizes (larger for bolder look) */
+    /* Font Sizes */
     --font-size-xs: 0.75rem; /* 12px */
     --font-size-sm: 0.875rem; /* 14px */
     --font-size-base: 1rem; /* 16px */
@@ -199,26 +214,26 @@
     --spacing-20: 5rem; /* 80px */
 
     /* ========================================
-       BORDER RADIUS - Sharp Hacker Aesthetic
+       BORDER RADIUS - Soft & Modern
        ======================================== */
 
-    --radius: 0rem;
+    --radius: 0.75rem; /* 12px - base radius */
     --radius-none: 0;
-    --radius-sm: 0; /* Sharp corners */
-    --radius-md: 0;
-    --radius-lg: 0;
-    --radius-xl: 0;
-    --radius-2xl: 0;
-    --radius-3xl: 0;
-    --radius-full: 9999px; /* Only for badges/pills */
+    --radius-sm: 0.5rem; /* 8px */
+    --radius-md: 0.75rem; /* 12px */
+    --radius-lg: 1rem; /* 16px */
+    --radius-xl: 1.25rem; /* 20px */
+    --radius-2xl: 1.5rem; /* 24px */
+    --radius-3xl: 2rem; /* 32px */
+    --radius-full: 9999px; /* Pills/badges */
 
     /* ========================================
        BLUR VALUES (for glassmorphism)
        ======================================== */
 
     --blur-sm: 8px;
-    --blur-md: 12px;
-    --blur-lg: 20px;
+    --blur-md: 16px;
+    --blur-lg: 24px;
     --blur-xl: 40px;
 
     /* ========================================
@@ -411,6 +426,18 @@
   }
 }
 
+/* Slide in from left */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Blob float animation */
 @keyframes blob-float {
   0%,
@@ -422,6 +449,19 @@
   }
   66% {
     transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* Gradient shift animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -457,11 +497,15 @@
   animation: scale-in 0.2s var(--ease-out);
 }
 
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s var(--ease-out);
+}
+
 .animate-shimmer {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.08),
     transparent
   );
   background-size: 200% 100%;
@@ -472,19 +516,72 @@
   animation: blob-float 8s ease-in-out infinite;
 }
 
-/* Glass effect utility */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* Glass effect utility - Craft style */
 .glass {
-  background: var(--glass-bg-light);
+  background: var(--glass-bg);
   backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
   border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
 }
 
 .glass-light {
-  background: var(--glass-bg-lighter);
+  background: var(--glass-bg-light);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-md);
 }
 
-/* Reduced motion preference - handled by Tailwind's motion-safe/motion-reduce utilities */
+.glass-subtle {
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--color-border-muted);
+  border-radius: var(--radius-md);
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-purple));
+}
+
+.bg-gradient-subtle {
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-secondary),
+    var(--color-bg-primary)
+  );
+}
+
+/* Craft-style card */
+.craft-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+}
+
+.craft-card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-glass);
+  transform: translateY(-2px);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}
