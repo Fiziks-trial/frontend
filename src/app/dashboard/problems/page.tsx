@@ -122,7 +122,7 @@ function ProblemContent() {
                   Time
                 </p>
                 <p className="text-2xl font-mono font-bold text-[#22c55e]">
-                  0:{timeElapsed.toString().padStart(2, "0")}
+                  {Math.floor(timeElapsed / 60)}:{(timeElapsed % 60).toString().padStart(2, "0")}
                 </p>
               </div>
               <div>
@@ -289,7 +289,7 @@ function ProblemContent() {
                     Time Elapsed
                   </p>
                   <p className="text-2xl font-mono font-bold text-white">
-                    0:{timeElapsed.toString().padStart(2, "0")}
+                    {Math.floor(timeElapsed / 60)}:{(timeElapsed % 60).toString().padStart(2, "0")}
                   </p>
                 </div>
               </div>
