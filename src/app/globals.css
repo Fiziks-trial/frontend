@@ -1,571 +1,310 @@
 @import "tailwindcss";
 @import "../design-system/tokens/design-tokens.css";
 
-/* ========================================
-   HACKER HOUSE THEME CONFIGURATION
-   ======================================== */
+@theme {
+  /* Colors */
+  --color-border: var(--border);
+  --color-border-muted: var(--border-muted);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--color-primary);
-  --color-primary-foreground: var(--color-primary-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-indigo: var(--accent-indigo);
+  --color-accent-sky: var(--accent-sky);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --font-sans: var(--font-space-grotesk);
-  --font-mono: var(--font-jetbrains);
-  --font-display: var(--font-space-grotesk);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  /* Section Colors (Craft.do style backgrounds) */
+  --color-section-blue: var(--section-blue);
+  --color-section-indigo: var(--section-indigo);
+  --color-section-purple: var(--section-purple);
+  --color-section-pink: var(--section-pink);
+  --color-section-rose: var(--section-rose);
+  --color-section-amber: var(--section-amber);
+  --color-section-yellow: var(--section-yellow);
+  --color-section-emerald: var(--section-emerald);
+  --color-section-stone: var(--section-stone);
+
+  /* Subject Colors */
+  --color-subject-physics: var(--subject-physics);
+  --color-subject-math: var(--subject-math);
+  --color-subject-chemistry: var(--subject-chemistry);
+  --color-subject-biology: var(--subject-biology);
+
+  /* Fonts */
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius-lg);
+  --radius-2xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  /* Animation */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
-/* ========================================
-   BASE STYLES - Hacker House
-   ======================================== */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-family-sans);
-}
-
-/* Default typography base layer */
+/* Base Styles */
 @layer base {
   * {
-    border-color: var(--border);
+    @apply border-border;
   }
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-family-display);
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1 {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h2 {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  /* Elegant serif headings (Craft.do style) */
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
   }
 
-  h3 {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  /* Modern Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
   }
 
-  h4 {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-    font-family: var(--font-family-mono);
-  }
-
-  label {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  button {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-    font-family: var(--font-family-sans);
-  }
-
-  input {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
+  /* Selection */
+  ::selection {
+    background-color: rgba(17, 24, 39, 0.1);
+    color: var(--foreground);
   }
 }
 
-/* ========================================
-   DOT GRID BACKGROUND - Hacker House Style
-   ======================================== */
-
-.dot-grid-bg {
-  position: fixed;
-  inset: 0;
-  background-color: #000000;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.06) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-  z-index: 0;
-}
-
-/* Subtle gradient overlay for depth */
-.dot-grid-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 80% 50% at 50% 0%,
-    rgba(255, 255, 255, 0.02) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
-}
-
-/* ========================================
-   TEXT EFFECTS - Hacker House
-   ======================================== */
-
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 2px #22c55e;
-}
-
-.text-outline-white {
-  color: transparent;
-  -webkit-text-stroke: 2px #ffffff;
-}
-
-.text-outline-thick {
-  color: transparent;
-  -webkit-text-stroke: 3px #22c55e;
-}
-
-/* Accent green text - subtle, no glow */
-.text-neon {
-  color: #22c55e;
-}
-
-/* Purple accent text */
-.text-purple {
-  color: #a855f7;
-}
-
-/* Muted text */
-.text-muted {
-  color: #999999;
-}
-
-/* Gradient text - accent green */
-.text-gradient-neon {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ========================================
-   CUSTOM FONT STYLING - Cyber/Tech Theme
-   ======================================== */
-
-/* Display font - Orbitron for futuristic headlines */
-.font-display {
-  font-family: var(--font-family-display);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-/* Cyber headline - large display text */
-.font-cyber {
-  font-family: var(--font-family-display);
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-/* Terminal/mono text */
-.font-terminal {
-  font-family: var(--font-family-mono);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-
-/* Status text style - for badges like "/// SYSTEM_READY" */
-.font-status {
-  font-family: var(--font-family-mono);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.625rem;
-}
-
-/* Nav item style - for [ABOUT] style links */
-.font-nav {
-  font-family: var(--font-family-display);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-}
-
-/* Section header style - "SYSTEM_PROTOCOLS" */
-.font-section {
-  font-family: var(--font-family-display);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* ========================================
-   BUTTON STYLES - Hacker House
-   ======================================== */
-
-/* Primary button - filled green */
-.btn-primary {
-  background-color: #22c55e;
-  color: #000000;
-  font-weight: 500;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  background-color: #16a34a;
-}
-
-/* Secondary button - outlined */
-.btn-secondary {
-  background-color: transparent;
-  color: #ffffff;
-  font-weight: 500;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Ghost button - subtle outline */
-.btn-ghost {
-  background-color: transparent;
-  color: #ffffff;
-  font-weight: 500;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-ghost:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Link button */
-.btn-link {
-  background-color: transparent;
-  color: #22c55e;
-  font-weight: 500;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-link:hover {
-  color: #16a34a;
-  text-decoration: underline;
-}
-
-/* ========================================
-   CARD STYLES - Hacker House
-   ======================================== */
-
-/* Base card */
-.card-hacker {
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.card-hacker:hover {
-  border-color: rgba(34, 197, 94, 0.25);
-}
-
-/* Card with corner decorations */
-.card-corners {
-  position: relative;
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-}
-
-.card-corners::before,
-.card-corners::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  border-color: #22c55e66;
-  border-style: solid;
-}
-
-.card-corners::before {
-  top: 0;
-  left: 0;
-  border-width: 2px 0 0 2px;
-}
-
-.card-corners::after {
-  top: 0;
-  right: 0;
-  border-width: 2px 2px 0 0;
-}
-
-/* Bottom corners via pseudo-element wrapper */
-.card-corners-bottom::before,
-.card-corners-bottom::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  border-color: #22c55e66;
-  border-style: solid;
-}
-
-.card-corners-bottom::before {
-  bottom: 0;
-  left: 0;
-  border-width: 0 0 2px 2px;
-}
-
-.card-corners-bottom::after {
-  bottom: 0;
-  right: 0;
-  border-width: 0 2px 2px 0;
-}
-
-/* Highlight card - subtle accent */
-.card-glow {
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 1.5rem;
-}
-
-/* ========================================
-   INPUT STYLES - Hacker House
-   ======================================== */
-
-.input-hacker {
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.75rem 1rem;
-  color: #ffffff;
-  font-family: var(--font-family-sans);
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-
-.input-hacker:focus {
-  outline: none;
-  border-color: #22c55e;
-}
-
-.input-hacker::placeholder {
-  color: #666666;
-}
-
-.input-hacker.error {
-  border-color: #ef4444;
-}
-
-.input-hacker.error:focus {
-  border-color: #ef4444;
-}
-
-/* ========================================
-   FLOATING DEVICE MOCKUPS
-   ======================================== */
-
-.device-float {
-  animation: device-float 6s ease-in-out infinite;
-}
-
-.device-float-delayed {
-  animation: device-float 6s ease-in-out infinite;
-  animation-delay: -3s;
-}
-
-@keyframes device-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
+/* Utility Classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
-  50% {
-    transform: translateY(-20px) rotate(2deg);
+
+  /* Glass effect utilities */
+  .glass {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgb(243, 244, 246);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  }
+
+  /* Gradient backgrounds (Craft.do style) */
+  .gradient-hero {
+    background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 30%, #f0f9ff 60%, #ffffff 100%);
+  }
+
+  .gradient-section-indigo {
+    background: linear-gradient(180deg, var(--section-indigo) 0%, #ffffff 100%);
+  }
+
+  .gradient-section-purple {
+    background: linear-gradient(180deg, var(--section-purple) 0%, #ffffff 100%);
+  }
+
+  /* Pill button styles - using raw CSS instead of @apply for custom utilities */
+  .btn-pill {
+    padding: 0.625rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 150ms ease;
+  }
+
+  .btn-pill-primary {
+    padding: 0.625rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 150ms ease;
+    background-color: rgb(17, 24, 39);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  .btn-pill-primary:hover {
+    background-color: rgb(31, 41, 55);
+  }
+
+  .btn-pill-secondary {
+    padding: 0.625rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 150ms ease;
+    background-color: white;
+    color: rgb(17, 24, 39);
+    border: 1px solid rgb(229, 231, 235);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .btn-pill-secondary:hover {
+    background-color: rgb(249, 250, 251);
+  }
+
+  /* Card styles */
+  .card-elevated {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid rgb(243, 244, 246);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-interactive {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid rgb(243, 244, 246);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transition: all 200ms ease;
+    cursor: pointer;
+  }
+  .card-interactive:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    border-color: rgb(229, 231, 235);
+  }
+
+  /* Section label (Craft.do style) */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(107, 114, 128);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Serif headline (Craft.do style) */
+  .headline-serif {
+    font-family: var(--font-serif);
+    color: rgb(17, 24, 39);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  /* Floating navbar style */
+  .navbar-floating {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    background-color: white;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    padding: 0.5rem 1rem;
+  }
+
+  /* Decorative cloud blur */
+  .cloud-blur {
+    position: absolute;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.5);
+    filter: blur(48px);
+    pointer-events: none;
   }
 }
 
-/* ========================================
-   TAB/TOGGLE STYLES
-   ======================================== */
-
-.tab-group {
-  display: inline-flex;
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 9999px;
-  padding: 0.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.tab-item {
-  padding: 0.5rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 500;
-  color: #94a3b8;
-  transition: all 0.2s ease;
-}
-
-.tab-item:hover {
-  color: #f8fafc;
-}
-
-.tab-item.active {
-  background: #22c55e;
-  color: #0a0a0a;
-  font-weight: 600;
-}
-
-/* ========================================
-   UTILITY ANIMATIONS
-   ======================================== */
-
-@keyframes pulse-accent {
-  0%,
-  100% {
-    opacity: 0.6;
+/* Component-specific overrides */
+@layer components {
+  /* Focus styles */
+  .focus-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(17, 24, 39);
   }
-  50% {
-    opacity: 1;
+
+  /* Link hover underline */
+  .link-underline {
+    position: relative;
   }
-}
-
-.animate-pulse-neon {
-  animation: pulse-accent 2s ease-in-out infinite;
-}
-
-/* Subtle background glow */
-.glow-spot {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-}
-
-.glow-spot-green {
-  background: rgba(34, 197, 94, 0.1);
-}
-
-/* ========================================
-   SCROLLBAR STYLING - Hacker House
-   ======================================== */
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* ========================================
-   SELECTION STYLING
-   ======================================== */
-
-::selection {
-  background: rgba(34, 197, 94, 0.3);
-  color: #ffffff;
-}
-
-/* ========================================
-   BADGE STYLES - Hacker House
-   ======================================== */
-
-/* System badge - terminal style */
-.badge-system {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.125rem 0.375rem;
-  font-size: 0.625rem;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #999999;
-}
-
-/* Status badge with dot */
-.badge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.625rem;
-  font-family: var(--font-family-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: #0a0a0a;
-  color: #ffffff;
-}
-
-.badge-status::before {
-  content: "";
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: 50%;
-  background: #22c55e;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Variant badges */
-.badge-success {
-  border-color: #22c55e66;
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.1);
-}
-
-.badge-warning {
-  border-color: #d4a57466;
-  color: #d4a574;
-  background: rgba(212, 165, 116, 0.1);
-}
-
-.badge-error {
-  border-color: #ef444466;
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
-}
-
-.badge-purple {
-  border-color: #a855f766;
-  color: #a855f7;
-  background: rgba(168, 85, 247, 0.1);
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 200ms ease;
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
 }

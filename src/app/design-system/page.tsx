@@ -1,878 +1,800 @@
 "use client";
 
-import {
-  ChevronRight,
-  Code as CodeIcon,
-  MapPin,
-  Terminal,
-  Users,
-  Zap,
-} from "lucide-react";
 import { useState } from "react";
-import { StatCard } from "@/design-system/patterns/StatCard";
-import { Avatar, AvatarGroup } from "@/design-system/primitives/Avatar";
 import {
-  Badge,
-  CounterBadge,
-  StatusBadge,
-  SystemBadge,
-} from "@/design-system/primitives/Badge";
-import {
-  ArrowButton,
+  // Primitives
   Button,
-  IconButton,
-} from "@/design-system/primitives/Button";
-import {
   Card,
-  FeatureCard,
-  IconCard,
-  InfoCard,
-} from "@/design-system/primitives/Card";
-import { Divider, TerminalDivider } from "@/design-system/primitives/Divider";
-import {
-  Checkbox,
+  Badge,
+  Text,
   Input,
-  Radio,
-  Select,
-  Textarea,
-} from "@/design-system/primitives/Input";
+  Avatar,
+  AvatarGroup,
+  ProgressBar,
+  ProgressRing,
+  Divider,
+  IconButton,
+  // Patterns
+  SubjectRating,
+  StatCard,
+  TimelineNode,
+  SectionHeader,
+  EmptyState,
+  // Layouts
+  Stack,
+  Grid,
+} from "@/design-system";
 import {
-  Breadcrumb,
-  Footer,
-  Logo,
-  Navbar,
-  NavLink,
-  Sidebar,
-  SidebarLink,
-} from "@/design-system/primitives/Navigation";
-import {
-  Skeleton,
-  SkeletonCard,
-  SkeletonText,
-} from "@/design-system/primitives/Skeleton";
-import { Spinner } from "@/design-system/primitives/Spinner";
-import {
-  AccentText,
-  Body,
-  Code,
-  Display,
-  H1,
-  H2,
-  H3,
-  H4,
-  Label,
-  MutedText,
-  PurpleText,
-  Small,
-  SystemMessage,
-} from "@/design-system/primitives/Typography";
+  Atom,
+  Beaker,
+  Calculator,
+  Dna,
+  Search,
+  Settings,
+  Trophy,
+  Inbox,
+  Swords,
+  Plus,
+  Heart,
+  Star,
+  Palette,
+  Type,
+  Square,
+  CreditCard,
+  Tag,
+  TextCursor,
+  User,
+  Loader,
+  SplitSquareHorizontal,
+  BarChart3,
+  LayoutGrid,
+  Layers,
+  Menu,
+  X,
+} from "lucide-react";
 
-type SectionId =
-  | "typography"
-  | "buttons"
-  | "cards"
-  | "badges"
-  | "inputs"
-  | "navigation"
-  | "avatars"
-  | "dividers"
-  | "skeletons"
-  | "spinners";
+const sections = [
+  { id: "colors", label: "Colors", icon: Palette, category: "Tokens" },
+  { id: "typography", label: "Typography", icon: Type, category: "Tokens" },
+  { id: "button", label: "Button", icon: Square, category: "Primitives" },
+  { id: "card", label: "Card", icon: CreditCard, category: "Primitives" },
+  { id: "badge", label: "Badge", icon: Tag, category: "Primitives" },
+  { id: "input", label: "Input", icon: TextCursor, category: "Primitives" },
+  { id: "avatar", label: "Avatar", icon: User, category: "Primitives" },
+  { id: "progress", label: "Progress", icon: Loader, category: "Primitives" },
+  { id: "icon-button", label: "Icon Button", icon: Square, category: "Primitives" },
+  { id: "divider", label: "Divider", icon: SplitSquareHorizontal, category: "Primitives" },
+  { id: "subject-rating", label: "Subject Rating", icon: BarChart3, category: "Patterns" },
+  { id: "stat-card", label: "Stat Card", icon: CreditCard, category: "Patterns" },
+  { id: "timeline", label: "Timeline", icon: Layers, category: "Patterns" },
+  { id: "empty-state", label: "Empty State", icon: Inbox, category: "Patterns" },
+  { id: "layouts", label: "Grid & Stack", icon: LayoutGrid, category: "Layouts" },
+];
+
+const categories = ["Tokens", "Primitives", "Patterns", "Layouts"];
 
 export default function DesignSystemPage() {
-  const [activeSection, setActiveSection] = useState<SectionId>("typography");
-  const [checkboxState, setCheckboxState] = useState(false);
-  const [radioState, setRadioState] = useState("option1");
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const sections: { id: SectionId; label: string }[] = [
-    { id: "typography", label: "Typography" },
-    { id: "buttons", label: "Buttons" },
-    { id: "cards", label: "Cards" },
-    { id: "badges", label: "Badges" },
-    { id: "inputs", label: "Inputs" },
-    { id: "navigation", label: "Navigation" },
-    { id: "avatars", label: "Avatars" },
-    { id: "dividers", label: "Dividers" },
-    { id: "skeletons", label: "Skeletons" },
-    { id: "spinners", label: "Spinners" },
-  ];
+  const filteredSections = activeSection
+    ? sections.filter((s) => s.id === activeSection)
+    : sections;
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Navbar */}
-      <Navbar
-        logo={<Logo text="FIZIKS" icon={<Terminal className="w-5 h-5" />} />}
+    <div className="flex min-h-screen bg-linear-to-br from-section-blue/50 via-section-indigo/20 to-section-purple/40">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          className="fixed inset-0 bg-black/20 z-40 lg:hidden cursor-default"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={[
+          "fixed lg:sticky lg:top-0 inset-y-0 left-0 z-50",
+          "w-64 h-screen shrink-0 border-r border-white/20",
+          "flex flex-col overflow-hidden",
+          "transform transition-transform duration-300 ease-in-out",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+        ].join(" ")}
       >
-        <NavLink active>Components</NavLink>
-        <NavLink>Docs</NavLink>
-        <NavLink>GitHub</NavLink>
-      </Navbar>
-
-      <div className="flex">
-        {/* Sidebar */}
-        <Sidebar className="hidden md:block sticky top-0 h-screen overflow-y-auto">
-          {sections.map((section) => (
-            <SidebarLink
-              key={section.id}
-              active={activeSection === section.id}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveSection(section.id);
-              }}
-            >
-              {section.label}
-            </SidebarLink>
-          ))}
-        </Sidebar>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8 lg:p-12">
-          <div className="max-w-6xl mx-auto space-y-12">
-            {/* Header */}
-            <div className="space-y-6">
-              <SystemMessage>
-                {"/// SYSTEM_READY: FIZIKS_DESIGN.exe"}
-              </SystemMessage>
-              <Display>
-                <AccentText>FIZIKS</AccentText>
-                <br />
-                <span className="text-white">DESIGN</span>
-                <br />
-                <span className="text-white">SYSTEM</span>
-              </Display>
-              <Body className="text-[#999999] max-w-2xl">
-                A comprehensive cyberpunk-themed design system for Fiziks.
-                Features monospace typography, neon green accents, and
-                terminal-inspired components.
-              </Body>
+        {/* Header */}
+        <div className="p-6 border-b border-white/20 bg-white/10 backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <Text variant="h4" className="text-foreground">
+                Design System
+              </Text>
+              <Text variant="body-sm" color="muted">
+                Fiziks UI
+              </Text>
             </div>
+            <button type="button" className="lg:hidden p-2" onClick={() => setSidebarOpen(false)}>
+              <X size={20} className="text-muted-foreground" />
+            </button>
+          </div>
+        </div>
 
-            {/* Typography Section */}
-            {activeSection === "typography" && (
-              <section id="typography" className="space-y-8">
-                <div>
-                  <SystemBadge>TYPOGRAPHY</SystemBadge>
-                  <H2 className="mt-4">Text Components</H2>
-                </div>
+        {/* Show All Button */}
+        <div className="px-4 py-3 border-b border-white/20">
+          <button
+            type="button"
+            onClick={() => setActiveSection(null)}
+            className={[
+              "w-full px-3 py-2 rounded-lg text-sm font-medium transition-all",
+              activeSection === null
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "bg-black/10 text-foreground hover:bg-black/20",
+            ].join(" ")}
+          >
+            Show All Components
+          </button>
+        </div>
 
-                <div className="space-y-6 border border-[#22c55e33] p-8">
-                  <div className="space-y-3">
-                    <Label>Display Text</Label>
-                    <Display className="text-white">
-                      TURN <AccentText>IDEAS</AccentText> INTO REALITY
-                    </Display>
-                  </div>
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {categories.map((category) => (
+            <div key={category} className="mb-6">
+              <div className="px-4 mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-foreground/60">
+                  {category}
+                </span>
+              </div>
+              <ul className="space-y-1 px-2">
+                {sections
+                  .filter((s) => s.category === category)
+                  .map((section) => {
+                    const Icon = section.icon;
+                    const isActive = activeSection === section.id;
+                    return (
+                      <li key={section.id}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setActiveSection(isActive ? null : section.id);
+                            setSidebarOpen(false);
+                          }}
+                          className={[
+                            "flex items-center gap-3 w-full px-3 py-2 rounded-lg",
+                            "text-sm font-medium transition-all duration-200",
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "text-foreground/80 hover:bg-white/30 hover:text-foreground hover:translate-x-1",
+                          ].join(" ")}
+                        >
+                          <Icon size={16} />
+                          {section.label}
+                        </button>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
 
-                  <div className="space-y-3">
-                    <Label>Heading 1</Label>
-                    <H1>
-                      System_<AccentText>Protocols</AccentText>
-                    </H1>
-                  </div>
+      {/* Main Content */}
+      <main className="flex-1 min-w-0">
+        {/* Mobile Header */}
+        <div className="lg:hidden sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center gap-4">
+          <button type="button" onClick={() => setSidebarOpen(true)} className="p-2 -ml-2">
+            <Menu size={24} className="text-muted-foreground" />
+          </button>
+          <Text variant="h4">Design System</Text>
+        </div>
 
-                  <div className="space-y-3">
-                    <Label>Heading 2</Label>
-                    <H2>
-                      The_<PurpleText>Network</PurpleText>
-                    </H2>
-                  </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+          {/* Header */}
+          {!activeSection && (
+            <header className="mb-10">
+              <Text variant="h1" serif className="mb-2">
+                Component Library
+              </Text>
+              <Text variant="body" color="muted">
+                Production-ready components for Fiziks. Select a component from the sidebar to view
+                it in isolation.
+              </Text>
+            </header>
+          )}
 
-                  <div className="space-y-3">
-                    <Label>Heading 3</Label>
-                    <H3>Vibrant Community</H3>
-                  </div>
+          <Stack gap="xl">
+            {/* COLORS */}
+            {filteredSections.some((s) => s.id === "colors") && (
+              <Section id="colors" title="Colors" subtitle="Design Tokens">
+                <Stack gap="xl">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Base Colors
+                    </Text>
+                    <Grid cols={2} colsMd={4} colsLg={6} gap="sm">
+                      <ColorSwatch name="Primary" className="bg-primary" />
+                      <ColorSwatch name="Secondary" className="bg-secondary" />
+                      <ColorSwatch name="Muted" className="bg-muted" />
+                      <ColorSwatch name="Card" className="bg-card border" />
+                      <ColorSwatch name="Destructive" className="bg-destructive" />
+                      <ColorSwatch name="Success" className="bg-success" />
+                      <ColorSwatch name="Warning" className="bg-warning" />
+                      <ColorSwatch name="Info" className="bg-info" />
+                    </Grid>
+                  </Stack>
 
-                  <div className="space-y-3">
-                    <Label>Heading 4</Label>
-                    <H4>Build Your Company</H4>
-                  </div>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Section Colors
+                    </Text>
+                    <Grid cols={2} colsMd={4} colsLg={6} gap="sm">
+                      <ColorSwatch name="Blue" className="bg-section-blue" />
+                      <ColorSwatch name="Purple" className="bg-section-purple" />
+                      <ColorSwatch name="Yellow" className="bg-section-yellow" />
+                      <ColorSwatch name="Emerald" className="bg-section-emerald" />
+                      <ColorSwatch name="Amber" className="bg-section-amber" />
+                      <ColorSwatch name="Pink" className="bg-section-pink" />
+                    </Grid>
+                  </Stack>
 
-                  <div className="space-y-3">
-                    <Label>Body Text</Label>
-                    <Body className="text-[#cccccc]">
-                      Learn physics the fun way with interactive simulations and
-                      engaging content designed for curious minds.
-                    </Body>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label>Small Text</Label>
-                    <Small className="text-[#999999]">
-                      Weekly standups • 1:1 Mentorship • Goal tracking
-                    </Small>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label>Code/Terminal Text</Label>
-                    <Code className="text-[#22c55e]">
-                      $ npm install @fiziks/design-system
-                    </Code>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label>System Message</Label>
-                    <SystemMessage>
-                      {"/// SYSTEM_READY: FIZIKS_NODE_INIT"}
-                    </SystemMessage>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label>Text Variants</Label>
-                    <div className="flex gap-4">
-                      <AccentText>Accent Text</AccentText>
-                      <PurpleText>Purple Text</PurpleText>
-                      <MutedText>Muted Text</MutedText>
-                    </div>
-                  </div>
-                </div>
-              </section>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Subject Colors
+                    </Text>
+                    <Grid cols={2} colsMd={4} gap="sm">
+                      <ColorSwatch name="Math" className="bg-subject-math" />
+                      <ColorSwatch name="Physics" className="bg-subject-physics" />
+                      <ColorSwatch name="Chemistry" className="bg-subject-chemistry" />
+                      <ColorSwatch name="Biology" className="bg-subject-biology" />
+                    </Grid>
+                  </Stack>
+                </Stack>
+              </Section>
             )}
 
-            {/* Buttons Section */}
-            {activeSection === "buttons" && (
-              <section id="buttons" className="space-y-8">
-                <div>
-                  <SystemBadge>BUTTONS</SystemBadge>
-                  <H2 className="mt-4">Button Components</H2>
-                </div>
+            {/* TYPOGRAPHY */}
+            {filteredSections.some((s) => s.id === "typography") && (
+              <Section id="typography" title="Typography" subtitle="Design Tokens">
+                <Stack gap="md">
+                  <Text variant="h1" serif>
+                    Heading 1 — Serif
+                  </Text>
+                  <Text variant="h2" serif>
+                    Heading 2 — Serif
+                  </Text>
+                  <Text variant="h3">Heading 3</Text>
+                  <Text variant="h4">Heading 4</Text>
+                  <Text variant="body">
+                    Body text — The quick brown fox jumps over the lazy dog.
+                  </Text>
+                  <Text variant="body-sm" color="muted">
+                    Body small — Secondary text for descriptions and captions.
+                  </Text>
+                  <Text variant="label" color="muted">
+                    Label Text
+                  </Text>
+                  <Text variant="caption" color="muted">
+                    Caption Text
+                  </Text>
+                  <Text variant="mono">Monospace: 1,450</Text>
+                </Stack>
+              </Section>
+            )}
 
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Button Variants</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <Button variant="primary">Primary Button</Button>
-                      <Button variant="secondary">Secondary Button</Button>
-                      <Button variant="ghost">Ghost Button</Button>
-                      <Button variant="link">Link Button</Button>
-                    </div>
-                  </div>
+            {/* BUTTONS */}
+            {filteredSections.some((s) => s.id === "button") && (
+              <Section id="button" title="Button" subtitle="Primitives">
+                <Stack gap="xl">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Variants
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      <Button variant="primary">Primary</Button>
+                      <Button variant="secondary">Secondary</Button>
+                      <Button variant="ghost">Ghost</Button>
+                      <Button variant="link">Link</Button>
+                      <Button variant="destructive">Destructive</Button>
+                    </Stack>
+                  </Stack>
 
-                  <div className="space-y-4">
-                    <Label>Button Sizes</Label>
-                    <div className="flex flex-wrap items-center gap-4">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Sizes
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" align="center" wrap>
                       <Button size="sm">Small</Button>
                       <Button size="md">Medium</Button>
                       <Button size="lg">Large</Button>
-                    </div>
-                  </div>
+                    </Stack>
+                  </Stack>
 
-                  <div className="space-y-4">
-                    <Label>Arrow Buttons (CTA)</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <ArrowButton variant="primary">Initiate</ArrowButton>
-                      <ArrowButton variant="secondary">Learn More</ArrowButton>
-                    </div>
-                  </div>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      With Icons
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      <Button icon={<Swords size={16} />}>Find Match</Button>
+                      <Button variant="secondary" icon={<Plus size={16} />}>
+                        Add New
+                      </Button>
+                      <Button variant="ghost" icon={<Settings size={16} />}>
+                        Settings
+                      </Button>
+                    </Stack>
+                  </Stack>
 
-                  <div className="space-y-4">
-                    <Label>Icon Buttons</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <IconButton
-                        icon={<CodeIcon size={16} />}
-                        variant="primary"
-                      >
-                        Deploy
-                      </IconButton>
-                      <IconButton
-                        icon={<Zap size={16} />}
-                        variant="secondary"
-                        iconPosition="right"
-                      >
-                        Execute
-                      </IconButton>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Disabled State</Label>
-                    <Button disabled>Disabled Button</Button>
-                  </div>
-                </div>
-              </section>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      States
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      <Button loading>Loading</Button>
+                      <Button disabled>Disabled</Button>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Section>
             )}
 
-            {/* Cards Section */}
-            {activeSection === "cards" && (
-              <section id="cards" className="space-y-8">
-                <div>
-                  <SystemBadge>CARDS</SystemBadge>
-                  <H2 className="mt-4">Card Components</H2>
-                </div>
-
-                <div className="space-y-8">
-                  <div className="space-y-4">
-                    <Label>Basic Cards</Label>
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <Card variant="default">
-                        <H4 className="mb-2">Default Card</H4>
-                        <Small className="text-[#999999]">
-                          Standard card with subtle border
-                        </Small>
-                      </Card>
-                      <Card variant="bordered">
-                        <H4 className="mb-2">Bordered Card</H4>
-                        <Small className="text-[#999999]">
-                          Prominent green border
-                        </Small>
-                      </Card>
-                      <Card variant="glow">
-                        <H4 className="mb-2">Glow Card</H4>
-                        <Small className="text-[#999999]">
-                          Card with glow effect
-                        </Small>
-                      </Card>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Icon Cards</Label>
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <IconCard
-                        icon={<CodeIcon />}
-                        title="6 Months"
-                        description="Duration of the program"
-                      />
-                      <IconCard
-                        icon={<Users />}
-                        title="8 Students"
-                        description="Small cohort of learners"
-                      />
-                      <IconCard
-                        icon={<MapPin />}
-                        title="Online"
-                        description="Learn from anywhere"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Feature Card</Label>
-                    <FeatureCard
-                      title="Interactive Learning"
-                      description="Engage with physics concepts through hands-on simulations and real-world applications."
-                    >
-                      <div className="space-y-2 mt-4">
-                        <Small className="text-[#999999]">
-                          • Live simulations
-                        </Small>
-                        <Small className="text-[#999999]">
-                          • Problem solving
-                        </Small>
-                        <Small className="text-[#999999]">
-                          • Visual explanations
-                        </Small>
-                      </div>
-                    </FeatureCard>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Info Card</Label>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <InfoCard
-                        title="Sync & Coaching"
-                        description="Stay clear minded and accountable with weekly syncs and coaching sessions."
-                        items={[
-                          "Weekly standups",
-                          "1:1 Mentorship",
-                          "Goal tracking",
-                        ]}
-                      />
-                      <InfoCard
-                        title="10X Trajectory"
-                        description="Connect with someone who will 10x your trajectory through intros and fireside chats."
-                        items={[
-                          "Fireside chats",
-                          "High-value intros",
-                          "Alumni network",
-                        ]}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Stat Cards</Label>
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <StatCard
-                        label="Active Projects"
-                        value="42"
-                        icon={<CodeIcon />}
-                      />
-                      <StatCard
-                        label="Total Students"
-                        value="156"
-                        icon={<Users />}
-                      />
-                      <StatCard
-                        label="Success Rate"
-                        value="94%"
-                        icon={<Zap />}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
+            {/* CARDS */}
+            {filteredSections.some((s) => s.id === "card") && (
+              <Section id="card" title="Card" subtitle="Primitives">
+                <Grid cols={1} colsMd={2} colsLg={3} gap="md">
+                  <Card>
+                    <Text variant="h4">Default Card</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Standard card with border and shadow.
+                    </Text>
+                  </Card>
+                  <Card color="blue">
+                    <Text variant="h4">Blue Section</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Soft blue background.
+                    </Text>
+                  </Card>
+                  <Card color="purple">
+                    <Text variant="h4">Purple Section</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Soft purple background.
+                    </Text>
+                  </Card>
+                  <Card color="yellow" hover>
+                    <Text variant="h4">Yellow + Hover</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Hover for shadow effect.
+                    </Text>
+                  </Card>
+                  <Card color="emerald">
+                    <Text variant="h4">Emerald Section</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Soft green background.
+                    </Text>
+                  </Card>
+                  <Card variant="elevated">
+                    <Text variant="h4">Elevated</Text>
+                    <Text variant="body-sm" color="muted" className="mt-2">
+                      Larger shadow for emphasis.
+                    </Text>
+                  </Card>
+                </Grid>
+              </Section>
             )}
 
-            {/* Badges Section */}
-            {activeSection === "badges" && (
-              <section id="badges" className="space-y-8">
-                <div>
-                  <SystemBadge>BADGES</SystemBadge>
-                  <H2 className="mt-4">Badge Components</H2>
-                </div>
-
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Badge Variants</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <Badge variant="default">Default</Badge>
+            {/* BADGES */}
+            {filteredSections.some((s) => s.id === "badge") && (
+              <Section id="badge" title="Badge" subtitle="Primitives">
+                <Stack gap="xl">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Status Variants
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      <Badge>Default</Badge>
                       <Badge variant="success">Success</Badge>
                       <Badge variant="warning">Warning</Badge>
-                      <Badge variant="error">Error</Badge>
-                      <Badge variant="purple">Purple</Badge>
-                    </div>
-                  </div>
+                      <Badge variant="destructive">Error</Badge>
+                      <Badge variant="info">Info</Badge>
+                    </Stack>
+                  </Stack>
 
-                  <div className="space-y-4">
-                    <Label>Status Badges</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <StatusBadge status="active">Online</StatusBadge>
-                      <StatusBadge status="inactive">Offline</StatusBadge>
-                      <StatusBadge status="pending">Pending</StatusBadge>
-                    </div>
-                  </div>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Subject Variants
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      <Badge variant="math">Math</Badge>
+                      <Badge variant="physics">Physics</Badge>
+                      <Badge variant="chemistry">Chemistry</Badge>
+                      <Badge variant="biology">Biology</Badge>
+                    </Stack>
+                  </Stack>
 
-                  <div className="space-y-4">
-                    <Label>System Badges</Label>
-                    <div className="flex flex-wrap gap-4">
-                      <SystemBadge>SYSTEM_READY</SystemBadge>
-                      <SystemBadge>NODE_ACTIVE</SystemBadge>
-                      <SystemBadge>DEPLOY_SUCCESS</SystemBadge>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Counter Badge</Label>
-                    <div className="flex flex-wrap items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <span className="text-white">Notifications</span>
-                        <CounterBadge count={5} />
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-white">Messages</span>
-                        <CounterBadge count={127} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Sizes
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" align="center" wrap>
+                      <Badge size="sm">Small</Badge>
+                      <Badge size="md">Medium</Badge>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Section>
             )}
 
-            {/* Inputs Section */}
-            {activeSection === "inputs" && (
-              <section id="inputs" className="space-y-8">
-                <div>
-                  <SystemBadge>INPUTS</SystemBadge>
-                  <H2 className="mt-4">Input Components</H2>
-                </div>
-
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Text Input</Label>
-                    <div className="max-w-md">
-                      <Input
-                        label="Username"
-                        placeholder="Enter your username"
-                        helperText="Choose a unique identifier"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Text Input with Error</Label>
-                    <div className="max-w-md">
-                      <Input
-                        label="Email"
-                        placeholder="your@email.com"
-                        error="Invalid email format"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Textarea</Label>
-                    <div className="max-w-md">
-                      <Textarea
-                        label="Project Description"
-                        placeholder="Describe your project..."
-                        rows={4}
-                        helperText="Max 500 characters"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Select Dropdown</Label>
-                    <div className="max-w-md">
-                      <Select
-                        label="Project Type"
-                        options={[
-                          { value: "web", label: "Web Application" },
-                          { value: "mobile", label: "Mobile App" },
-                          { value: "api", label: "API Service" },
-                          { value: "tool", label: "Developer Tool" },
-                        ]}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Checkbox</Label>
-                    <div className="space-y-3">
-                      <Checkbox
-                        label="I agree to the terms and conditions"
-                        checked={checkboxState}
-                        onChange={(e) => setCheckboxState(e.target.checked)}
-                      />
-                      <Checkbox label="Subscribe to newsletter" />
-                      <Checkbox label="Enable notifications" disabled />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Radio Buttons</Label>
-                    <div className="space-y-3">
-                      <Radio
-                        label="Option 1"
-                        name="radio-group"
-                        value="option1"
-                        checked={radioState === "option1"}
-                        onChange={(e) => setRadioState(e.target.value)}
-                      />
-                      <Radio
-                        label="Option 2"
-                        name="radio-group"
-                        value="option2"
-                        checked={radioState === "option2"}
-                        onChange={(e) => setRadioState(e.target.value)}
-                      />
-                      <Radio
-                        label="Option 3"
-                        name="radio-group"
-                        value="option3"
-                        checked={radioState === "option3"}
-                        onChange={(e) => setRadioState(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
+            {/* INPUT */}
+            {filteredSections.some((s) => s.id === "input") && (
+              <Section id="input" title="Input" subtitle="Primitives">
+                <Grid cols={1} colsMd={2} gap="lg">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Default
+                    </Text>
+                    <Input placeholder="Enter your name..." />
+                  </Stack>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      With Icon
+                    </Text>
+                    <Input placeholder="Search..." icon={<Search size={16} />} />
+                  </Stack>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Error State
+                    </Text>
+                    <Input placeholder="Invalid input" error />
+                  </Stack>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Disabled
+                    </Text>
+                    <Input placeholder="Disabled" disabled />
+                  </Stack>
+                </Grid>
+              </Section>
             )}
 
-            {/* Navigation Section */}
-            {activeSection === "navigation" && (
-              <section id="navigation" className="space-y-8">
-                <div>
-                  <SystemBadge>NAVIGATION</SystemBadge>
-                  <H2 className="mt-4">Navigation Components</H2>
-                </div>
+            {/* AVATAR */}
+            {filteredSections.some((s) => s.id === "avatar") && (
+              <Section id="avatar" title="Avatar" subtitle="Primitives">
+                <Stack gap="xl">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Sizes
+                    </Text>
+                    <Stack direction="horizontal" gap="md" align="center">
+                      <Avatar size="xs" fallback="XS" />
+                      <Avatar size="sm" fallback="SM" />
+                      <Avatar size="md" fallback="MD" />
+                      <Avatar size="lg" fallback="LG" />
+                      <Avatar size="xl" fallback="XL" />
+                    </Stack>
+                  </Stack>
 
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Navbar (See top of page)</Label>
-                    <Small className="text-[#999999]">
-                      The navigation bar at the top demonstrates the Navbar,
-                      Logo, and NavLink components.
-                    </Small>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Sidebar (See left side)</Label>
-                    <Small className="text-[#999999]">
-                      The sidebar on desktop demonstrates the Sidebar and
-                      SidebarLink components.
-                    </Small>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Breadcrumb</Label>
-                    <Breadcrumb
-                      items={[
-                        { label: "Home", href: "#" },
-                        { label: "Components", href: "#" },
-                        { label: "Navigation" },
-                      ]}
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Nav Links</Label>
-                    <div className="flex gap-2">
-                      <NavLink active>Active</NavLink>
-                      <NavLink>Inactive</NavLink>
-                      <NavLink>Another Link</NavLink>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Avatars Section */}
-            {activeSection === "avatars" && (
-              <section id="avatars" className="space-y-8">
-                <div>
-                  <SystemBadge>AVATARS</SystemBadge>
-                  <H2 className="mt-4">Avatar Components</H2>
-                </div>
-
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Avatar Sizes</Label>
-                    <div className="flex items-center gap-4">
-                      <Avatar size="xs" name="XS" />
-                      <Avatar size="sm" name="SM" />
-                      <Avatar size="md" name="MD" />
-                      <Avatar size="lg" name="LG" />
-                      <Avatar size="xl" name="XL" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Avatar Variants</Label>
-                    <div className="flex items-center gap-4">
-                      <Avatar name="Circle" variant="circle" />
-                      <Avatar name="Square" variant="square" />
-                      <Avatar name="Bordered" bordered />
-                      <Avatar name="Glow" bordered glow />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Avatar with Status</Label>
-                    <div className="flex items-center gap-4">
-                      <Avatar name="Online" status="online" bordered />
-                      <Avatar name="Offline" status="offline" bordered />
-                      <Avatar name="Away" status="away" bordered />
-                      <Avatar name="Busy" status="busy" bordered />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Avatar Group</Label>
-                    <AvatarGroup max={4} size="md">
-                      <Avatar name="User 1" bordered />
-                      <Avatar name="User 2" bordered />
-                      <Avatar name="User 3" bordered />
-                      <Avatar name="User 4" bordered />
-                      <Avatar name="User 5" bordered />
-                      <Avatar name="User 6" bordered />
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Avatar Group
+                    </Text>
+                    <AvatarGroup>
+                      <Avatar
+                        size="sm"
+                        fallback="TB"
+                        className="border-2 border-background"
+                      />
+                      <Avatar
+                        size="sm"
+                        fallback="AK"
+                        className="border-2 border-background bg-section-purple"
+                      />
+                      <Avatar
+                        size="sm"
+                        fallback="JD"
+                        className="border-2 border-background bg-section-blue"
+                      />
+                      <Avatar
+                        size="sm"
+                        fallback="+5"
+                        className="border-2 border-background bg-muted text-muted-foreground"
+                      />
                     </AvatarGroup>
-                  </div>
-                </div>
-              </section>
+                  </Stack>
+                </Stack>
+              </Section>
             )}
 
-            {/* Dividers Section */}
-            {activeSection === "dividers" && (
-              <section id="dividers" className="space-y-8">
-                <div>
-                  <SystemBadge>DIVIDERS</SystemBadge>
-                  <H2 className="mt-4">Divider Components</H2>
-                </div>
+            {/* PROGRESS */}
+            {filteredSections.some((s) => s.id === "progress") && (
+              <Section id="progress" title="Progress" subtitle="Primitives">
+                <Grid cols={1} colsMd={2} gap="lg">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Progress Bar
+                    </Text>
+                    <Stack gap="sm">
+                      <ProgressBar value={75} />
+                      <ProgressBar value={60} color="success" />
+                      <ProgressBar value={40} color="warning" />
+                      <Stack direction="horizontal" gap="sm">
+                        <ProgressBar value={80} color="math" className="flex-1" />
+                        <ProgressBar value={65} color="physics" className="flex-1" />
+                      </Stack>
+                    </Stack>
+                  </Stack>
 
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Solid Divider</Label>
-                    <Divider variant="solid" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Dashed Divider</Label>
-                    <Divider variant="dashed" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Dotted Divider</Label>
-                    <Divider variant="dotted" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Gradient Divider</Label>
-                    <Divider variant="gradient" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Divider with Label</Label>
-                    <Divider label="SECTION" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Terminal Divider</Label>
-                    <TerminalDivider text="// END SECTION" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Vertical Divider</Label>
-                    <div className="flex items-center h-16 gap-4">
-                      <span className="text-white">Left</span>
-                      <Divider orientation="vertical" className="h-full" />
-                      <span className="text-white">Right</span>
-                    </div>
-                  </div>
-                </div>
-              </section>
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Progress Ring
+                    </Text>
+                    <Stack direction="horizontal" gap="md" align="center">
+                      <ProgressRing value={75} size="sm" />
+                      <ProgressRing value={60} size="md" color="var(--success)">
+                        <Text variant="mono" className="text-xs">
+                          60%
+                        </Text>
+                      </ProgressRing>
+                      <ProgressRing value={85} size="lg" color="var(--warning)">
+                        <Stack align="center" gap="none">
+                          <Text variant="h3" serif>
+                            #42
+                          </Text>
+                          <Text variant="caption" color="muted">
+                            Rank
+                          </Text>
+                        </Stack>
+                      </ProgressRing>
+                    </Stack>
+                  </Stack>
+                </Grid>
+              </Section>
             )}
 
-            {/* Skeletons Section */}
-            {activeSection === "skeletons" && (
-              <section id="skeletons" className="space-y-8">
-                <div>
-                  <SystemBadge>SKELETONS</SystemBadge>
-                  <H2 className="mt-4">Skeleton Components</H2>
-                </div>
-
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Text Skeleton</Label>
-                    <Skeleton variant="text" width="100%" />
-                    <Skeleton variant="text" width="80%" />
-                    <Skeleton variant="text" width="60%" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Skeleton Variants</Label>
-                    <div className="flex items-center gap-4">
-                      <Skeleton variant="circular" width={40} height={40} />
-                      <Skeleton variant="rectangular" width={100} height={40} />
-                      <Skeleton variant="avatar" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Skeleton Text Block</Label>
-                    <SkeletonText lines={4} lastLineWidth="40%" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Skeleton Card</Label>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <SkeletonCard showHeader showAvatar />
-                      <SkeletonCard showHeader={false} />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Skeleton with Glow</Label>
-                    <Skeleton variant="card" width="100%" height={100} glow />
-                  </div>
-                </div>
-              </section>
+            {/* ICON BUTTON */}
+            {filteredSections.some((s) => s.id === "icon-button") && (
+              <Section id="icon-button" title="Icon Button" subtitle="Primitives">
+                <Stack gap="md">
+                  <Text variant="label" color="muted">
+                    Variants
+                  </Text>
+                  <Stack direction="horizontal" gap="md">
+                    <IconButton icon={<Heart size={18} />} label="Like" />
+                    <IconButton icon={<Star size={18} />} label="Favorite" variant="ghost" />
+                    <IconButton icon={<Settings size={18} />} label="Settings" variant="outline" />
+                  </Stack>
+                </Stack>
+              </Section>
             )}
 
-            {/* Spinners Section */}
-            {activeSection === "spinners" && (
-              <section id="spinners" className="space-y-8">
-                <div>
-                  <SystemBadge>SPINNERS</SystemBadge>
-                  <H2 className="mt-4">Spinner Components</H2>
-                </div>
+            {/* DIVIDER */}
+            {filteredSections.some((s) => s.id === "divider") && (
+              <Section id="divider" title="Divider" subtitle="Primitives">
+                <Card padding="md">
+                  <Text variant="body-sm">Content above</Text>
+                  <Divider className="my-4" />
+                  <Text variant="body-sm">Content below</Text>
+                  <Divider label="OR" className="my-4" />
+                  <Text variant="body-sm">Alternative option</Text>
+                </Card>
+              </Section>
+            )}
 
-                <div className="space-y-8 border border-[#22c55e33] p-8">
-                  <div className="space-y-4">
-                    <Label>Spinner Sizes</Label>
-                    <div className="flex items-center gap-6">
-                      <Spinner size="xs" />
-                      <Spinner size="sm" />
-                      <Spinner size="md" />
-                      <Spinner size="lg" />
-                      <Spinner size="xl" />
-                    </div>
-                  </div>
+            {/* SUBJECT RATING */}
+            {filteredSections.some((s) => s.id === "subject-rating") && (
+              <Section id="subject-rating" title="Subject Rating" subtitle="Patterns">
+                <Card>
+                  <Stack gap="md">
+                    <SubjectRating
+                      icon={<Calculator size={16} />}
+                      subject="Mathematics"
+                      rating="1,450"
+                      progress={85}
+                      color="math"
+                    />
+                    <SubjectRating
+                      icon={<Atom size={16} />}
+                      subject="Physics"
+                      rating="1,320"
+                      progress={70}
+                      color="physics"
+                    />
+                    <SubjectRating
+                      icon={<Beaker size={16} />}
+                      subject="Chemistry"
+                      rating="1,105"
+                      progress={55}
+                      color="chemistry"
+                    />
+                    <SubjectRating
+                      icon={<Dna size={16} />}
+                      subject="Biology"
+                      rating="1,180"
+                      progress={62}
+                      color="biology"
+                    />
+                  </Stack>
+                </Card>
+              </Section>
+            )}
 
-                  <div className="space-y-4">
-                    <Label>Spinner Variants</Label>
-                    <div className="flex items-center gap-8">
-                      <div className="text-center">
-                        <Spinner variant="default" />
-                        <Small className="text-[#999999] mt-2 block">
-                          Default
-                        </Small>
-                      </div>
-                      <div className="text-center">
-                        <Spinner variant="dots" />
-                        <Small className="text-[#999999] mt-2 block">
-                          Dots
-                        </Small>
-                      </div>
-                      <div className="text-center">
-                        <Spinner variant="pulse" />
-                        <Small className="text-[#999999] mt-2 block">
-                          Pulse
-                        </Small>
-                      </div>
-                      <div className="text-center">
-                        <Spinner variant="terminal" />
-                        <Small className="text-[#999999] mt-2 block">
-                          Terminal
-                        </Small>
-                      </div>
-                    </div>
-                  </div>
+            {/* STAT CARD */}
+            {filteredSections.some((s) => s.id === "stat-card") && (
+              <Section id="stat-card" title="Stat Card" subtitle="Patterns">
+                <Grid cols={1} colsMd={3} gap="md">
+                  <StatCard
+                    title="Global Rank"
+                    value="#42"
+                    subtitle="Top 1%"
+                    icon={<Trophy size={18} className="text-muted-foreground" />}
+                  />
+                  <StatCard
+                    title="Win Rate"
+                    value="68%"
+                    trend={{ value: "5%", positive: true }}
+                    color="emerald"
+                  />
+                  <StatCard
+                    title="Games Played"
+                    value="1,204"
+                    subtitle="This season"
+                    color="purple"
+                  />
+                </Grid>
+              </Section>
+            )}
 
-                  <div className="space-y-4">
-                    <Label>Spinner with Label</Label>
-                    <div className="flex flex-col gap-4">
-                      <Spinner label="Loading..." />
-                      <Spinner variant="dots" label="Processing..." />
-                      <Spinner
-                        variant="terminal"
-                        label="Initializing system..."
+            {/* TIMELINE */}
+            {filteredSections.some((s) => s.id === "timeline") && (
+              <Section id="timeline" title="Timeline" subtitle="Patterns">
+                <Card padding="lg">
+                  <SectionHeader title="Match Timeline" subtitle="Last 4 Matches" />
+                  <div className="relative py-8">
+                    <div className="absolute left-8 right-8 top-1/2 h-px bg-border -translate-y-1/2" />
+                    <Stack direction="horizontal" justify="between" className="px-8 relative">
+                      <TimelineNode
+                        result="W"
+                        delta="+24"
+                        icon={<Atom size={14} />}
+                        subject="Physics"
+                        color="physics"
+                        opponent="Alex"
                       />
-                    </div>
+                      <TimelineNode
+                        result="L"
+                        delta="-12"
+                        icon={<Calculator size={14} />}
+                        subject="Math"
+                        color="math"
+                        opponent="Sarah"
+                      />
+                      <TimelineNode
+                        result="W"
+                        delta="+18"
+                        icon={<Dna size={14} />}
+                        subject="Biology"
+                        color="biology"
+                        opponent="Dave"
+                      />
+                      <TimelineNode
+                        result="W"
+                        delta="+32"
+                        icon={<Beaker size={14} />}
+                        subject="Chem"
+                        color="chemistry"
+                        opponent="Mark"
+                      />
+                    </Stack>
                   </div>
-                </div>
-              </section>
+                </Card>
+              </Section>
             )}
 
-            {/* Footer Section */}
-            <Footer>
-              <div className="space-y-6">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <Logo text="FIZIKS" icon={<Terminal className="w-5 h-5" />} />
-                  <div className="flex gap-4">
-                    <Button variant="link" size="sm">
-                      Documentation
-                    </Button>
-                    <Button variant="link" size="sm">
-                      GitHub
-                    </Button>
-                    <Button variant="link" size="sm">
-                      Discord
-                    </Button>
-                  </div>
-                </div>
-                <div className="border-t border-[#22c55e33] pt-6">
-                  <Small className="text-[#666666]">
-                    © 2026 Fiziks Design System. Built with React + Tailwind
-                    CSS.
-                  </Small>
-                </div>
-              </div>
-            </Footer>
-          </div>
-        </main>
-      </div>
+            {/* EMPTY STATE */}
+            {filteredSections.some((s) => s.id === "empty-state") && (
+              <Section id="empty-state" title="Empty State" subtitle="Patterns">
+                <Card>
+                  <EmptyState
+                    icon={<Inbox size={48} />}
+                    title="No matches yet"
+                    description="Start your first ranked match to see your history here."
+                    action={{
+                      label: "Find Match",
+                      onClick: () => {},
+                    }}
+                  />
+                </Card>
+              </Section>
+            )}
 
-      {/* Scroll to top button */}
-      <div className="fixed bottom-8 right-8">
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          <ChevronRight className="-rotate-90" size={16} />
-        </Button>
+            {/* LAYOUTS */}
+            {filteredSections.some((s) => s.id === "layouts") && (
+              <Section id="layouts" title="Grid & Stack" subtitle="Layouts">
+                <Stack gap="xl">
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Grid (responsive)
+                    </Text>
+                    <Grid cols={2} colsMd={3} colsLg={4} gap="sm">
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                        <div
+                          key={i}
+                          className="h-16 bg-muted rounded-lg flex items-center justify-center text-muted-foreground text-sm"
+                        >
+                          Item {i}
+                        </div>
+                      ))}
+                    </Grid>
+                  </Stack>
+
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Stack (horizontal)
+                    </Text>
+                    <Stack direction="horizontal" gap="sm" wrap>
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <div
+                          key={i}
+                          className="h-12 w-24 bg-section-purple rounded-lg flex items-center justify-center text-sm"
+                        >
+                          Item {i}
+                        </div>
+                      ))}
+                    </Stack>
+                  </Stack>
+
+                  <Stack gap="md">
+                    <Text variant="label" color="muted">
+                      Stack (vertical)
+                    </Text>
+                    <Stack gap="sm">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="h-12 bg-section-blue rounded-lg flex items-center justify-center text-sm"
+                        >
+                          Item {i}
+                        </div>
+                      ))}
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Section>
+            )}
+          </Stack>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+function Section({
+  id,
+  title,
+  subtitle,
+  children,
+}: {
+  id: string;
+  title: string;
+  subtitle: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id}>
+      <SectionHeader title={title} subtitle={subtitle} />
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-sm">
+        {children}
       </div>
+    </section>
+  );
+}
+
+function ColorSwatch({ name, className }: { name: string; className: string }) {
+  return (
+    <div className="text-center">
+      <div className={`h-16 rounded-xl ${className}`} />
+      <Text variant="body-sm" color="muted" className="mt-2">
+        {name}
+      </Text>
     </div>
   );
 }
