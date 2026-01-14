@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import {
-  BookOpen,
-  Flame,
   Sparkles,
-  Trophy,
-  Zap,
   FileText,
   PenTool,
   Share2,
@@ -17,7 +13,7 @@ import {
 import { useAuth } from "@/lib/auth-context";
 
 export default function HomePage() {
-  const { user, isLoading, isAuthenticated, logout } = useAuth();
+  const { isLoading, isAuthenticated, logout } = useAuth();
 
   if (isLoading) {
     return (
@@ -53,6 +49,7 @@ export default function HomePage() {
             {isAuthenticated ? (
               <>
                 <button
+                  type="button"
                   onClick={logout}
                   className="text-sm font-medium text-gray-600 hover:text-black transition-colors px-3 py-1.5"
                 >
@@ -133,14 +130,20 @@ export default function HomePage() {
               {/* App Content */}
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="text-lg font-semibold text-gray-900">+ All Problems</span>
+                  <span className="text-lg font-semibold text-gray-900">
+                    + All Problems
+                  </span>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
                   <ProblemCard
                     title="Kinematics"
                     color="bg-rose-100"
                     borderColor="border-rose-200"
-                    items={["Motion equations", "Free fall", "Projectile motion"]}
+                    items={[
+                      "Motion equations",
+                      "Free fall",
+                      "Projectile motion",
+                    ]}
                   />
                   <ProblemCard
                     title="Mechanics"
@@ -183,18 +186,34 @@ export default function HomePage() {
                   <div className="w-3 h-3 rounded-full bg-gray-200" />
                   <div className="w-3 h-3 rounded-full bg-gray-200" />
                   <div className="w-3 h-3 rounded-full bg-gray-200" />
-                  <span className="ml-4 text-sm text-gray-500">Practice Queue</span>
+                  <span className="ml-4 text-sm text-gray-500">
+                    Practice Queue
+                  </span>
                 </div>
                 <div className="space-y-3">
-                  <TaskItem label="Solve projectile motion" tag="Kinematics" tagColor="bg-rose-100 text-rose-700" />
-                  <TaskItem label="Calculate momentum" tag="Mechanics" tagColor="bg-sky-100 text-sky-700" />
-                  <TaskItem label="Wave interference" tag="Waves" tagColor="bg-amber-100 text-amber-700" />
+                  <TaskItem
+                    label="Solve projectile motion"
+                    tag="Kinematics"
+                    tagColor="bg-rose-100 text-rose-700"
+                  />
+                  <TaskItem
+                    label="Calculate momentum"
+                    tag="Mechanics"
+                    tagColor="bg-sky-100 text-sky-700"
+                  />
+                  <TaskItem
+                    label="Wave interference"
+                    tag="Waves"
+                    tagColor="bg-amber-100 text-amber-700"
+                  />
                 </div>
               </div>
 
               {/* Floating Card */}
               <div className="absolute -bottom-8 -right-8 bg-orange-50 rounded-2xl shadow-xl p-6 max-w-xs border border-orange-100">
-                <h4 className="font-semibold text-gray-900 mb-3">Projectile Motion</h4>
+                <h4 className="font-semibold text-gray-900 mb-3">
+                  Projectile Motion
+                </h4>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded border border-gray-300" />
@@ -210,7 +229,8 @@ export default function HomePage() {
                   </li>
                 </ul>
                 <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-                  Use kinematic equations to solve for the maximum height reached by the projectile...
+                  Use kinematic equations to solve for the maximum height
+                  reached by the projectile...
                 </p>
               </div>
             </div>
@@ -226,15 +246,30 @@ export default function HomePage() {
                 to full mastery
               </h2>
               <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-                In Fiziks, your learning moves with you — capture ideas instantly across all your devices, then practice them when you're ready. Transform quick notes into deep understanding you're proud to share.
+                In Fiziks, your learning moves with you — capture ideas
+                instantly across all your devices, then practice them when
+                you're ready. Transform quick notes into deep understanding
+                you're proud to share.
               </p>
 
               {/* Feature Icons */}
               <div className="grid grid-cols-2 gap-6">
-                <FeatureItem icon={<FileText className="w-5 h-5" />} label="Simulations" />
-                <FeatureItem icon={<PenTool className="w-5 h-5" />} label="Practice" />
-                <FeatureItem icon={<Sparkles className="w-5 h-5" />} label="AI Tutor" />
-                <FeatureItem icon={<Share2 className="w-5 h-5" />} label="Compete & Share" />
+                <FeatureItem
+                  icon={<FileText className="w-5 h-5" />}
+                  label="Simulations"
+                />
+                <FeatureItem
+                  icon={<PenTool className="w-5 h-5" />}
+                  label="Practice"
+                />
+                <FeatureItem
+                  icon={<Sparkles className="w-5 h-5" />}
+                  label="AI Tutor"
+                />
+                <FeatureItem
+                  icon={<Share2 className="w-5 h-5" />}
+                  label="Compete & Share"
+                />
               </div>
 
               <Link
@@ -260,7 +295,8 @@ export default function HomePage() {
             to Your Learning
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-16">
-            Choose any approach that fits your style: organize with subjects, topics and tags, or build rich study plans with collections.
+            Choose any approach that fits your style: organize with subjects,
+            topics and tags, or build rich study plans with collections.
           </p>
 
           {/* Feature Cards */}
@@ -307,7 +343,11 @@ export default function HomePage() {
           {/* Battle Cards Carousel */}
           <div className="flex justify-center gap-4 overflow-hidden">
             <BattleCard title="Kinematics" color="bg-yellow-300" />
-            <BattleCard title="Mechanics" color="bg-gray-700" textColor="text-white" />
+            <BattleCard
+              title="Mechanics"
+              color="bg-gray-700"
+              textColor="text-white"
+            />
             <BattleCard title="Waves" color="bg-gray-100" />
             <BattleCard title="Thermo" color="bg-emerald-100" />
             <BattleCard title="Optics" color="bg-violet-100" />
@@ -326,7 +366,8 @@ export default function HomePage() {
             Stay in the loop
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-16">
-            Join the community and learn how other students get the most out of Fiziks.
+            Join the community and learn how other students get the most out of
+            Fiziks.
           </p>
 
           {/* Social Cards */}
@@ -423,7 +464,13 @@ export default function HomePage() {
 }
 
 // Nav Link Component
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <Link
       href={href}
@@ -472,13 +519,21 @@ function TaskItem({
     <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
       <div className="w-4 h-4 rounded border border-gray-300" />
       <span className="text-sm text-gray-700 flex-1">{label}</span>
-      <span className={`text-xs px-2 py-0.5 rounded-full ${tagColor}`}>{tag}</span>
+      <span className={`text-xs px-2 py-0.5 rounded-full ${tagColor}`}>
+        {tag}
+      </span>
     </div>
   );
 }
 
 // Feature Item Component
-function FeatureItem({ icon, label }: { icon: React.ReactNode; label: string }) {
+function FeatureItem({
+  icon,
+  label,
+}: {
+  icon: React.ReactNode;
+  label: string;
+}) {
   return (
     <div className="flex items-center gap-3">
       <div className="text-gray-700">{icon}</div>
@@ -500,7 +555,9 @@ function OrganizeCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className={`${color} rounded-3xl p-8 shadow-lg shadow-black/5 border border-gray-100`}>
+    <div
+      className={`${color} rounded-3xl p-8 shadow-lg shadow-black/5 border border-gray-100`}
+    >
       <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 mx-auto shadow-sm">
         {icon}
       </div>
@@ -521,7 +578,9 @@ function BattleCard({
   textColor?: string;
 }) {
   return (
-    <div className={`${color} ${textColor} w-40 h-56 rounded-2xl p-4 shadow-lg flex flex-col justify-between`}>
+    <div
+      className={`${color} ${textColor} w-40 h-56 rounded-2xl p-4 shadow-lg flex flex-col justify-between`}
+    >
       <h4 className="font-semibold text-sm">{title}</h4>
       <div className="h-20 rounded-lg bg-black/5" />
     </div>
@@ -541,9 +600,13 @@ function SocialCard({
   textColor?: string;
 }) {
   return (
-    <div className={`${color} ${textColor} rounded-2xl p-6 shadow-lg shadow-black/5`}>
+    <div
+      className={`${color} ${textColor} rounded-2xl p-6 shadow-lg shadow-black/5`}
+    >
       <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 mx-auto" />
-      <h4 className="font-bold text-sm uppercase tracking-wide mb-2">{platform}</h4>
+      <h4 className="font-bold text-sm uppercase tracking-wide mb-2">
+        {platform}
+      </h4>
       <p className="text-sm opacity-80">{description}</p>
     </div>
   );
@@ -559,7 +622,9 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="text-xs font-bold tracking-wider text-gray-400 mb-4">{title}</h4>
+      <h4 className="text-xs font-bold tracking-wider text-gray-400 mb-4">
+        {title}
+      </h4>
       <ul className="space-y-2">
         {links.map((link) => (
           <li key={link.label}>
@@ -579,12 +644,12 @@ function FooterColumn({
 // Social Icon Component
 function SocialIcon({ name }: { name: string }) {
   return (
-    <a
-      href="#"
+    <button
+      type="button"
       className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors"
       aria-label={name}
     >
       <div className="w-4 h-4 bg-gray-500 rounded" />
-    </a>
+    </button>
   );
 }

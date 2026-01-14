@@ -62,13 +62,43 @@ const sections = [
   { id: "input", label: "Input", icon: TextCursor, category: "Primitives" },
   { id: "avatar", label: "Avatar", icon: User, category: "Primitives" },
   { id: "progress", label: "Progress", icon: Loader, category: "Primitives" },
-  { id: "icon-button", label: "Icon Button", icon: Square, category: "Primitives" },
-  { id: "divider", label: "Divider", icon: SplitSquareHorizontal, category: "Primitives" },
-  { id: "subject-rating", label: "Subject Rating", icon: BarChart3, category: "Patterns" },
-  { id: "stat-card", label: "Stat Card", icon: CreditCard, category: "Patterns" },
+  {
+    id: "icon-button",
+    label: "Icon Button",
+    icon: Square,
+    category: "Primitives",
+  },
+  {
+    id: "divider",
+    label: "Divider",
+    icon: SplitSquareHorizontal,
+    category: "Primitives",
+  },
+  {
+    id: "subject-rating",
+    label: "Subject Rating",
+    icon: BarChart3,
+    category: "Patterns",
+  },
+  {
+    id: "stat-card",
+    label: "Stat Card",
+    icon: CreditCard,
+    category: "Patterns",
+  },
   { id: "timeline", label: "Timeline", icon: Layers, category: "Patterns" },
-  { id: "empty-state", label: "Empty State", icon: Inbox, category: "Patterns" },
-  { id: "layouts", label: "Grid & Stack", icon: LayoutGrid, category: "Layouts" },
+  {
+    id: "empty-state",
+    label: "Empty State",
+    icon: Inbox,
+    category: "Patterns",
+  },
+  {
+    id: "layouts",
+    label: "Grid & Stack",
+    icon: LayoutGrid,
+    category: "Layouts",
+  },
 ];
 
 const categories = ["Tokens", "Primitives", "Patterns", "Layouts"];
@@ -114,7 +144,11 @@ export default function DesignSystemPage() {
                 Fiziks UI
               </Text>
             </div>
-            <button type="button" className="lg:hidden p-2" onClick={() => setSidebarOpen(false)}>
+            <button
+              type="button"
+              className="lg:hidden p-2"
+              onClick={() => setSidebarOpen(false)}
+            >
               <X size={20} className="text-muted-foreground" />
             </button>
           </div>
@@ -183,7 +217,11 @@ export default function DesignSystemPage() {
       <main className="flex-1 min-w-0">
         {/* Mobile Header */}
         <div className="lg:hidden sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center gap-4">
-          <button type="button" onClick={() => setSidebarOpen(true)} className="p-2 -ml-2">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 -ml-2"
+          >
             <Menu size={24} className="text-muted-foreground" />
           </button>
           <Text variant="h4">Design System</Text>
@@ -197,8 +235,8 @@ export default function DesignSystemPage() {
                 Component Library
               </Text>
               <Text variant="body" color="muted">
-                Production-ready components for Fiziks. Select a component from the sidebar to view
-                it in isolation.
+                Production-ready components for Fiziks. Select a component from
+                the sidebar to view it in isolation.
               </Text>
             </header>
           )}
@@ -217,7 +255,10 @@ export default function DesignSystemPage() {
                       <ColorSwatch name="Secondary" className="bg-secondary" />
                       <ColorSwatch name="Muted" className="bg-muted" />
                       <ColorSwatch name="Card" className="bg-card border" />
-                      <ColorSwatch name="Destructive" className="bg-destructive" />
+                      <ColorSwatch
+                        name="Destructive"
+                        className="bg-destructive"
+                      />
                       <ColorSwatch name="Success" className="bg-success" />
                       <ColorSwatch name="Warning" className="bg-warning" />
                       <ColorSwatch name="Info" className="bg-info" />
@@ -230,9 +271,18 @@ export default function DesignSystemPage() {
                     </Text>
                     <Grid cols={2} colsMd={4} colsLg={6} gap="sm">
                       <ColorSwatch name="Blue" className="bg-section-blue" />
-                      <ColorSwatch name="Purple" className="bg-section-purple" />
-                      <ColorSwatch name="Yellow" className="bg-section-yellow" />
-                      <ColorSwatch name="Emerald" className="bg-section-emerald" />
+                      <ColorSwatch
+                        name="Purple"
+                        className="bg-section-purple"
+                      />
+                      <ColorSwatch
+                        name="Yellow"
+                        className="bg-section-yellow"
+                      />
+                      <ColorSwatch
+                        name="Emerald"
+                        className="bg-section-emerald"
+                      />
                       <ColorSwatch name="Amber" className="bg-section-amber" />
                       <ColorSwatch name="Pink" className="bg-section-pink" />
                     </Grid>
@@ -244,9 +294,18 @@ export default function DesignSystemPage() {
                     </Text>
                     <Grid cols={2} colsMd={4} gap="sm">
                       <ColorSwatch name="Math" className="bg-subject-math" />
-                      <ColorSwatch name="Physics" className="bg-subject-physics" />
-                      <ColorSwatch name="Chemistry" className="bg-subject-chemistry" />
-                      <ColorSwatch name="Biology" className="bg-subject-biology" />
+                      <ColorSwatch
+                        name="Physics"
+                        className="bg-subject-physics"
+                      />
+                      <ColorSwatch
+                        name="Chemistry"
+                        className="bg-subject-chemistry"
+                      />
+                      <ColorSwatch
+                        name="Biology"
+                        className="bg-subject-biology"
+                      />
                     </Grid>
                   </Stack>
                 </Stack>
@@ -255,7 +314,11 @@ export default function DesignSystemPage() {
 
             {/* TYPOGRAPHY */}
             {filteredSections.some((s) => s.id === "typography") && (
-              <Section id="typography" title="Typography" subtitle="Design Tokens">
+              <Section
+                id="typography"
+                title="Typography"
+                subtitle="Design Tokens"
+              >
                 <Stack gap="md">
                   <Text variant="h1" serif>
                     Heading 1 — Serif
@@ -438,7 +501,10 @@ export default function DesignSystemPage() {
                     <Text variant="label" color="muted">
                       With Icon
                     </Text>
-                    <Input placeholder="Search..." icon={<Search size={16} />} />
+                    <Input
+                      placeholder="Search..."
+                      icon={<Search size={16} />}
+                    />
                   </Stack>
                   <Stack gap="md">
                     <Text variant="label" color="muted">
@@ -517,8 +583,16 @@ export default function DesignSystemPage() {
                       <ProgressBar value={60} color="success" />
                       <ProgressBar value={40} color="warning" />
                       <Stack direction="horizontal" gap="sm">
-                        <ProgressBar value={80} color="math" className="flex-1" />
-                        <ProgressBar value={65} color="physics" className="flex-1" />
+                        <ProgressBar
+                          value={80}
+                          color="math"
+                          className="flex-1"
+                        />
+                        <ProgressBar
+                          value={65}
+                          color="physics"
+                          className="flex-1"
+                        />
                       </Stack>
                     </Stack>
                   </Stack>
@@ -552,15 +626,27 @@ export default function DesignSystemPage() {
 
             {/* ICON BUTTON */}
             {filteredSections.some((s) => s.id === "icon-button") && (
-              <Section id="icon-button" title="Icon Button" subtitle="Primitives">
+              <Section
+                id="icon-button"
+                title="Icon Button"
+                subtitle="Primitives"
+              >
                 <Stack gap="md">
                   <Text variant="label" color="muted">
                     Variants
                   </Text>
                   <Stack direction="horizontal" gap="md">
                     <IconButton icon={<Heart size={18} />} label="Like" />
-                    <IconButton icon={<Star size={18} />} label="Favorite" variant="ghost" />
-                    <IconButton icon={<Settings size={18} />} label="Settings" variant="outline" />
+                    <IconButton
+                      icon={<Star size={18} />}
+                      label="Favorite"
+                      variant="ghost"
+                    />
+                    <IconButton
+                      icon={<Settings size={18} />}
+                      label="Settings"
+                      variant="outline"
+                    />
                   </Stack>
                 </Stack>
               </Section>
@@ -581,7 +667,11 @@ export default function DesignSystemPage() {
 
             {/* SUBJECT RATING */}
             {filteredSections.some((s) => s.id === "subject-rating") && (
-              <Section id="subject-rating" title="Subject Rating" subtitle="Patterns">
+              <Section
+                id="subject-rating"
+                title="Subject Rating"
+                subtitle="Patterns"
+              >
                 <Card>
                   <Stack gap="md">
                     <SubjectRating
@@ -625,7 +715,9 @@ export default function DesignSystemPage() {
                     title="Global Rank"
                     value="#42"
                     subtitle="Top 1%"
-                    icon={<Trophy size={18} className="text-muted-foreground" />}
+                    icon={
+                      <Trophy size={18} className="text-muted-foreground" />
+                    }
                   />
                   <StatCard
                     title="Win Rate"
@@ -647,10 +739,17 @@ export default function DesignSystemPage() {
             {filteredSections.some((s) => s.id === "timeline") && (
               <Section id="timeline" title="Timeline" subtitle="Patterns">
                 <Card padding="lg">
-                  <SectionHeader title="Match Timeline" subtitle="Last 4 Matches" />
+                  <SectionHeader
+                    title="Match Timeline"
+                    subtitle="Last 4 Matches"
+                  />
                   <div className="relative py-8">
                     <div className="absolute left-8 right-8 top-1/2 h-px bg-border -translate-y-1/2" />
-                    <Stack direction="horizontal" justify="between" className="px-8 relative">
+                    <Stack
+                      direction="horizontal"
+                      justify="between"
+                      className="px-8 relative"
+                    >
                       <TimelineNode
                         result="W"
                         delta="+24"

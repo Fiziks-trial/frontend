@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 type DividerOrientation = "horizontal" | "vertical";
 
@@ -14,18 +14,33 @@ export function Divider({
   ...props
 }: DividerProps) {
   if (orientation === "vertical") {
-    return <div className={["w-px h-full bg-border", className].join(" ")} {...props} />;
+    return (
+      <div
+        className={["w-px h-full bg-border", className].join(" ")}
+        {...props}
+      />
+    );
   }
 
   if (label) {
     return (
-      <div className={["flex items-center gap-4", className].join(" ")} {...props}>
+      <div
+        className={["flex items-center gap-4", className].join(" ")}
+        {...props}
+      >
         <div className="flex-1 h-px bg-border" />
-        <span className="text-xs text-muted-foreground font-medium">{label}</span>
+        <span className="text-xs text-muted-foreground font-medium">
+          {label}
+        </span>
         <div className="flex-1 h-px bg-border" />
       </div>
     );
   }
 
-  return <div className={["h-px w-full bg-border", className].join(" ")} {...props} />;
+  return (
+    <div
+      className={["h-px w-full bg-border", className].join(" ")}
+      {...props}
+    />
+  );
 }

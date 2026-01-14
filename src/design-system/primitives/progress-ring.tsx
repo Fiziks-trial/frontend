@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 type ProgressRingSize = "sm" | "md" | "lg" | "xl";
 
@@ -50,11 +50,19 @@ export function ProgressRing({
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
-      className={["relative inline-flex items-center justify-center", className].join(" ")}
+      className={[
+        "relative inline-flex items-center justify-center",
+        className,
+      ].join(" ")}
       style={{ width: dimension, height: dimension }}
       {...props}
     >
-      <svg className="transform -rotate-90" width={dimension} height={dimension}>
+      <svg
+        aria-hidden="true"
+        className="transform -rotate-90"
+        width={dimension}
+        height={dimension}
+      >
         <circle
           cx={dimension / 2}
           cy={dimension / 2}
@@ -76,7 +84,11 @@ export function ProgressRing({
           className="transition-all duration-500"
         />
       </svg>
-      {children && <div className="absolute inset-0 flex items-center justify-center">{children}</div>}
+      {children && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          {children}
+        </div>
+      )}
     </div>
   );
 }

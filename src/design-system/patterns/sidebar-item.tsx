@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 export interface SidebarItemProps {
@@ -9,9 +9,15 @@ export interface SidebarItemProps {
   onClick?: () => void;
 }
 
-export function SidebarItem({ icon, label, href, active = false, onClick }: SidebarItemProps) {
+export function SidebarItem({
+  icon,
+  label,
+  href,
+  active = false,
+  onClick,
+}: SidebarItemProps) {
   const styles = [
-    "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer",
+    "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer w-full text-left",
     "transition-all duration-200 group",
     active
       ? "bg-secondary text-foreground"
@@ -40,8 +46,10 @@ export function SidebarItem({ icon, label, href, active = false, onClick }: Side
   }
 
   return (
-    <li className={styles} onClick={onClick}>
-      {content}
+    <li>
+      <button type="button" className={styles} onClick={onClick}>
+        {content}
+      </button>
     </li>
   );
 }

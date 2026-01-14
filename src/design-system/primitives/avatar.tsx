@@ -1,4 +1,5 @@
-import { type HTMLAttributes, type ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
+import Image from "next/image";
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -15,6 +16,14 @@ const sizes: Record<AvatarSize, string> = {
   md: "size-10 text-sm",
   lg: "size-12 text-base",
   xl: "size-16 text-lg",
+};
+
+const pixelSizes: Record<AvatarSize, number> = {
+  xs: 24,
+  sm: 32,
+  md: 40,
+  lg: 48,
+  xl: 64,
 };
 
 export function Avatar({
@@ -36,9 +45,11 @@ export function Avatar({
       {...props}
     >
       {src ? (
-        <img
+        <Image
           src={src}
           alt={alt || "Avatar"}
+          width={pixelSizes[size]}
+          height={pixelSizes[size]}
           className="size-full object-cover"
         />
       ) : (

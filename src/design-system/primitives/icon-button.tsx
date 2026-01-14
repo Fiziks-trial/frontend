@@ -3,7 +3,8 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 type IconButtonVariant = "default" | "ghost" | "outline";
 type IconButtonSize = "sm" | "md" | "lg";
 
-export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: IconButtonVariant;
   size?: IconButtonSize;
   icon: ReactNode;
@@ -23,7 +24,10 @@ const sizes: Record<IconButtonSize, string> = {
 };
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ variant = "default", size = "md", icon, label, className = "", ...props }, ref) => {
+  (
+    { variant = "default", size = "md", icon, label, className = "", ...props },
+    ref,
+  ) => {
     return (
       <button
         ref={ref}
@@ -40,7 +44,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {icon}
       </button>
     );
-  }
+  },
 );
 
 IconButton.displayName = "IconButton";

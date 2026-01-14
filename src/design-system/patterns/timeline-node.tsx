@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type TimelineColor = "math" | "physics" | "chemistry" | "biology";
 
@@ -15,7 +15,8 @@ const colorStyles: Record<TimelineColor, string> = {
   physics: "text-subject-physics bg-section-purple border-subject-physics/30",
   math: "text-subject-math bg-section-blue border-subject-math/30",
   biology: "text-subject-biology bg-section-emerald border-subject-biology/30",
-  chemistry: "text-subject-chemistry bg-section-amber border-subject-chemistry/30",
+  chemistry:
+    "text-subject-chemistry bg-section-amber border-subject-chemistry/30",
 };
 
 const mobileColorStyles: Record<TimelineColor, string> = {
@@ -25,7 +26,14 @@ const mobileColorStyles: Record<TimelineColor, string> = {
   chemistry: "bg-section-amber text-subject-chemistry",
 };
 
-export function TimelineNode({ result, delta, icon, subject, color, opponent }: TimelineNodeProps) {
+export function TimelineNode({
+  result,
+  delta,
+  icon,
+  subject,
+  color,
+  opponent,
+}: TimelineNodeProps) {
   const isWin = result === "W";
 
   return (
@@ -51,12 +59,16 @@ export function TimelineNode({ result, delta, icon, subject, color, opponent }: 
           isWin ? "border-border" : "border-destructive/30 bg-destructive/5",
         ].join(" ")}
       >
-        <div className={isWin ? "text-foreground" : "text-destructive"}>{icon}</div>
+        <div className={isWin ? "text-foreground" : "text-destructive"}>
+          {icon}
+        </div>
       </div>
 
       {/* Result info */}
       <div className="mt-3 text-center">
-        <div className="text-lg font-serif text-foreground font-bold">{result}</div>
+        <div className="text-lg font-serif text-foreground font-bold">
+          {result}
+        </div>
         <span
           className={[
             "font-mono text-xs font-bold",
@@ -94,16 +106,25 @@ export function MobileTimelineNode({
           isWin ? "border-border" : "border-destructive/30 bg-destructive/5",
         ].join(" ")}
       >
-        <div className={isWin ? "text-foreground" : "text-destructive"}>{icon}</div>
+        <div className={isWin ? "text-foreground" : "text-destructive"}>
+          {icon}
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex-1 flex items-center justify-between bg-card rounded-xl p-3 border border-border">
         <div className="flex items-center gap-3">
-          <span className={["text-xs font-bold px-2 py-0.5 rounded", mobileColorStyles[color]].join(" ")}>
+          <span
+            className={[
+              "text-xs font-bold px-2 py-0.5 rounded",
+              mobileColorStyles[color],
+            ].join(" ")}
+          >
             {subject}
           </span>
-          {opponent && <span className="text-sm text-muted-foreground">vs {opponent}</span>}
+          {opponent && (
+            <span className="text-sm text-muted-foreground">vs {opponent}</span>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <span
@@ -114,7 +135,12 @@ export function MobileTimelineNode({
           >
             {delta}
           </span>
-          <span className={["text-sm font-bold", isWin ? "text-foreground" : "text-destructive"].join(" ")}>
+          <span
+            className={[
+              "text-sm font-bold",
+              isWin ? "text-foreground" : "text-destructive",
+            ].join(" ")}
+          >
             {result}
           </span>
         </div>

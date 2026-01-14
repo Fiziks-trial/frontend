@@ -1,6 +1,13 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
-type ProgressColor = "default" | "success" | "warning" | "math" | "physics" | "chemistry" | "biology";
+type ProgressColor =
+  | "default"
+  | "success"
+  | "warning"
+  | "math"
+  | "physics"
+  | "chemistry"
+  | "biology";
 type ProgressSize = "sm" | "md" | "lg";
 
 export interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {
@@ -45,18 +52,25 @@ export function ProgressBar({
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={max}
-        className={["w-full bg-muted rounded-full overflow-hidden", sizes[size]].join(" ")}
+        className={[
+          "w-full bg-muted rounded-full overflow-hidden",
+          sizes[size],
+        ].join(" ")}
         {...props}
       >
         <div
-          className={[sizes[size], "rounded-full transition-all duration-300", colors[color]].join(
-            " "
-          )}
+          className={[
+            sizes[size],
+            "rounded-full transition-all duration-300",
+            colors[color],
+          ].join(" ")}
           style={{ width: `${percentage}%` }}
         />
       </div>
       {showValue && (
-        <span className="text-xs text-muted-foreground mt-1">{Math.round(percentage)}%</span>
+        <span className="text-xs text-muted-foreground mt-1">
+          {Math.round(percentage)}%
+        </span>
       )}
     </div>
   );

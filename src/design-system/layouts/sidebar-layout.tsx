@@ -1,6 +1,7 @@
 "use client";
 
-import { type ReactNode, useState, createContext, useContext } from "react";
+import type { ReactNode } from "react";
+import { useState, createContext, useContext } from "react";
 import { X, Menu } from "lucide-react";
 
 interface SidebarContextValue {
@@ -45,8 +46,10 @@ export function SidebarLayout({
       <div className="flex min-h-screen bg-background text-foreground">
         {/* Mobile Overlay */}
         {isOpen && (
-          <div
-            className="fixed inset-0 bg-black/20 z-40 lg:hidden"
+          <button
+            type="button"
+            aria-label="Close sidebar"
+            className="fixed inset-0 bg-black/20 z-40 lg:hidden cursor-default"
             onClick={() => setIsOpen(false)}
           />
         )}
@@ -56,7 +59,7 @@ export function SidebarLayout({
           className={[
             "fixed lg:static inset-y-0 left-0 z-50",
             sidebarWidth,
-            "flex-shrink-0 border-r border-border bg-background",
+            "shrink-0 border-r border-border bg-background",
             "flex flex-col",
             "transform transition-transform duration-300 ease-in-out",
             isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
@@ -64,6 +67,7 @@ export function SidebarLayout({
         >
           {/* Close button for mobile */}
           <button
+            type="button"
             className="absolute top-4 right-4 p-2 lg:hidden"
             onClick={() => setIsOpen(false)}
           >
@@ -84,7 +88,11 @@ export function SidebarTrigger({ className = "" }: { className?: string }) {
   const { open } = useSidebar();
 
   return (
-    <button className={["p-2 lg:hidden", className].join(" ")} onClick={open}>
+    <button
+      type="button"
+      className={["p-2 lg:hidden", className].join(" ")}
+      onClick={open}
+    >
       <Menu size={24} className="text-muted-foreground" />
     </button>
   );

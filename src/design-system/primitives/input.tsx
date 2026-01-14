@@ -2,7 +2,8 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 
 type InputSize = "sm" | "md" | "lg";
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   size?: InputSize;
   icon?: ReactNode;
   iconRight?: ReactNode;
@@ -64,7 +65,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

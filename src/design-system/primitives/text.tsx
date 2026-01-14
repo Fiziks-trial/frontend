@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ElementType } from "react";
+import type { HTMLAttributes, ElementType } from "react";
 
 type TextVariant =
   | "h1"
@@ -20,7 +20,10 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   serif?: boolean;
 }
 
-const variantStyles: Record<TextVariant, { element: ElementType; className: string }> = {
+const variantStyles: Record<
+  TextVariant,
+  { element: ElementType; className: string }
+> = {
   h1: {
     element: "h1",
     className: "text-2xl sm:text-3xl lg:text-4xl font-medium leading-tight",
@@ -76,7 +79,8 @@ export function Text({
   children,
   ...props
 }: TextProps) {
-  const { element: defaultElement, className: variantClass } = variantStyles[variant];
+  const { element: defaultElement, className: variantClass } =
+    variantStyles[variant];
   const Component = as || defaultElement;
 
   return (

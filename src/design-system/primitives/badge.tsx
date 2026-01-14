@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 type BadgeVariant =
   | "default"
@@ -26,7 +26,8 @@ const variants: Record<BadgeVariant, string> = {
   info: "bg-info/10 text-info border-info/20",
   math: "bg-section-blue text-subject-math border-subject-math/30",
   physics: "bg-section-purple text-subject-physics border-subject-physics/30",
-  chemistry: "bg-section-amber text-subject-chemistry border-subject-chemistry/30",
+  chemistry:
+    "bg-section-amber text-subject-chemistry border-subject-chemistry/30",
   biology: "bg-section-emerald text-subject-biology border-subject-biology/30",
 };
 
