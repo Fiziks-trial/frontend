@@ -1,14 +1,15 @@
-// Design System Primitives
-// Core building blocks for the UI
-
-export * from "./Avatar";
-export * from "./Badge";
-export * from "./Button";
-export * from "./Card";
-export * from "./Divider";
-export * from "./Input";
-export * from "./Navigation";
-export * from "./Skeleton";
-export * from "./Spinner";
-export * from "./Text";
-export * from "./Typography";
+export { Button, type ButtonProps } from "./button";
+export { Card, type CardProps } from "./card";
+export { Badge, type BadgeProps } from "./badge";
+export { Text, type TextProps } from "./text";
+export { Input, type InputProps } from "./input";
+export {
+  Avatar,
+  AvatarGroup,
+  type AvatarProps,
+  type AvatarGroupProps,
+} from "./avatar";
+export { ProgressBar, type ProgressBarProps } from "./progress-bar";
+export { ProgressRing, type ProgressRingProps } from "./progress-ring";
+export { Divider, type DividerProps } from "./divider";
+export { IconButton, type IconButtonProps } from "./icon-button";
