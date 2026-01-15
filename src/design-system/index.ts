@@ -19,6 +19,7 @@ export {
   Link,
   Alert,
   Tooltip,
+  ToggleGroup,
   type ButtonProps,
   type CardProps,
   type BadgeProps,
@@ -38,6 +39,8 @@ export {
   type LinkProps,
   type AlertProps,
   type TooltipProps,
+  type ToggleGroupProps,
+  type ToggleOption,
 } from "./primitives";
 
 // Patterns - Composed, domain-specific components
@@ -50,9 +53,24 @@ export {
   SectionHeader,
   PageHeader,
   EmptyState,
+  // Match & Game patterns
+  MatchCard,
+  HeroBanner,
+  SearchingState,
+  QuickMatchBanner,
+  SubjectSelectionCard,
+  GameModeButton,
+  UserRankCard,
+  RecentOpponentItem,
+  // Auth patterns
   AuthLayout,
   OAuthButton,
   AuthPanelContent,
+  // Dashboard patterns
+  DashboardLayout,
+  DashboardSidebar,
+  DashboardPageHeader,
+  // Types
   type SidebarItemProps,
   type SubjectRatingProps,
   type StatCardProps,
@@ -60,10 +78,20 @@ export {
   type SectionHeaderProps,
   type PageHeaderProps,
   type EmptyStateProps,
+  type MatchCardProps,
+  type HeroBannerProps,
+  type SearchingStateProps,
+  type QuickMatchBannerProps,
+  type SubjectSelectionCardProps,
+  type GameModeButtonProps,
+  type UserRankCardProps,
+  type RecentOpponentItemProps,
   type AuthLayoutProps,
   type OAuthButtonProps,
   type AuthPanelContentProps,
   type AuthPanelQuote,
+  type DashboardLayoutProps,
+  type DashboardPageHeaderProps,
 } from "./patterns";
 
 // Layouts - Structural components
@@ -143,3 +171,11 @@ export {
   type LeaderboardRowProps,
   type PillButtonProps,
 } from "./marketing";
+
+// Constants - Shared configuration
+export {
+  SUBJECTS,
+  SUBJECT_LIST,
+  type Subject,
+  type SubjectConfig,
+} from "./constants";

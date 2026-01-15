@@ -4,10 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import {
-  Atom,
-  Beaker,
-  Calculator,
-  Dna,
   ChevronLeft,
   Clock,
   Lightbulb,
@@ -16,15 +12,18 @@ import {
   XCircle,
   BookOpen,
 } from "lucide-react";
-import { Card } from "@/design-system/primitives/card";
-import { Badge } from "@/design-system/primitives/badge";
-import { Button } from "@/design-system/primitives/button";
-import { Input } from "@/design-system/primitives/input";
-import { Text } from "@/design-system/primitives/text";
-import { Grid } from "@/design-system/layouts/grid";
-import { Stack } from "@/design-system/layouts/stack";
+import {
+  Card,
+  Badge,
+  Button,
+  Input,
+  Text,
+  Grid,
+  Stack,
+  SUBJECTS,
+  type Subject,
+} from "@/design-system";
 
-type Subject = "physics" | "math" | "chemistry" | "biology";
 type Difficulty = "easy" | "medium" | "hard";
 
 interface Problem {
@@ -184,20 +183,6 @@ const PROBLEMS_DB: Record<string, Problem> = {
   },
 };
 
-const subjectIcons = {
-  physics: Atom,
-  math: Calculator,
-  chemistry: Beaker,
-  biology: Dna,
-};
-
-const subjectColors = {
-  physics: "bg-section-purple text-subject-physics",
-  math: "bg-section-blue text-subject-math",
-  chemistry: "bg-section-amber text-subject-chemistry",
-  biology: "bg-section-emerald text-subject-biology",
-};
-
 const difficultyColors: Record<
   Difficulty,
   "success" | "warning" | "destructive"
@@ -272,7 +257,8 @@ export default function ProblemDetailPage() {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const SubjectIcon = subjectIcons[problem.subject];
+  const subject = SUBJECTS[problem.subject];
+  const SubjectIcon = subject.icon;
 
   return (
     <div className="min-h-screen bg-background">
@@ -297,7 +283,8 @@ export default function ProblemDetailPage() {
                 <div
                   className={[
                     "p-2 rounded-lg",
-                    subjectColors[problem.subject],
+                    subject.bgColor,
+                    subject.color,
                   ].join(" ")}
                 >
                   <SubjectIcon size={18} />
