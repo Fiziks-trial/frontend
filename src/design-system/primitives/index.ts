@@ -21,3 +21,8 @@ export { Textarea, type TextareaProps } from "./textarea";
 export { Link, type LinkProps } from "./link";
 export { Alert, type AlertProps } from "./alert";
 export { Tooltip, type TooltipProps } from "./tooltip";
+export {
+  ToggleGroup,
+  type ToggleGroupProps,
+  type ToggleOption,
+} from "./toggle-group";

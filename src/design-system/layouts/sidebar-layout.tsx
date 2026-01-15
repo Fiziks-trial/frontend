@@ -43,7 +43,7 @@ export function SidebarLayout({
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <div className="flex min-h-screen bg-background text-foreground">
+      <div className="flex h-screen bg-background text-foreground overflow-hidden">
         {/* Mobile Overlay */}
         {isOpen && (
           <button
@@ -54,10 +54,10 @@ export function SidebarLayout({
           />
         )}
 
-        {/* Sidebar */}
+        {/* Sidebar - Fixed on desktop */}
         <aside
           className={[
-            "fixed lg:static inset-y-0 left-0 z-50",
+            "fixed inset-y-0 left-0 z-50",
             sidebarWidth,
             "shrink-0 border-r border-border bg-background",
             "flex flex-col",
@@ -77,8 +77,8 @@ export function SidebarLayout({
           {sidebar}
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto w-full">{children}</main>
+        {/* Main Content - Scrollable, with left margin for fixed sidebar on desktop */}
+        <main className="flex-1 overflow-y-auto lg:ml-64">{children}</main>
       </div>
     </SidebarContext.Provider>
   );
