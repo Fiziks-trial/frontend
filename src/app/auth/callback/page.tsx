@@ -2,7 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { AlertCircle } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { Button, Card, Spinner } from "@/design-system";
 
 function AuthCallbackContent() {
   const router = useRouter();
@@ -23,7 +25,7 @@ function AuthCallbackContent() {
     if (accessToken && refreshToken) {
       setTokensFromCallback(accessToken, refreshToken);
       window.history.replaceState({}, "", "/auth/callback");
-      router.push("/");
+      router.push("/dashboard");
     } else {
       setError("Invalid callback. Missing tokens.");
     }
@@ -31,33 +33,36 @@ function AuthCallbackContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-md w-full space-y-8 p-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-red-600">
-              Authentication Error
-            </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">{error}</p>
-            <button
-              type="button"
-              onClick={() => router.push("/sign-in")}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Back to Sign In
-            </button>
+      <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4">
+        <Card
+          variant="elevated"
+          padding="lg"
+          className="bg-white max-w-md w-full text-center"
+        >
+          <div className="size-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="size-6 text-red-600" />
           </div>
-        </div>
+          <h2 className="text-xl font-serif font-bold text-gray-900 mb-2">
+            Authentication Error
+          </h2>
+          <p className="text-gray-500 mb-6">{error}</p>
+          <Button
+            variant="primary"
+            onClick={() => router.push("/sign-in")}
+            fullWidth
+          >
+            Back to Sign In
+          </Button>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-stone-50">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-        <p className="mt-4 text-gray-600 dark:text-gray-400">
-          Completing sign in...
-        </p>
+        <Spinner size="lg" className="mx-auto" />
+        <p className="mt-4 text-gray-500">Completing sign in...</p>
       </div>
     </div>
   );
@@ -67,10 +72,10 @@ export default function AuthCallbackPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen flex items-center justify-center bg-stone-50">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+            <Spinner size="lg" className="mx-auto" />
+            <p className="mt-4 text-gray-500">Loading...</p>
           </div>
         </div>
       }
