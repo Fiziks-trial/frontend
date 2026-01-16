@@ -8,8 +8,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { API_BASE_URL, api } from "./api";
-import type { User } from "./types";
+import { API_BASE_URL, api } from "./api/client";
+import type { User } from "@/types";
 
 interface AuthContextType {
   user: User | null;

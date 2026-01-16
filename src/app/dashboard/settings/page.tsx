@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LogOut } from "lucide-react";
 import { Button, DashboardPageHeader } from "@/design-system";
+import { useAuth } from "@/lib/auth-context";
 import {
   SettingsNav,
   AccountSection,
@@ -16,21 +17,45 @@ import {
   type Theme,
 } from "./_sections";
 
-const USER_DATA = {
-  name: "Tushar Banik",
-  initials: "TB",
-  email: "tushar@example.com",
-  memberSince: "January 2024",
-  displayName: "Tushar B.",
-};
+function getInitials(name: string | null): string {
+  if (!name) return "??";
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
 
-const CONNECTED_ACCOUNTS = [
-  { provider: "Google", email: "tushar@gmail.com", connected: true },
-];
+function formatMemberSince(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
 
 export default function SettingsPage() {
+  const { user, logout } = useAuth();
   const [activeSection, setActiveSection] =
     useState<SettingsSection>("account");
+
+  const userData = {
+    name: user?.name ?? user?.username ?? "User",
+    initials: getInitials(user?.name ?? user?.username ?? null),
+    email: user?.email ?? "",
+    memberSince: user?.createdAt
+      ? formatMemberSince(user.createdAt)
+      : "Unknown",
+    displayName: user?.name ?? user?.username ?? "User",
+    avatar: user?.avatar,
+  };
+
+  const connectedAccounts = user?.provider
+    ? [{ provider: user.provider, email: user.email, connected: true }]
+    : [];
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = "/";
+  };
 
   // Notification preferences
   const [notificationPrefs, setNotificationPrefs] =
@@ -98,8 +123,8 @@ export default function SettingsPage() {
         <div className="lg:col-span-3">
           {activeSection === "account" && (
             <AccountSection
-              user={USER_DATA}
-              connectedAccounts={CONNECTED_ACCOUNTS}
+              user={userData}
+              connectedAccounts={connectedAccounts}
             />
           )}
 
@@ -132,6 +157,7 @@ export default function SettingsPage() {
         <Button
           variant="ghost"
           className="text-destructive hover:text-destructive hover:bg-destructive/10"
+          onClick={handleLogout}
         >
           <LogOut size={18} />
           Sign Out

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
+import { QueryProvider } from "@/lib/providers/query-provider";
 
 /**
  * Geist Mono - Primary body font (terminal aesthetic)
@@ -47,7 +48,9 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

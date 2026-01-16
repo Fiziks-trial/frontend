@@ -6,6 +6,7 @@ export {
 export {
   LeaderboardTable,
   type LeaderboardEntry,
+  type Tier,
   TIER_COLORS,
 } from "./leaderboard-table";
 export { YourRankCard } from "./your-rank-card";

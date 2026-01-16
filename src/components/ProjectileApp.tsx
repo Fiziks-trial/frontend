@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { LearningCard } from "@/components/modals/LearningCard";
 import { ResultModal } from "@/components/modals/ResultModal";
 import { calculateTheoretical, decomposeVelocity } from "@/utils/physics";
-import { CHALLENGES, LEARNING_CARDS } from "@/utils/types";
+import { CHALLENGES, LEARNING_CARDS } from "@/types";
 import styles from "./projectile.module.css";
 
 interface GameStateType {

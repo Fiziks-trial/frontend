@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  Medal,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Crown,
-} from "lucide-react";
+import { Medal, TrendingUp, TrendingDown, Minus, Crown } from "lucide-react";
 import { Card, Badge, Text, Avatar } from "@/design-system";
 
-type Tier =
+export type Tier =
   | "bronze"
   | "silver"
   | "gold"

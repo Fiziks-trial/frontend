@@ -9,6 +9,7 @@ import {
   SUBJECT_LIST,
   type Subject,
 } from "@/design-system";
+import { useSubjects } from "@/hooks/api";
 import {
   QuickMatchSection,
   SearchingSection,
@@ -25,6 +26,8 @@ const QUEUE_STATS = {
 };
 
 export default function BattlesPage() {
+  const { data: apiSubjects } = useSubjects();
+
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [selectedMode, setSelectedMode] = useState<GameMode>("ranked");
   const [selectedDifficulty, setSelectedDifficulty] =
@@ -34,12 +37,17 @@ export default function BattlesPage() {
   const handleFindMatch = () => {
     if (!selectedSubject) return;
     setIsSearching(true);
+    // TODO: Implement actual matchmaking via WebSocket
     setTimeout(() => setIsSearching(false), 3000);
   };
 
   const handleQuickMatch = () => {
-    const randomSubject =
-      SUBJECT_LIST[Math.floor(Math.random() * SUBJECT_LIST.length)].id;
+    // Use API subjects if available, fallback to design-system list
+    const subjects = apiSubjects?.length
+      ? apiSubjects.map((s) => s.slug as Subject)
+      : SUBJECT_LIST.map((s) => s.id);
+
+    const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
     setSelectedSubject(randomSubject);
     setIsSearching(true);
     setTimeout(() => setIsSearching(false), 3000);

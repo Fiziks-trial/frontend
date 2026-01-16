@@ -18,6 +18,7 @@ interface AccountSectionProps {
     email: string;
     memberSince: string;
     displayName: string;
+    avatar?: string | null;
   };
   connectedAccounts: {
     provider: string;
@@ -47,7 +48,11 @@ export function AccountSection({
           <Text variant="h3">Profile Information</Text>
         </div>
         <div className="flex items-start gap-6 mb-6">
-          <Avatar fallback={user.initials} size="xl" />
+          <Avatar
+            src={user.avatar ?? undefined}
+            fallback={user.initials}
+            size="xl"
+          />
           <div className="flex-1">
             <Text variant="body" className="font-medium mb-1">
               {user.name}
@@ -75,7 +80,7 @@ export function AccountSection({
               Email
             </Text>
             <Input defaultValue={user.email} disabled className="max-w-md" />
-            <Text variant="caption" color="muted" className="mt-1">
+            <Text variant="caption" color="muted" className="mt-1 ml-4">
               Managed by your OAuth provider
             </Text>
           </div>
