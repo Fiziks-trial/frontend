@@ -11,7 +11,7 @@ import {
 } from "@/design-system";
 import { useAuth } from "@/lib/auth-context";
 import { useUserMatches } from "@/hooks/api";
-import type { MatchHistoryItem } from "@/lib/types";
+import type { MatchHistoryItem } from "@/types";
 import { StatsSummary, FiltersSection, MatchList } from "./_sections";
 
 type SubjectFilter = "all" | Subject;

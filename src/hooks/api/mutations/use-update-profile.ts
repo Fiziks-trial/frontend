@@ -13,7 +13,8 @@ export function useUpdateProfile() {
   return useMutation({
     mutationFn: async (data: UpdateProfileData) => {
       const { data: result, error } = await api.updateProfile(data);
-      if (error || !result) throw new Error(error ?? "Failed to update profile");
+      if (error || !result)
+        throw new Error(error ?? "Failed to update profile");
       return result;
     },
     onSuccess: () => {

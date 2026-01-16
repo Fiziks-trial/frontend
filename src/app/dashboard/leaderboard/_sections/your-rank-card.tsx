@@ -1,15 +1,7 @@
 "use client";
 
 import { Card, Badge, Text, Avatar } from "@/design-system";
-import { TIER_COLORS } from "./leaderboard-table";
-
-type Tier =
-  | "bronze"
-  | "silver"
-  | "gold"
-  | "platinum"
-  | "diamond"
-  | "grandmaster";
+import { TIER_COLORS, type Tier } from "./leaderboard-table";
 
 interface YourRankCardProps {
   rank: number;

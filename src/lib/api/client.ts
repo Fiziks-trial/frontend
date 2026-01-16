@@ -4,7 +4,7 @@ import type {
   Subject,
   User,
   UserSubjectStats,
-} from "../types";
+} from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 

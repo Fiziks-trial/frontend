@@ -11,7 +11,7 @@ import {
   TournamentCard,
 } from "./_sections";
 import type { Subject } from "@/design-system";
-import type { UserSubjectStats } from "@/lib/types";
+import type { UserSubjectStats } from "@/types";
 
 function getInitials(name: string | null): string {
   if (!name) return "??";

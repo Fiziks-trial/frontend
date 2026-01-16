@@ -44,6 +44,24 @@ export interface GameState {
   maxNeededDistance: number;
 }
 
+export interface LearningCard {
+  icon: string;
+  title: string;
+  text: string;
+  formula: string;
+  tip: string;
+}
+
+export interface ChallengeConfig {
+  title: string;
+  description: string;
+  targetInfo: string;
+  optimalAngle: number;
+  tolerance: number;
+  minVelocity?: number;
+  hint: string;
+}
+
 export const INITIAL_GAME_STATE: GameState = {
   currentChallenge: "time-to-distance",
   isLaunched: false,
@@ -77,7 +95,7 @@ export const INITIAL_GAME_STATE: GameState = {
   maxNeededDistance: 0,
 };
 
-export const LEARNING_CARDS = {
+export const LEARNING_CARDS: Record<string, LearningCard> = {
   "invalid-input": {
     icon: "⚠️",
     title: "Invalid Input",
@@ -113,17 +131,9 @@ export const LEARNING_CARDS = {
     formula: "R ∝ v₀² (Range)\nH ∝ v₀² (Max Height)",
     tip: "Doubling the velocity quadruples both the range and maximum height!",
   },
-} as Record<string, LearningCard>;
+};
 
-export interface LearningCard {
-  icon: string;
-  title: string;
-  text: string;
-  formula: string;
-  tip: string;
-}
-
-export const CHALLENGES = {
+export const CHALLENGES: Record<string, ChallengeConfig> = {
   "time-to-distance": {
     title: "⏱️ Time to Maximum Distance",
     description: "",
