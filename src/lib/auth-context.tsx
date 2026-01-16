@@ -8,7 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { API_BASE_URL, api } from "./api";
+import { API_BASE_URL, api } from "./api/client";
 import type { User } from "./types";
 
 interface AuthContextType {

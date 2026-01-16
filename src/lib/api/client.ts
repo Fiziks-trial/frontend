@@ -1,17 +1,21 @@
 import type {
-  GlobalLeaderboard,
   MatchHistoryItem,
-  ProfileWithStats,
+  PublicProfile,
   Subject,
-  SubjectLeaderboard,
   User,
-} from "./types";
+  UserSubjectStats,
+} from "../types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 interface ApiResponse<T> {
   data?: T;
   error?: string;
+}
+
+interface MatchHistoryResponse {
+  matches: MatchHistoryItem[];
+  total: number;
 }
 
 class ApiClient {
@@ -122,57 +126,52 @@ class ApiClient {
     this.clearTokens();
   }
 
+  // Auth endpoints (no /api/v1 prefix)
   async getMe() {
     return this.request<User>("/auth/me");
   }
 
-  // User profile endpoints
-  async getProfile(userId: string) {
-    return this.request<ProfileWithStats>(`/users/${userId}/profile`);
+  // User endpoints (/api/v1 prefix)
+  async getPublicProfile(userId: string) {
+    return this.request<PublicProfile>(`/api/v1/users/${userId}`);
   }
 
-  async getProfileByUsername(username: string) {
-    return this.request<ProfileWithStats>(
-      `/users/username/${username}/profile`,
-    );
+  async getPublicProfileByUsername(username: string) {
+    return this.request<PublicProfile>(`/api/v1/users/username/${username}`);
+  }
+
+  async getUserStats(userId: string) {
+    return this.request<UserSubjectStats[]>(`/api/v1/users/${userId}/stats`);
   }
 
   async updateProfile(data: { username?: string; name?: string }) {
-    return this.request<User>("/users/me", {
+    return this.request<User>("/api/v1/users/me", {
       method: "PATCH",
       body: JSON.stringify(data),
     });
   }
 
+  async getMatchHistory(userId: string, limit = 20, offset = 0) {
+    return this.request<MatchHistoryResponse>(
+      `/api/v1/users/${userId}/matches?limit=${limit}&offset=${offset}`,
+    );
+  }
+
   // Subject endpoints
   async getSubjects() {
-    return this.request<Subject[]>("/subjects");
+    return this.request<Subject[]>("/api/v1/subjects");
   }
 
   async getSubject(slug: string) {
-    return this.request<Subject>(`/subjects/${slug}`);
+    return this.request<Subject>(`/api/v1/subjects/${slug}`);
   }
 
-  // Leaderboard endpoints
-  async getGlobalLeaderboard(type: "xp" | "wins" = "wins", limit = 50) {
-    return this.request<GlobalLeaderboard>(
-      `/leaderboards/global?type=${type}&limit=${limit}`,
-    );
+  // Match endpoints
+  async getMatch(matchId: string) {
+    return this.request<unknown>(`/api/v1/matches/${matchId}`);
   }
 
-  async getSubjectLeaderboard(subjectId: string, limit = 50) {
-    return this.request<SubjectLeaderboard>(
-      `/leaderboards/subject/${subjectId}?limit=${limit}`,
-    );
-  }
-
-  // Match history
-  async getMatchHistory(userId: string, limit = 20, offset = 0) {
-    return this.request<{ matches: MatchHistoryItem[]; total: number }>(
-      `/users/${userId}/matches?limit=${limit}&offset=${offset}`,
-    );
-  }
-
+  // Generic methods
   get<T>(endpoint: string) {
     return this.request<T>(endpoint, { method: "GET" });
   }
@@ -184,9 +183,9 @@ class ApiClient {
     });
   }
 
-  put<T>(endpoint: string, body?: unknown) {
+  patch<T>(endpoint: string, body?: unknown) {
     return this.request<T>(endpoint, {
-      method: "PUT",
+      method: "PATCH",
       body: body ? JSON.stringify(body) : undefined,
     });
   }

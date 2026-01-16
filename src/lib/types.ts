@@ -1,5 +1,5 @@
 /**
- * API Types - Matches backend schema
+ * API Types - Matches backend DTOs
  */
 
 // User types
@@ -23,11 +23,6 @@ export interface PublicProfile {
   id: string;
   username: string | null;
   avatar: string | null;
-  xp: number;
-  totalMatches: number;
-  wins: number;
-  losses: number;
-  draws: number;
   createdAt: string;
 }
 
@@ -57,83 +52,67 @@ export interface UserSubjectStats {
   currentStreak: number;
   maxStreak: number;
   lastPlayedAt: string | null;
-  createdAt: string;
+  subject: {
+    name: string;
+    slug: string;
+    icon: string | null;
+  };
 }
 
 // Match types
 export type MatchStatus = "in_progress" | "completed" | "cancelled";
 
+export interface MatchSubject {
+  id: string;
+  name: string;
+  icon: string | null;
+}
+
+export interface MatchPlayer {
+  id: string;
+  username: string;
+  score: number;
+  ratingBefore: number;
+  ratingAfter: number;
+  ratingChange: number;
+}
+
 export interface Match {
   id: string;
-  subjectId: string;
   status: MatchStatus;
+  subject: MatchSubject;
+  player1: MatchPlayer;
+  player2: MatchPlayer;
   winnerId: string | null;
   createdAt: string;
   startedAt: string;
   endedAt: string | null;
 }
 
-export interface MatchParticipant {
-  id: string;
-  matchId: string;
-  userId: string;
+// Match history types (from /users/:id/matches endpoint)
+export interface HistoryPlayer {
   score: number;
-  correctAnswers: number;
   ratingBefore: number;
   ratingAfter: number;
   ratingChange: number;
-  xpEarned: number;
-  joinedAt: string;
 }
 
-// Match history with details (for profile display)
+export interface HistoryOpponent {
+  id: string;
+  username: string;
+  score: number;
+}
+
 export interface MatchHistoryItem {
-  match: Match;
-  participant: MatchParticipant;
-  opponent: {
-    id: string;
-    username: string | null;
-    avatar: string | null;
-  } | null;
-  subject: {
-    name: string;
-    slug: string;
-    icon: string | null;
-  };
+  id: string;
+  subject: MatchSubject;
+  player: HistoryPlayer;
+  opponent: HistoryOpponent;
   result: "win" | "loss" | "draw";
+  createdAt: string;
+  endedAt: string | null;
 }
 
-// Profile with stats (combined response)
-export interface ProfileWithStats {
-  user: PublicProfile;
-  subjectStats: (UserSubjectStats & {
-    subject: {
-      name: string;
-      slug: string;
-      icon: string | null;
-    };
-  })[];
-  recentMatches: MatchHistoryItem[];
-}
-
-// Leaderboard types
-export interface LeaderboardEntry {
-  rank: number;
-  user: {
-    id: string;
-    username: string | null;
-    avatar: string | null;
-  };
-  value: number; // xp, wins, or elo depending on leaderboard type
-}
-
-export interface GlobalLeaderboard {
-  type: "xp" | "wins";
-  entries: LeaderboardEntry[];
-}
-
-export interface SubjectLeaderboard {
-  subjectId: string;
-  subjectName: string;
-  entries: LeaderboardEntry[];
+export interface MatchHistoryResponse {
+  matches: MatchHistoryItem[];
 }

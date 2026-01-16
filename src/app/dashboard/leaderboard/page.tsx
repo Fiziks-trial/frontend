@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { DashboardPageHeader } from "@/design-system";
+import { useAuth } from "@/lib/auth-context";
+import { useUserStats } from "@/hooks/api";
 import {
   FiltersSection,
   LeaderboardTable,
@@ -9,8 +11,10 @@ import {
   type SubjectFilter,
   type TimeRange,
   type LeaderboardEntry,
+  type Tier,
 } from "./_sections";
 
+// Mock leaderboard data - will be replaced when backend endpoint is implemented
 const MOCK_LEADERBOARD: LeaderboardEntry[] = [
   {
     rank: 1,
@@ -134,18 +138,45 @@ const MOCK_LEADERBOARD: LeaderboardEntry[] = [
   },
 ];
 
-const CURRENT_USER = {
-  rank: 42,
-  name: "Tushar B.",
-  initials: "TB",
-  tier: "grandmaster" as const,
-  rating: 1850,
-};
+function getInitials(name: string | null): string {
+  if (!name) return "??";
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+function getTier(elo: number): Tier {
+  if (elo >= 2200) return "grandmaster";
+  if (elo >= 2000) return "diamond";
+  if (elo >= 1800) return "platinum";
+  if (elo >= 1600) return "gold";
+  if (elo >= 1400) return "silver";
+  return "bronze";
+}
 
 export default function LeaderboardPage() {
+  const { user } = useAuth();
+  const { data: stats } = useUserStats(user?.id ?? "");
+
   const [selectedSubject, setSelectedSubject] = useState<SubjectFilter>("all");
   const [selectedTimeRange, setSelectedTimeRange] =
     useState<TimeRange>("weekly");
+
+  // Calculate average rating from user stats
+  const avgRating = stats?.length
+    ? Math.round(stats.reduce((sum, s) => sum + s.elo, 0) / stats.length)
+    : 1200;
+
+  const currentUser = {
+    rank: 42, // Would come from leaderboard API when implemented
+    name: user?.name ?? user?.username ?? "You",
+    initials: getInitials(user?.name ?? user?.username ?? null),
+    tier: getTier(avgRating),
+    rating: avgRating,
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -163,7 +194,7 @@ export default function LeaderboardPage() {
 
       <LeaderboardTable entries={MOCK_LEADERBOARD} />
 
-      <YourRankCard {...CURRENT_USER} />
+      <YourRankCard {...currentUser} />
     </div>
   );
 }

@@ -9,6 +9,9 @@ import {
   Text,
   type Subject,
 } from "@/design-system";
+import { useAuth } from "@/lib/auth-context";
+import { useUserMatches } from "@/hooks/api";
+import type { MatchHistoryItem } from "@/lib/types";
 import { StatsSummary, FiltersSection, MatchList } from "./_sections";
 
 type SubjectFilter = "all" | Subject;
@@ -33,119 +36,94 @@ export interface MatchEntry {
   mode: Exclude<GameMode, "all">;
 }
 
-const MOCK_MATCHES: MatchEntry[] = [
-  {
-    id: "1",
-    subject: "physics",
-    opponent: { name: "PhysicsWizard", initials: "PW", rating: 1842 },
-    result: "win",
-    ratingChange: 24,
-    yourScore: 8,
-    opponentScore: 5,
-    duration: "12:34",
-    date: "Today",
-    time: "2:30 PM",
+function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+function formatDate(dateString: string): { date: string; time: string } {
+  const date = new Date(dateString);
+  const now = new Date();
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  let dateStr: string;
+  if (date.toDateString() === now.toDateString()) {
+    dateStr = "Today";
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    dateStr = "Yesterday";
+  } else {
+    dateStr = date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  }
+
+  const timeStr = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return { date: dateStr, time: timeStr };
+}
+
+function calculateDuration(start: string, end: string | null): string {
+  if (!end) return "--:--";
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const diffMs = endDate.getTime() - startDate.getTime();
+  const minutes = Math.floor(diffMs / 60000);
+  const seconds = Math.floor((diffMs % 60000) / 1000);
+  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
+// Map subject name to slug for UI
+function getSubjectSlug(name: string): Subject {
+  const lower = name.toLowerCase();
+  if (lower.includes("physics")) return "physics";
+  if (lower.includes("math")) return "math";
+  if (lower.includes("chem")) return "chemistry";
+  if (lower.includes("bio")) return "biology";
+  return "physics";
+}
+
+function transformMatch(match: MatchHistoryItem): MatchEntry {
+  const { date, time } = formatDate(match.createdAt);
+  return {
+    id: match.id,
+    subject: getSubjectSlug(match.subject.name),
+    opponent: {
+      name: match.opponent.username || "Unknown",
+      initials: getInitials(match.opponent.username || "??"),
+      rating: match.player.ratingBefore,
+    },
+    result: match.result === "draw" ? "loss" : match.result,
+    ratingChange: match.player.ratingChange,
+    yourScore: match.player.score,
+    opponentScore: match.opponent.score,
+    duration: calculateDuration(match.createdAt, match.endedAt),
+    date,
+    time,
     mode: "ranked",
-  },
-  {
-    id: "2",
-    subject: "math",
-    opponent: { name: "MathGenius", initials: "MG", rating: 1920 },
-    result: "loss",
-    ratingChange: -12,
-    yourScore: 4,
-    opponentScore: 8,
-    duration: "10:21",
-    date: "Today",
-    time: "11:15 AM",
-    mode: "ranked",
-  },
-  {
-    id: "3",
-    subject: "biology",
-    opponent: { name: "BioMaster", initials: "BM", rating: 1756 },
-    result: "win",
-    ratingChange: 18,
-    yourScore: 7,
-    opponentScore: 6,
-    duration: "14:52",
-    date: "Yesterday",
-    time: "8:45 PM",
-    mode: "ranked",
-  },
-  {
-    id: "4",
-    subject: "chemistry",
-    opponent: { name: "ChemKing", initials: "CK", rating: 1689 },
-    result: "win",
-    ratingChange: 32,
-    yourScore: 9,
-    opponentScore: 3,
-    duration: "08:17",
-    date: "Yesterday",
-    time: "4:20 PM",
-    mode: "ranked",
-  },
-  {
-    id: "5",
-    subject: "physics",
-    opponent: { name: "QuantumLeap", initials: "QL", rating: 1801 },
-    result: "win",
-    ratingChange: 21,
-    yourScore: 7,
-    opponentScore: 5,
-    duration: "11:43",
-    date: "Yesterday",
-    time: "1:00 PM",
-    mode: "casual",
-  },
-  {
-    id: "6",
-    subject: "math",
-    opponent: { name: "AlgebraAce", initials: "AA", rating: 1778 },
-    result: "loss",
-    ratingChange: -15,
-    yourScore: 5,
-    opponentScore: 7,
-    duration: "13:28",
-    date: "Jan 14",
-    time: "7:30 PM",
-    mode: "ranked",
-  },
-  {
-    id: "7",
-    subject: "chemistry",
-    opponent: { name: "MoleculeMan", initials: "MM", rating: 1654 },
-    result: "win",
-    ratingChange: 28,
-    yourScore: 8,
-    opponentScore: 4,
-    duration: "09:55",
-    date: "Jan 14",
-    time: "3:15 PM",
-    mode: "ranked",
-  },
-  {
-    id: "8",
-    subject: "biology",
-    opponent: { name: "GeneGenius", initials: "GG", rating: 1712 },
-    result: "win",
-    ratingChange: 19,
-    yourScore: 6,
-    opponentScore: 5,
-    duration: "15:02",
-    date: "Jan 13",
-    time: "9:00 PM",
-    mode: "practice",
-  },
-];
+  };
+}
 
 export default function HistoryPage() {
+  const { user } = useAuth();
+  const { data, isLoading } = useUserMatches(user?.id ?? "");
+
   const [selectedSubject, setSelectedSubject] = useState<SubjectFilter>("all");
   const [selectedMode, setSelectedMode] = useState<GameMode>("all");
   const [selectedResult, setSelectedResult] = useState<Result>("all");
 
-  const filteredMatches = MOCK_MATCHES.filter((match) => {
+  const matches = (data?.matches ?? []).map(transformMatch);
+
+  const filteredMatches = matches.filter((match) => {
     if (selectedSubject !== "all" && match.subject !== selectedSubject)
       return false;
     if (selectedMode !== "all" && match.mode !== selectedMode) return false;
@@ -155,16 +133,31 @@ export default function HistoryPage() {
   });
 
   const stats = {
-    totalMatches: MOCK_MATCHES.length,
-    wins: MOCK_MATCHES.filter((m) => m.result === "win").length,
-    losses: MOCK_MATCHES.filter((m) => m.result === "loss").length,
-    winRate: Math.round(
-      (MOCK_MATCHES.filter((m) => m.result === "win").length /
-        MOCK_MATCHES.length) *
-        100,
-    ),
-    totalRatingChange: MOCK_MATCHES.reduce((acc, m) => acc + m.ratingChange, 0),
+    totalMatches: matches.length,
+    wins: matches.filter((m) => m.result === "win").length,
+    losses: matches.filter((m) => m.result === "loss").length,
+    winRate:
+      matches.length > 0
+        ? Math.round(
+            (matches.filter((m) => m.result === "win").length /
+              matches.length) *
+              100,
+          )
+        : 0,
+    totalRatingChange: matches.reduce((acc, m) => acc + m.ratingChange, 0),
   };
+
+  if (isLoading) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        <div className="animate-pulse space-y-6">
+          <div className="h-12 bg-muted rounded-lg w-1/3" />
+          <div className="h-24 bg-muted rounded-lg" />
+          <div className="h-64 bg-muted rounded-lg" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -215,7 +208,11 @@ export default function HistoryPage() {
           <EmptyState
             icon={<Search size={48} />}
             title="No matches found"
-            description="No matches found with the selected filters. Try adjusting your filters to see more results."
+            description={
+              matches.length === 0
+                ? "Play some matches to see your history here."
+                : "No matches found with the selected filters."
+            }
           />
         </Card>
       ) : (
